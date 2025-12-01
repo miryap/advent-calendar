@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="./stylesheets/reset.css" rel="stylesheet" type="text/css">
+        <link href="./stylesheets/styles.css" rel="stylesheet" type="text/css">
+        <title>Advent Calendar</title>
+    </head>
+    <body>        
+        <div id="viewport">
+            <div id="bg-colours-grid">
+                <main class="sky v-centre h-centre"></main>
+                <aside class="sky v-centre left"></aside>
+                <aside class="sky v-centre right"></aside>
+                <aside class="sky top h-centre"></aside>
+                <aside class="sky top left"></aside>
+                <aside class="sky top right"></aside>
+                <main class="ground v-centre h-centre"></main>
+                <aside class="ground v-centre left"></aside>
+                <aside class="ground v-centre right"></aside>
+                <aside class="ground bottom h-centre"></aside>
+                <aside class="ground bottom left"></aside>
+                <aside class="ground bottom right"></aside>
+            </div>
+            <div id="placement-grid">
+                <main id="scene">
+                    <section class="building home overflow">
+                        <figure id="home1">
+                            <div class="cuboid">
+                                <div class="plane wall long front">
+                                    <div class="window right">
+                                        <figure id="bauble-tree" class="clickable">
+                                            <figcaption class="sr-only">Christmas tree with baubles</figcaption>
+                                            <div class="canvas">
+                                                <div id="bauble-red" class="bauble constricted s">
+                                                    <div class="bauble-part top"></div>
+                                                    <div class="bauble-part sphere"></div>
+                                                </div>
+                                                <div id="bauble-blue" class="bauble free m">
+                                                    <div class="bauble-part top"></div>
+                                                    <div class="bauble-part sphere"></div>
+                                                </div>
+                                                <div id="bauble-prpl" class="bauble constricted s">
+                                                    <div class="bauble-part top"></div>
+                                                    <div class="bauble-part sphere"></div>
+                                                </div>
+                                                <div id="bauble-turq" class="bauble constricted xl">
+                                                    <div class="bauble-part top"></div>
+                                                    <div class="bauble-part sphere"></div>
+                                                </div>
+                                                <div id="bauble-gold" class="bauble free m">
+                                                    <div class="bauble-part top"></div>
+                                                    <div class="bauble-part sphere"></div>
+                                                </div>
+                                                <div id="bauble-indg" class="bauble constricted s">
+                                                    <div class="bauble-part top"></div>
+                                                    <div class="bauble-part sphere"></div>
+                                                </div>
+                                                <div id="bauble-pink" class="bauble free l">
+                                                    <div class="bauble-part top"></div>
+                                                    <div class="bauble-part sphere"></div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="frame"></div> -->
+                                        </figure>
+                                        <figure id="tv" class="clickable"></figure>
+                                        <figure id="balloon" class="clickable"></figure>
+                                        <figure id="postcard" class="clickable"></figure>
+                                        <figure id="candles-pair" class="clickable"></figure>
+                                    </div>
+                                    <div class="window left"></div>
+                                    <div class="door"></div>
+                                    <div class="brick mid left"></div>
+                                    <div class="brick mid centre"></div>
+                                    <div class="brick mid right"></div>
+                                    <div class="brick top"></div>
+                                    <div class="brick bottom"></div>
+                                </div>
+                                <div class="plane wall long back brick"></div>
+                                <div class="plane wall long inside"></div>
+                                <div class="plane wall short right brick">
+                                    <!-- <div class="door"></div> -->
+                                </div>
+                                <div class="plane wall short left brick"></div>
+                                <div class="plane floor"></div>
+                            <div class="prism triangular">
+                                <div class="plane roof front"></div>
+                                <div class="plane roof back"></div>
+                                <!-- <div class="plane roof right"></div>
+                                <div class="plane roof left"></div> -->
+                                <div class="plane wall attic right"></div>
+                                <div class="plane wall attic left"></div>
+                            </div>
+                            <div class="cuboid">
+                                <div class="plane wall chimney outside front"></div>
+                                <div class="plane wall chimney outside back"></div>
+                                <div class="plane wall chimney outside right"></div>
+                                <div class="plane wall chimney outside left"></div>
+                                <div class="plane wall chimney inside front"></div>
+                                <div class="plane wall chimney inside back"></div>
+                                <div class="plane wall chimney inside right"></div>
+                                <div class="plane wall chimney inside left"></div>
+                                <div class="plane wall chimney top front"></div>
+                                <div class="plane wall chimney top back"></div>
+                                <div class="plane wall chimney top right"></div>
+                                <div class="plane wall chimney top left"></div>
+                        </figure>
+                    </section>
+                    <section class="building shop overflow">
+                        <figure id="toy-shop"></figure>
+                    </section>
+                    <section class="building home">
+                        <figure id="home2"></figure>
+                    </section>
+                    <section class="outside ">
+                        <figure id="snowman"></figure>
+                    </section>
+                    <section class="outside activity">
+                        <figure id="nav-sign"></figure>
+                        <figure id="snowball-pile"></figure>
+                    </section>
+                    <section class="building home">
+                        <figure id="home3"></figure>
+                    </section>
+                    <section class="outside activity">
+                        <figure id="carolers"></figure>
+                        <figure id="lights-tree"></figure>
+                    </section>
+                    <section class="building home img horizon">
+                        <figure id="home4"></figure>
+                    </section>
+                    <section class="outside activity horizon">
+                        <figure id="sleighing-hill"></figure>
+                    </section>
+                    <section class="outside activity horizon">
+                        <figure id="playground"></figure>
+                        <figure id="bg-trees"></figure>
+                        <figure id="bg-houses"></figure>
+                    </section>
+                    <section class="building home img horizon">
+                        <figure id="homes5"></figure>
+                    </section>
+                    <section class="sky">
+                        <figure id="sun"></figure>
+                        <figure id="clouds"></figure>
+                        <figure id="santa-sleigh"></figure>
+                    </section>
+                </main>
+                <!-- <div id="day-numbers">
+                    <div class="bell xl" id="day1">1</div>
+                    <div class="bell" id="day2">2</div>
+                    <div class="bell" id="day24">23</div>
+                </div> -->
+            </div>
+            <!-- <nav>
+                <ol>
+                    <li><input id="day1" type="checkbox">
+                        <span lang="en" class="lang lang-en">1st</span>
+                        <span lang="de" class="lang lang-de" hidden>1.</span></li>
+                    <li><input id="day2" type="checkbox" checked>
+                        <span lang="en" class="lang lang-en">2nd</span>
+                        <span lang="de" class="lang lang-de" hidden>2.</span></li>
+                    <li><input id="day3" type="checkbox">
+                        <span lang="en" class="lang lang-en">3rd</span>
+                        <span lang="de" class="lang lang-de" hidden>3.</span></li>
+                    <li><input id="day4" type="checkbox">
+                        <span lang="en" class="lang lang-en">4th</span>
+                        <span lang="de" class="lang lang-de" hidden>4.</span></li>
+                    <li><input id="day5" type="checkbox">
+                        <span lang="en" class="lang lang-en">5th</span>
+                        <span lang="de" class="lang lang-de" hidden>5.</span></li>
+                    <li><input id="day6" type="checkbox">
+                        <span lang="en" class="lang lang-en">6th</span>
+                        <span lang="de" class="lang lang-de" hidden>6.</span></li>
+                    <li><input id="day7" type="checkbox">
+                        <span lang="en" class="lang lang-en">7th</span>
+                        <span lang="de" class="lang lang-de" hidden>7.</span></li>
+                    <li><input id="day8" type="checkbox">
+                        <span lang="en" class="lang lang-en">8th</span>
+                        <span lang="de" class="lang lang-de" hidden>8.</span></li>
+                    <li><input id="day9" type="checkbox">
+                        <span lang="en" class="lang lang-en">9th</span>
+                        <span lang="de" class="lang lang-de" hidden>9.</span></li>
+                    <li><input id="day10" type="checkbox">
+                        <span lang="en" class="lang lang-en">10th</span>
+                        <span lang="de" class="lang lang-de" hidden>10.</span></li>
+                    <li><input id="day11" type="checkbox">
+                        <span lang="en" class="lang lang-en">11th</span>
+                        <span lang="de" class="lang lang-de" hidden>11.</span></li>
+                    <li><input id="day12" type="checkbox">
+                        <span lang="en" class="lang lang-en">12th</span>
+                        <span lang="de" class="lang lang-de" hidden>12.</span></li>
+                    <li><input id="day13" type="checkbox">
+                        <span lang="en" class="lang lang-en">13th</span>
+                        <span lang="de" class="lang lang-de" hidden>13.</span></li>
+                    <li><input id="day14" type="checkbox">
+                        <span lang="en" class="lang lang-en">14th</span>
+                        <span lang="de" class="lang lang-de" hidden>14.</span></li>
+                    <li><input id="day15" type="checkbox">
+                        <span lang="en" class="lang lang-en">15th</span>
+                        <span lang="de" class="lang lang-de" hidden>15.</span></li>
+                    <li><input id="day16" type="checkbox">
+                        <span lang="en" class="lang lang-en">16th</span>
+                        <span lang="de" class="lang lang-de" hidden>16.</span></li>
+                    <li><input id="day17" type="checkbox">
+                        <span lang="en" class="lang lang-en">17th</span>
+                        <span lang="de" class="lang lang-de" hidden>17.</span></li>
+                    <li><input id="day18" type="checkbox">
+                        <span lang="en" class="lang lang-en">18th</span>
+                        <span lang="de" class="lang lang-de" hidden>18.</span></li>
+                    <li><input id="day19" type="checkbox">
+                        <span lang="en" class="lang lang-en">19th</span>
+                        <span lang="de" class="lang lang-de" hidden>19.</span></li>
+                    <li><input id="day20" type="checkbox">
+                        <span lang="en" class="lang lang-en">20th</span>
+                        <span lang="de" class="lang lang-de" hidden>20.</span></li>
+                    <li><input id="day21" type="checkbox">
+                        <span lang="en" class="lang lang-en">21st</span>
+                        <span lang="de" class="lang lang-de" hidden>21.</span></li>
+                    <li><input id="day22" type="checkbox">
+                        <span lang="en" class="lang lang-en">22nd</span>
+                        <span lang="de" class="lang lang-de" hidden>22.</span></li>
+                    <li><input id="day23" type="checkbox">
+                        <span lang="en" class="lang lang-en">23rd</span>
+                        <span lang="de" class="lang lang-de" hidden>23.</span></li>
+                    <li><input id="day24" type="radio" checked>
+                        <span lang="en" class="lang lang-en">24th</span>
+                        <span lang="de" class="lang lang-de" hidden>24.</span></li>
+                    <li><input id="day25" type="radio" checked>
+                        <span lang="en" class="lang lang-en">25th</span>
+                        <span lang="de" class="lang lang-de" hidden>25.</span></li>
+                    <li id="month">
+                        <span lang="en" class="lang lang-en">December</span>
+                        <span lang="de" class="lang lang-de" hidden>Dezember</span></li>
+                </ol>
+                <ul>
+                    <li class="play">
+                        <button id="play-selected" type="button">
+                            <span lang="en" class="lang lang-en">Play selection</span>
+                            <span lang="de" class="lang lang-de" hidden>Auswahl abspielen</span></button>
+                        <button id="play-all" type="button">
+                            <span lang="en" class="lang lang-en">Play all</span>
+                            <span lang="de" class="lang lang-de" hidden>Alles abspielen</span></button></li>
+                    <li class="toggle">
+                        <button id="language-toggle" type="button">
+                            <span lang="en" class="lang lang-en">Switch to German</span>
+                            <span lang="de" class="lang lang-de" hidden>Auf Englisch wechseln</span></button></li>
+                </ul>
+            </nav>
+            <main id="scene">
+                <section class="scene-layer" id="home1"></section>
+                <section class="scene-layer" id="toy-shop"></section>
+                <section class="scene-layer" id="home2"></section>
+                <section class="scene-layer" id="home3"></section>
+                <section class="scene-layer" id="snowman"></section>
+                <section class="scene-layer" id="snowballing"></section>
+                <section class="scene-layer" id="caroling"></section>
+                <section class="scene-layer" id="sleighing"></section>
+                <section class="scene-layer" id="playground"></section>
+                <section class="scene-layer" id="bg-houses"></section>
+                <section class="scene-layer" id="sky"></section>
+            </main>
+            <main id="scene-old">
+                <figure id="sign">
+                    <figcaption class="sr-only">Signboard</figcaption>
+                    <div class="canvas">
+                        <button id="nav-toggle" type="button"
+                                data-title-en="Open the replay menu to watch the days again" data-title-de="Wiedergabemenü öffnen, um die Tage noch einmal anzusehen"
+                                data-label-en="Open the replay menu to watch the days again" data-label-de="Wiedergabemenü öffnen, um die Tage noch einmal anzusehen">
+                            <span lang="en" class="lang lang-en">Replay Menu</span>
+                            <span lang="de" class="lang lang-de" hidden>Wiedergabe-<br>menü</span></button>
+                    </div>
+                </figure>
+                <section id="bg-trees">
+                    <div id="bg-tree1" class="canvas">
+                        <div class="sphere sph1"></div>
+                        <div class="sphere sph2"></div>
+                        <div class="sphere sph3"></div>
+                        <div class="sphere sph4"></div>
+                        <div class="sphere sph5"></div>
+                        <div class="sphere sph6"></div>
+                        <div class="sphere sph7"></div>
+                        <div class="sphere sph8"></div>
+                    </div>
+                    <div id="bg-tree2" class="canvas">
+                        <div class="sphere sph1"></div>
+                        <div class="sphere sph2"></div>
+                        <div class="sphere sph3"></div>
+                        <div class="sphere sph4"></div>
+                        <div class="sphere sph5"></div>
+                        <div class="sphere sph6"></div>
+                        <div class="sphere sph7"></div>
+                        <div class="sphere sph8"></div>
+                    </div>
+                    <div id="bg-tree3" class="canvas">
+                        <div class="sphere sph1"></div>
+                        <div class="sphere sph2"></div>
+                        <div class="sphere sph3"></div>
+                        <div class="sphere sph4"></div>
+                        <div class="sphere sph5"></div>
+                        <div class="sphere sph6"></div>
+                        <div class="sphere sph7"></div>
+                        <div class="sphere sph8"></div>
+                    </div>
+                </section>
+                <section id="lights-tree">
+                    <div class="canvas">
+                        <div class="star tier0 centre">
+                            <div class="shape light"></div>
+                            <div class="glow  light"></div>
+                        </div>
+                        <div class="sphere tier1 left   light"></div>
+                        <div class="sphere tier1 centre light"></div>
+                        <div class="sphere tier1 right  light"></div>
+                        <div class="sphere tier2 left   light"></div>
+                        <div class="sphere tier2 centre light"></div>
+                        <div class="sphere tier2 right  light"></div>
+                        <div class="sphere tier3 left   light"></div>
+                        <div class="sphere tier3 centre light"></div>
+                        <div class="sphere tier3 right  light"></div>
+                        <div class="sphere tier4 left   light"></div>
+                        <div class="sphere tier4 centre light"></div>
+                        <div class="sphere tier4 right  light"></div>
+                    </div>
+                </section>
+                <figure id="bauble-tree">
+                    <figcaption class="sr-only">Christmas with baubles</figcaption>
+                    <div class="canvas">
+                        <div id="bauble-red" class="bauble constricted s">
+                            <div class="bauble-part top"></div>
+                            <div class="bauble-part sphere"></div>
+                        </div>
+                        <div id="bauble-blue" class="bauble free m">
+                            <div class="bauble-part top"></div>
+                            <div class="bauble-part sphere"></div>
+                        </div>
+                        <div id="bauble-prpl" class="bauble constricted s">
+                            <div class="bauble-part top"></div>
+                            <div class="bauble-part sphere"></div>
+                        </div>
+                        <div id="bauble-turq" class="bauble constricted xl">
+                            <div class="bauble-part top"></div>
+                            <div class="bauble-part sphere"></div>
+                        </div>
+                        <div id="bauble-gold" class="bauble free m">
+                            <div class="bauble-part top"></div>
+                            <div class="bauble-part sphere"></div>
+                        </div>
+                        <div id="bauble-indg" class="bauble constricted s">
+                            <div class="bauble-part top"></div>
+                            <div class="bauble-part sphere"></div>
+                        </div>
+                        <div id="bauble-pink" class="bauble free l">
+                            <div class="bauble-part top"></div>
+                            <div class="bauble-part sphere"></div>
+                        </div>
+                    </div>
+                    <div class="frame"></div>
+                </figure> -->
+                <!-- <figure id="candles-pair">
+                    <div class="wrapper">
+                        <div class="candles">
+                            <div class="light__wave"></div>
+                            <div class="candle1">
+                                <div class="candle1__body">
+                                    <div class="candle1__eyes">
+                                        <span class="candle1__eyes-one"></span>
+                                        <span class="candle1__eyes-two"></span></div>
+                                    <div class="candle1__mouth"></div></div>
+                                <div class="candle1__stick"></div>
+                            </div>                    
+                            <div class="candle2">
+                                <div class="candle2__body">
+                                    <div class="candle2__eyes">
+                                        <div class="candle2__eyes-one"></div>
+                                        <div class="candle2__eyes-two"></div></div></div>
+                                <div class="candle2__stick"></div>
+                            </div>
+                            <div class="candle2__fire"></div>
+                            <div class="sparkles-one"></div>
+                            <div class="sparkles-two"></div>
+                            <div class="candle__smoke-one">
+
+                            </div>
+                            <div class="candle__smoke-two">
+
+                            </div>
+                        </div>
+                        <div class="floor">
+                        </div>
+                    </div>
+                </figure> -->
+                <!-- <section id="dice">
+                    <div class="cube" id="Dice">
+                        <div class="face front">1</div>
+                        <div class="face back">2</div>
+                        <div class="face right">3</div>
+                        <div class="face left">4</div>
+                        <div class="face top">5</div>
+                        <div class="face bottom">6</div>
+                    </div>
+                </section> -->
+                <!-- <section id="present"> --> <!-- GiftBox removed as can only have 1x ID-->
+                    <!-- <div class="cube">
+                        <div class="side front-left">
+                            <div class="ribbon"><img src="./media/imgs/gift-wrap/ribbon_red-160898_640.png"></div></div>
+                        <div class="side front-right"></div>
+                        <div class="side back"></div>
+                        <div class="contents" id="GiftBoxContents">
+                            <div class="eye leftEye GiftBoxContentsEyes"></div>
+                            <div class="eye rightEye GiftBoxContentsEyes"></div></div>
+                        <div class="side left"></div>
+                        <div class="side right"></div>
+                        <div class="side top"></div>
+                        <div class="side bottom"></div>
+                    </div>
+                </section>
+            </main> -->
+        </div>
+        <script defer src="./scripts/test.js"></script>
+        <!-- <script defer src="./scripts/scripts.js"></script> -->
+    </body>
+</html>
