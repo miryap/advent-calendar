@@ -1,4 +1,15 @@
-//test
+//PAN & ZOOM
+function zoomAndMove(zoom = 2, viewRight = 0, viewDown = 0, duration = 1) {
+  const viewport = document.getElementById('viewport');
+  viewport.style.transition = `transform ${duration}s ease`;
+  viewport.style.transformOrigin = 'center center';
+                            // negate values so that:
+  const moveX = -viewRight; // +X = world moves right (camera left)
+  const moveY = -viewDown;  // +Y = world moves down  (camera up)
+
+  viewport.style.transform = `scale(${zoom}) translate(${moveX}vw, ${moveY}vh)`;
+}
+zoomAndMove(3, -15, 0, 0);
 
 //GLOBAL VARIABLES & FUNCTIONS
 const date = (d, m, y = 2025) => new Date(y, m - 1, d); //nb. month array starts at 0; new Date(y, m, d) reflects local timezone's midnight, vs new Date('2025-12-25') for UTC, vs new Date().toLocaleDateString("en-GB") for DD/MM/YYYY string; function parameter y = 2025 (alt. new Date().getFullYear()) sets the current year as the default value when y isn't specified
@@ -7,34 +18,38 @@ const lastDay = date(25,12);
 let today = new Date();  // today in default format
 const isToday = (dte) => dte.toDateString() === new Date().toDateString();
 
-const animations = { //organised into one object for clearer structure than separate variables i.e. const Day1 = []; const Day2 = []; etc
-  day1: ['present', 'GiftBoxFlapLeft', 'GiftBoxFlapRight'],
-  // day2: ['tree', 'PicBaubleTop', 'PicBaubleSphere'],
-  day2: ['pic-bauble', 'PicBaubleTop', 'PicBaubleSphere']
+//DAY 1
+const candlePair = document.getElementById('candles-pair');
+const candles = candlePair.querySelectorAll('.candle');
+const playDay1 = () => {
+    const tallCandle = candlePair.querySelector('.candle1');
+    const shortCandle = candlePair.querySelector('.candle2');
+    const tallCandleEyes = tallCandle.querySelectorAll('.tall-candle-eye');
+    const tallCandleMouth = tallCandle.querySelector('.candle1__mouth');
+    const shortCandleEye1 = shortCandle.querySelector('.candle2__eyes-one');
+    const shortCandleEye2 = shortCandle.querySelector('.candle2__eyes-two');
+    const shortCandleStick = shortCandle.querySelector('.candle2__stick');
+    const shortCandleFire = shortCandle.querySelector('.candle2__fire');
+    const shortCandleSmoke1 = shortCandle.querySelector('.candle__smoke-one');
+    const shortCandleSmoke2 = shortCandle.querySelector('.candle__smoke-two');
+    [tallCandle, shortCandle, tallCandleMouth, shortCandleEye1, shortCandleEye2, shortCandleStick, shortCandleFire, shortCandleSmoke1, shortCandleSmoke2].forEach(el =>  // can shorten w/ array-list ONLY IF there's only one of each i.e. each array item is not an array itself
+        el.classList.remove('animateTallCandleBody', 'animateTallCandleMouth', 'animateShortCandleBody', 'animateShortCandleEye1', 'animateShortCandleEye2', 'animateShortCandleStick', 'animateShortCandleFire', 'animateShortCandleSmoke1', 'animateShortCandleSmoke2'));
+    tallCandleEyes.forEach(eye => eye.classList.remove('animateTallCandleEyes'));
+    void candlePair.offsetWidth;
+    tallCandle.classList.add('animateTallCandleBody');
+    tallCandleEyes.forEach(eye => eye.classList.add('animateTallCandleEyes'));
+    tallCandleMouth.classList.add('animateTallCandleMouth');
+    shortCandle.classList.add('animateShortCandleBody');
+    shortCandleEye1.classList.add('animateShortCandleEye1');
+    shortCandleEye2.classList.add('animateShortCandleEye2');
+    shortCandleStick.classList.add('animateShortCandleStick');
+    shortCandleFire.classList.add('animateShortCandleFire');
+    shortCandleSmoke1.classList.add('animateShortCandleSmoke1');
+    shortCandleSmoke2.classList.add('animateShortCandleSmoke2');
 };
-
-//PAN & ZOOM
-function zoomAndMove(zoom = 2, viewRight = 0, viewDown = 0, duration = 1) {
-  const viewport = document.getElementById('viewport');
-  viewport.style.transition = `transform ${duration}s ease`;
-  viewport.style.transformOrigin = 'center center';
-
-  // negate values so that:
-  //   +X  = world moves right (camera left)
-  //   +Y  = world moves down  (camera up)
-  const moveX = -viewRight;
-  const moveY = -viewDown;
-
-  viewport.style.transform =
-    `scale(${zoom}) translate(${moveX}vw, ${moveY}vh)`;
-}
-
-zoomAndMove(3, -15, 0, 0);
-
-//ANIMATION ON DEMAND, INDIVIDUALLY (ON CLICK) UP TO LATEST ADVENT CALENDAR DAY
+//DAY 2
 const baubleTree = document.getElementById('bauble-tree');
-baubleTree.addEventListener('click', () => {
-    // console.log('Tree clicked!');
+const playDay2 = () => {
     const tree = baubleTree.querySelector('.canvas');
     const freeBaubleTop = baubleTree.querySelectorAll('.bauble.free .top');
     const freeBaubleSphere = baubleTree.querySelectorAll('.bauble.free .sphere');
@@ -51,63 +66,49 @@ baubleTree.addEventListener('click', () => {
     freeBaubleSphere.forEach(sph => sph.classList.add('animateFreeBaubleSphere'));
     constrictedBaubleTop.forEach(top => top.classList.add('animateConstrictedBaubleTop'));
     constrictedBaubleSphere.forEach(sph => sph.classList.add('animateConstrictedBaubleSphere'));
-});
+};
+
+//ANIMATION ON DEMAND, INDIVIDUALLY (ON CLICK) UP TO LATEST ADVENT CALENDAR DAY
+if (today >= firstDay) {
+    candles.forEach(candle => {
+    candle.addEventListener('click', () => {
+        // console.log('Comic candle clicked!');
+        playDay1();
+        });
+    });
+} else if (today >= date(2,12)) {
+    baubleTree.addEventListener('click', () => {
+        // console.log('Tree clicked!');
+        playDay2();
+    });
+} else {
+    console.log(`No clickable animations before 1st Dec 2025`);
+}
 
 //TODAY'S ANIMATION (ON PAGE LOAD), 1st ~ 25th DECEMBER
 // if (isToday(date(1,12))) {playStartAnimation(...animations.Day1)} //... = spread operator to unpack the array
 // else if (isToday(date(2,12))) {playStartAnimation(...animations.Day2)}
-if (isToday(date(1,12))) {
-    const tree = baubleTree.querySelector('.canvas');
-    const freeBaubleTop = baubleTree.querySelectorAll('.bauble.free .top');
-    const freeBaubleSphere = baubleTree.querySelectorAll('.bauble.free .sphere');
-    const constrictedBaubleTop = baubleTree.querySelectorAll('.bauble.constricted .top');
-    const constrictedBaubleSphere = baubleTree.querySelectorAll('.bauble.constricted .sphere');
-    tree.classList.remove('animateTree');
-    freeBaubleTop.forEach(top => top.classList.remove('animateFreeBaubleTop'));
-    freeBaubleSphere.forEach(sph => sph.classList.remove('animateFreeBaubleSphere'));
-    constrictedBaubleTop.forEach(top => top.classList.remove('animateConstrictedBaubleTop'));
-    constrictedBaubleSphere.forEach(sph => sph.classList.remove('animateConstrictedBaubleSphere'));
-    void baubleTree.offsetWidth;
-    tree.classList.add('animateTree');
-    freeBaubleTop.forEach(top => top.classList.add('animateFreeBaubleTop'));
-    freeBaubleSphere.forEach(sph => sph.classList.add('animateFreeBaubleSphere'));
-    constrictedBaubleTop.forEach(top => top.classList.add('animateConstrictedBaubleTop'));
-    constrictedBaubleSphere.forEach(sph => sph.classList.add('animateConstrictedBaubleSphere'));
-} else if (isToday(date(2,12))) {
-    const tree = baubleTree.querySelector('.canvas');
-    const freeBaubleTop = baubleTree.querySelectorAll('.bauble.free .top');
-    const freeBaubleSphere = baubleTree.querySelectorAll('.bauble.free .sphere');
-    const constrictedBaubleTop = baubleTree.querySelectorAll('.bauble.constricted .top');
-    const constrictedBaubleSphere = baubleTree.querySelectorAll('.bauble.constricted .sphere');
-    tree.classList.remove('animateTree');
-    freeBaubleTop.forEach(top => top.classList.remove('animateFreeBaubleTop'));
-    freeBaubleSphere.forEach(sph => sph.classList.remove('animateFreeBaubleSphere'));
-    constrictedBaubleTop.forEach(top => top.classList.remove('animateConstrictedBaubleTop'));
-    constrictedBaubleSphere.forEach(sph => sph.classList.remove('animateConstrictedBaubleSphere'));
-    void baubleTree.offsetWidth;
-    tree.classList.add('animateTree');
-    freeBaubleTop.forEach(top => top.classList.add('animateFreeBaubleTop'));
-    freeBaubleSphere.forEach(sph => sph.classList.add('animateFreeBaubleSphere'));
-    constrictedBaubleTop.forEach(top => top.classList.add('animateConstrictedBaubleTop'));
-    constrictedBaubleSphere.forEach(sph => sph.classList.add('animateConstrictedBaubleSphere'));
-} else {
-    const tree = baubleTree.querySelector('.canvas');
-    const freeBaubleTop = baubleTree.querySelectorAll('.bauble.free .top');
-    const freeBaubleSphere = baubleTree.querySelectorAll('.bauble.free .sphere');
-    const constrictedBaubleTop = baubleTree.querySelectorAll('.bauble.constricted .top');
-    const constrictedBaubleSphere = baubleTree.querySelectorAll('.bauble.constricted .sphere');
-    tree.classList.remove('animateTree');
-    freeBaubleTop.forEach(top => top.classList.remove('animateFreeBaubleTop'));
-    freeBaubleSphere.forEach(sph => sph.classList.remove('animateFreeBaubleSphere'));
-    constrictedBaubleTop.forEach(top => top.classList.remove('animateConstrictedBaubleTop'));
-    constrictedBaubleSphere.forEach(sph => sph.classList.remove('animateConstrictedBaubleSphere'));
-    void baubleTree.offsetWidth;
-    tree.classList.add('animateTree');
-    freeBaubleTop.forEach(top => top.classList.add('animateFreeBaubleTop'));
-    freeBaubleSphere.forEach(sph => sph.classList.add('animateFreeBaubleSphere'));
-    constrictedBaubleTop.forEach(top => top.classList.add('animateConstrictedBaubleTop'));
-    constrictedBaubleSphere.forEach(sph => sph.classList.add('animateConstrictedBaubleSphere'));
-};
+window.addEventListener("DOMContentLoaded", () => {
+    if (isToday(date(1,12))) {
+        candlePair.classList.add('animateTodaysAnimation');
+        candlePair.addEventListener('animationend', (e) => {
+            if (e.animationName === 'highlightTodaysAnimation') {
+                candlePair.classList.remove('animateTodaysAnimation');
+                playDay1();
+            }
+        }, { once: true }); // without this, would play indefinitely!
+    } else if (isToday(date(2,12))) {
+        baubleTree.classList.add('animateTodaysAnimation');
+        baubleTree.addEventListener('animationend', (e) => {
+            if (e.animationName === 'highlightTodaysAnimation') {
+                baubleTree.classList.remove('animateTodaysAnimation');
+                playDay2();
+            }
+        }, { once: true });
+    } else {
+        console.log(`No animation triggered on loading the page outside of 1~25 Dec 2025`);
+    }
+});
 
 // function focusOnGridSection(section, zoom = 2.5, duration = 2000) {
 //   const viewport = document.getElementById('viewport');
