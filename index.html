@@ -4,9 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="./stylesheets/reset.css" rel="stylesheet" type="text/css">
-        <link href="./stylesheets/styles.css" rel="stylesheet" type="text/css">
+        <link href="./stylesheets/styles.css?v=251201_2200" rel="stylesheet" type="text/css">
         <title>Advent Calendar</title>
-        <script>
+        <!-- UNCOMMENT IF WANTING TO AUTOMATE - NB. MUST REMOVE ANY '?...' suffixes from files -->
+        <!-- <script>
             document.addEventListener("DOMContentLoaded", () => {
                 // Build daily timestamp: YYMMDD_HHMM
                 const now = new Date();
@@ -22,7 +23,7 @@
                     el.setAttribute(attr, url.toString());
                 });
             });
-        </script>
+        </script> -->
     </head>
     <body>        
         <div id="viewport">
@@ -423,6 +424,6 @@
                 </section>
             </main> -->
         </div>
-        <script defer src="./scripts/main.js"></script>
+        <script defer src="./scripts/main.js?v=251201_2200"></script>
     </body>
 </html>
