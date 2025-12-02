@@ -49,6 +49,7 @@ const playDay1 = () => {
 };
 //DAY 2
 const baubleTree = document.getElementById('bauble-tree');
+const baubles = baubleTree.querySelectorAll('.bauble');
 const playDay2 = () => {
     const tree = baubleTree.querySelector('.canvas');
     const freeBaubleTop = baubleTree.querySelectorAll('.bauble.free .top');
@@ -67,6 +68,18 @@ const playDay2 = () => {
     constrictedBaubleTop.forEach(top => top.classList.add('animateConstrictedBaubleTop'));
     constrictedBaubleSphere.forEach(sph => sph.classList.add('animateConstrictedBaubleSphere'));
 };
+//DAY 3
+const postcard = document.getElementById('postcard');
+const playDay3 = () => {
+    const writing = document.querySelector('.large-writing.postcard');
+    console.log('Postcard animated!');
+    postcard.classList.remove('animatePostcard');
+    writing.classList.remove('animateWriting');
+    void postcard.offsetWidth;
+    void writing.offsetWidth;
+    postcard.classList.add('animatePostcard');
+    writing.classList.add('animateWriting');
+}
 
 //ANIMATION ON DEMAND, INDIVIDUALLY (ON CLICK) UP TO LATEST ADVENT CALENDAR DAY
 if (today >= firstDay) {
@@ -77,9 +90,17 @@ if (today >= firstDay) {
             });
     });}
 if (today >= date(2,12)) {
-    baubleTree.addEventListener('click', () => {
+    baubles.forEach(bauble => {
+        bauble.addEventListener('click', () => {
+    // baubleTree.addEventListener('click', () => {
             // console.log('Bauble tree clicked!');
             playDay2();
+            });
+    });}
+if (today >= date(3,12)) {
+    postcard.addEventListener('click', () => {
+            // console.log('Postcard clicked!');
+            playDay3();
     });}
 // } else {
 //     console.log(`No clickable animations before 1st Dec 2025`);
@@ -103,6 +124,14 @@ window.addEventListener("load", () => { //nb use of load not DOMContentLoaded - 
             if (e.animationName === 'highlightTodaysAnimation') {
                 baubleTree.classList.remove('animateTodaysAnimation');
                 playDay2();
+            }
+        }, { once: true });
+    } else if (isToday(date(3,12))) {
+        postcard.classList.add('animateTodaysAnimation');
+        postcard.addEventListener('animationend', (e) => {
+            if (e.animationName === 'highlightTodaysAnimation') {
+                postcard.classList.remove('animateTodaysAnimation');
+                playDay3();
             }
         }, { once: true });
     } else {

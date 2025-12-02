@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="./stylesheets/reset.css" rel="stylesheet" type="text/css">
-        <link href="./stylesheets/styles.css?v=251201_2215" rel="stylesheet" type="text/css">
+        <link href="./stylesheets/styles.css?v=251202_2245" rel="stylesheet" type="text/css">
         <title>Advent Calendar</title>
         <!-- UNCOMMENT IF WANTING TO AUTOMATE - NB. MUST REMOVE ANY '?...' suffixes from files -->
         <!-- <script>
@@ -48,65 +48,80 @@
                             <div class="cuboid">
                                 <div class="plane wall long front">
                                     <div class="window right">
-                                        <figure id="bauble-tree" class="clickable">
-                                            <figcaption class="sr-only">Christmas tree with baubles</figcaption>
-                                            <div class="canvas">
-                                                <div id="bauble-red" class="bauble constricted s">
-                                                    <div class="bauble-part top"></div>
-                                                    <div class="bauble-part sphere"></div>
+                                        <div class="inside">
+                                            <figure id="bauble-tree" class="clickable">
+                                                <figcaption class="sr-only">Christmas tree with baubles</figcaption>
+                                                <div class="canvas">
+                                                    <div id="bauble-red" class="bauble constricted s">
+                                                        <div class="bauble-part top"></div>
+                                                        <div class="bauble-part sphere"></div>
+                                                    </div>
+                                                    <div id="bauble-blue" class="bauble free m">
+                                                        <div class="bauble-part top"></div>
+                                                        <div class="bauble-part sphere"></div>
+                                                    </div>
+                                                    <div id="bauble-prpl" class="bauble constricted s">
+                                                        <div class="bauble-part top"></div>
+                                                        <div class="bauble-part sphere"></div>
+                                                    </div>
+                                                    <div id="bauble-turq" class="bauble constricted xl">
+                                                        <div class="bauble-part top"></div>
+                                                        <div class="bauble-part sphere"></div>
+                                                    </div>
+                                                    <div id="bauble-gold" class="bauble free m">
+                                                        <div class="bauble-part top"></div>
+                                                        <div class="bauble-part sphere"></div>
+                                                    </div>
+                                                    <div id="bauble-indg" class="bauble constricted s">
+                                                        <div class="bauble-part top"></div>
+                                                        <div class="bauble-part sphere"></div>
+                                                    </div>
+                                                    <div id="bauble-pink" class="bauble free l">
+                                                        <div class="bauble-part top"></div>
+                                                        <div class="bauble-part sphere"></div>
+                                                    </div>
                                                 </div>
-                                                <div id="bauble-blue" class="bauble free m">
-                                                    <div class="bauble-part top"></div>
-                                                    <div class="bauble-part sphere"></div>
+                                                <!-- <div class="frame"></div> -->
+                                            </figure>
+                                            <figure id="candles-pair" class="clickable">
+                                                <div class="wrapper">
+                                                    <div class="candle candle1 clickable">
+                                                        <div class="candle1__body">
+                                                            <div class="candle1__eyes">
+                                                                <span class="eye tall-candle-eye candle1__eyes-one"></span>
+                                                                <span class="eye tall-candle-eye candle1__eyes-two"></span></div>
+                                                            <div class="candle1__mouth"></div></div>
+                                                        <div class="candle1__stick"></div>
+                                                    </div>                    
+                                                    <div class="candle candle2 clickable">
+                                                        <div class="candle2__body">
+                                                            <div class="candle2__eyes">
+                                                                <div class="eye candle2__eyes-one"></div>
+                                                                <div class="eye candle2__eyes-two"></div></div></div>
+                                                        <div class="candle2__stick"></div>
+                                                        <div class="candle2__fire"></div>
+                                                        <div class="smoke candle__smoke-one"></div>
+                                                        <div class="smoke candle__smoke-two"></div>
+                                                    </div>
                                                 </div>
-                                                <div id="bauble-prpl" class="bauble constricted s">
-                                                    <div class="bauble-part top"></div>
-                                                    <div class="bauble-part sphere"></div>
+                                            </figure>
+                                            <figure id="postcard" class="clickable">
+                                                <div class="plane">
+                                                    <div class="face front"></div>
+                                                    <div class="face back">
+                                                        <!-- <div class="writing">
+                                                            <p>Wishing you a cozy December full of good energy!</p>
+                                                        </div> -->
+                                                    </div>
                                                 </div>
-                                                <div id="bauble-turq" class="bauble constricted xl">
-                                                    <div class="bauble-part top"></div>
-                                                    <div class="bauble-part sphere"></div>
-                                                </div>
-                                                <div id="bauble-gold" class="bauble free m">
-                                                    <div class="bauble-part top"></div>
-                                                    <div class="bauble-part sphere"></div>
-                                                </div>
-                                                <div id="bauble-indg" class="bauble constricted s">
-                                                    <div class="bauble-part top"></div>
-                                                    <div class="bauble-part sphere"></div>
-                                                </div>
-                                                <div id="bauble-pink" class="bauble free l">
-                                                    <div class="bauble-part top"></div>
-                                                    <div class="bauble-part sphere"></div>
-                                                </div>
-                                            </div>
-                                            <!-- <div class="frame"></div> -->
-                                        </figure>
-                                        <figure id="tv" class="clickable"></figure>
-                                        <figure id="balloon" class="clickable"></figure>
-                                        <figure id="postcard" class="clickable"></figure>
-                                        <figure id="candles-pair" class="clickable">
-                                            <div class="wrapper">
-                                                <div class="candle candle1 clickable">
-                                                    <div class="candle1__body">
-                                                        <div class="candle1__eyes">
-                                                            <span class="eye tall-candle-eye candle1__eyes-one"></span>
-                                                            <span class="eye tall-candle-eye candle1__eyes-two"></span></div>
-                                                        <div class="candle1__mouth"></div></div>
-                                                    <div class="candle1__stick"></div>
-                                                </div>                    
-                                                <div class="candle candle2 clickable">
-                                                    <div class="candle2__body">
-                                                        <div class="candle2__eyes">
-                                                            <div class="eye candle2__eyes-one"></div>
-                                                            <div class="eye candle2__eyes-two"></div></div></div>
-                                                    <div class="candle2__stick"></div>
-                                                    <div class="candle2__fire"></div>
-                                                    <div class="smoke candle__smoke-one"></div>
-                                                    <div class="smoke candle__smoke-two"></div>
-                                                </div>
-                                            </div>
-                                        </figure>
+                                            </figure>
+                                            <figure id="tv" class="clickable"></figure>
+                                            <figure id="balloon" class="clickable"></figure>
+                                        </div>
+                                        <div class="large-writing postcard">
+                                            <p><span lang="en" class="lang lang-en">Wishing you a cozy December full of good energy!</span>
+                                               <span lang="de" class="lang lang-de" hidden>Wishing you a cozy December full of good energy!</span></p>
+                                        </div>
                                     </div>
                                     <div class="window left"></div>
                                     <div class="door"></div>
@@ -424,6 +439,6 @@
                 </section>
             </main> -->
         </div>
-        <script defer src="./scripts/main.js?v=251202_1400"></script>
+        <script defer src="./scripts/main.js?v=251202_2245"></script>
     </body>
 </html>

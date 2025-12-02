@@ -297,41 +297,21 @@ html, body {
 /* HOME1 WINDOW */
 #scene #home1 .cuboid .wall.front .window.right {
   grid-area: winR;
-  background-image: url("../media/imgs/windows/window-frame-lg-4036386_640.png");
-  background-size: cover;
   /* position: relative;
   height: var(--window-size);
   width: var(--window-size);
   overflow: hidden; */
   --window-frame-outside: calc(var(--window-size) / 20);
   --window-frame-inside: calc(var(--window-size) / 25);
+  transform-style: preserve-3d;
+}
+#scene #home1 .cuboid .wall.front .window.right .inside {
+  background-image: url("../media/imgs/windows/window-frame-lg-4036386_640.png");
+  background-size: cover;
+  /* transform: translateZ(calc(var(--grid-cell-length)/100 * -1)); */
   display: grid;
   grid-template-rows: var(--window-frame-outside) var(--window-frame-inside) repeat(5, 1fr) var(--window-frame-inside) var(--window-frame-outside);
   grid-template-columns: var(--window-frame-outside) var(--window-frame-inside) repeat(5, 1fr) var(--window-frame-inside) var(--window-frame-outside);
-}
-#scene #home1 #tv {
-  grid-row: 5 / 7;
-  grid-column: -1 / -6;
-  background-image: url("../media/imgs/objects/tv-675803_640.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: -2;
-}
-#scene #home1 #balloon {
-  grid-row: 3 / 5;
-  grid-column: -1 / -5;
-  background-image: url("../media/imgs/objects/balloon-red-heart-1169208_640.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: -2;
-}
-#scene #home1 #postcard {
-  grid-row: 4 / 5;
-  grid-column: -5 / -6;
-  background-image: url("../media/imgs/objects/postcard-front-9942094_640.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: -2;
 }
 /* HOME1 WINDOW - TREE WITH SHAKING BAUBLES */
 @keyframes tiltStem {
@@ -804,6 +784,125 @@ html, body {
 }
 #scene #home1 #candles-pair .animateShortCandleSmoke2 {
   animation: move-top var(--animation-speed);
+}
+
+/* HOME1 WINDOW - POSTCARD FLYING OUT & TURNING OVER */
+@keyframes flyOutnFlip {
+  0% {
+    z-index: 99;
+    transform: scale(1) rotateY(0);
+  }
+  15%, 90% {
+    z-index: 99;
+    transform: scale(12) translateZ(var(--base-size)) rotateY(180deg) rotateZ(10deg);
+  }
+  100% {
+    z-index: 99;
+    transform: scale(1) rotateY(360deg);
+  }
+}
+@keyframes unblurText {
+  0% {
+    opacity: 0;
+    transform: scale(0.1) translateX(var(--base-size)) rotateZ(-10deg) translateZ(50px) rotateY(90deg);
+  }
+  15%, 90% {
+    opacity: 1;
+    transform: scale(1) rotateZ(-10deg) translateZ(50px) rotateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.1) translateX(var(--base-size)) rotateZ(-10deg) translateZ(50px) rotateY(90deg);
+  }
+}
+#scene #home1 #postcard {
+  --base-size: calc(var(--grid-cell-length) / 100);
+  --animation-speed: 5s ease-in;
+  --delay: 5s;
+  grid-row: 4 / 5;
+  grid-column: -5 / -6;
+  display: flex;
+  align-items: center;
+  z-index: -2;
+  transform-style: preserve-3d;
+  position: relative;
+}
+#scene #home1 #postcard .plane {
+  width: 100%;
+  height: 60%;
+  border-radius: 20%;
+  transform-style: preserve-3d;
+  position: relative;
+}
+#scene #home1 #postcard .face {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#scene #home1 #postcard .front {
+  background-image: url("../media/imgs/objects/postcard-front-9942094_640.png");
+  transform: translateZ(var(--base-size));
+}
+#scene #home1 #postcard .back {
+  background-image: url("../media/imgs/objects/postcard-back-1412352_640.png");
+  transform: rotateY(180deg);
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+/* #scene #home1 #postcard .back .writing {
+  background-color: yellow;
+  opacity: 0.5;
+  width: 60%;
+  height: 100%;
+  position: absolute;
+  top: calc(var(--base-size) * -5);
+  left: calc(var(--base-size) * 4);
+  transform: translateZ(var(--base-size));
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: calc(var(--base-size) * 2.5);
+  line-height: calc(var(--base-size) * 3);
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-style: italic;
+} */
+#scene .window.right .large-writing.postcard {
+  position: absolute;
+  left: calc(var(--grid-cell-length) * -0.6);
+  top: calc(var(--grid-cell-length) * 0.1);
+  width: calc(var(--grid-cell-length) * 1.5);
+  text-align: center;
+  font-size: calc(var(--grid-cell-length) / 3.5);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-style: italic;
+  transform: rotateZ(-10deg) translateZ(-50px) rotateY(90deg);
+}
+#scene #home1 #postcard.animatePostcard { /*!no space to select #postcard rather than one of its children*/
+  animation: flyOutnFlip var(--animation-speed);
+}
+#scene #home1 .large-writing.postcard.animateWriting {
+  animation: unblurText 5s ease-in;
+}
+
+#scene #home1 #tv {
+  grid-row: 5 / 7;
+  grid-column: -1 / -6;
+  background-image: url("../media/imgs/objects/tv-675803_640.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: -2;
+}
+#scene #home1 #balloon {
+  grid-row: 3 / 5;
+  grid-column: -1 / -5;
+  background-image: url("../media/imgs/objects/balloon-red-heart-1169208_640.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: -2;
 }
 
 
