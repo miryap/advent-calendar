@@ -71,19 +71,19 @@ const playDay2 = () => {
 //ANIMATION ON DEMAND, INDIVIDUALLY (ON CLICK) UP TO LATEST ADVENT CALENDAR DAY
 if (today >= firstDay) {
     candles.forEach(candle => {
-    candle.addEventListener('click', () => {
-        // console.log('Comic candle clicked!');
-        playDay1();
-        });
-    });
-} else if (today >= date(2,12)) {
+        candle.addEventListener('click', () => {
+            // console.log('Comic candle clicked!');
+            playDay1();
+            });
+    });}
+if (today >= date(2,12)) {
     baubleTree.addEventListener('click', () => {
-        // console.log('Tree clicked!');
-        playDay2();
-    });
-} else {
-    console.log(`No clickable animations before 1st Dec 2025`);
-}
+            // console.log('Bauble tree clicked!');
+            playDay2();
+    });}
+// } else {
+//     console.log(`No clickable animations before 1st Dec 2025`);
+// }
 
 //TODAY'S ANIMATION (ON PAGE LOAD), 1st ~ 25th DECEMBER
 // if (isToday(date(1,12))) {playStartAnimation(...animations.Day1)} //... = spread operator to unpack the array
