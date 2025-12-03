@@ -489,7 +489,7 @@ html, body {
 }
 
 /* HOME1 WINDOW - CARTOON CANDLE PAIR, ONE BLOWING OUT THE OTHER */
-/* Adapted from original creation by Kevin David, example #36 at https://prismic.io/blog/css-animation-examples */
+/* Adapted from original creation by Kevin David, example #36 at https://prismic.io/blog/css-animation-examples or at https://codepen.io/kevin_David_k/pen/eYNeQVY */
 @keyframes openEyes {
   0%,100% { opacity: 0; }
   5%,95%  { opacity: 1; }
@@ -888,14 +888,236 @@ html, body {
   animation: unblurText 5s ease-in;
 }
 
+/* HOME1 WINDOW - TV scene */
+/* Adapted from original creation by Tippy fodder, example #24 at https://prismic.io/blog/css-animation-examples or at https://codepen.io/tippyfodder/pen/OyXWpr */
+@keyframes tree {
+  0%   { transform: translate(1350px) /*translateX(calc(var(--base-size)*9/4 * var(--scale-up-factor)))*/; }
+  50%  { }
+  100% { transform: translate(-50px) /*translateX(calc(var(--base-size)*-1/12 * var(--scale-up-factor)))*/; }
+}
+@keyframes tree2 {
+  0%   { transform: translate(650px) /*translate(calc(var(--base-size)*13/12 * var(--scale-up-factor)))*/; }
+  50%  { }
+  100% { transform: translate(-50px) /*translate(calc(var(--base-size)*-1/12 * var(--scale-up-factor)))*/; }
+}
+@keyframes tree3 {
+  0%   { transform: translate(2750px) /*translate(calc(var(--base-size)*55/12 * var(--scale-up-factor)))*/; }
+  50%  { }
+  100% { transform: translate(-50px) /*translate(calc(var(--base-size)*-1/12 * var(--scale-up-factor)))*/; }
+}
+@keyframes rock {
+  0%   { right: -200px /*calc(var(--base-size)*-1/3)*/; }
+  100% { right: 2000px /*calc(var(--base-size)*10/3)*/; }
+}
+@keyframes truck {
+  0%   { }
+  6%   { transform: translateY(0px); }
+  7%   { transform: translateY(-6px) /*translateY(calc(var(--base-size)*-1/100))*/; }
+  9%   { transform: translateY(0px); }
+  10%  { transform: translateY(-1px) /*translateY(calc(var(--base-size)*-1/600))*/; }
+  11%  { transform: translateY(0px); }
+  100% { }
+}
+@keyframes wind {
+  0%   { }
+  50%  { transform: translateY(3px) /*translateY(calc(var(--base-size)/200))*/; }
+  100% { }
+}
+@keyframes mtn {
+  100% { transform: translateX(-2000px) /*translateX(calc(var(--base-size)*-10/3))*/ rotate(130deg); }
+}
+@keyframes hill {
+  100% { transform: translateX(-2000px) /*translateX(calc(var(--base-size)*-10/3))*/; }
+}
 #scene #home1 #tv {
+  --base-size: calc(var(--grid-cell-length) * 1);
+  --scale-up-factor: 12;
+  --grid-cell-count: 5;
+  --tv-width: calc(var(--grid-cell-length) * var(--grid-cell-count));
+  --tv-scale-factor: calc(var(--grid-cell-length) / 31.4688 * 0.05);
+  --grid-cell-ref: 33; /* pure number matching the px reference */
+  --tv-scale-base: 0.05;
+  --tv-scale-factor: calc(var(--grid-cell-length)/1px / var(--grid-cell-ref) * var(--tv-scale-base));
+  --animationDuration: 10; /*seconds, but must stay unitless for loop-count calculations*/
   grid-row: 5 / 7;
   grid-column: -1 / -6;
+  z-index: -2;
+  overflow: hidden;
+  position: relative;
+}
+#scene #home1 #tv .tv-frame {
+  position: absolute;
+  inset: 0;
   background-image: url("../media/imgs/objects/tv-675803_640.png");
   background-size: contain;
   background-repeat: no-repeat;
-  z-index: -2;
 }
+#scene #home1 #tv .loop-wrapper {
+  /* inset: 0; */
+  /* z-index: -3; */
+  margin-top: calc(var(--base-size)/20);
+  margin-left: calc(var(--base-size)/30);
+  /* width: 600px;
+  height: 250px; */
+  width: calc(var(--base-size)/1.5); /*orig. var(--base-size) */
+  height: calc(var(--base-size)*3.5/12); /*orig. var(--base-size)*5/12 */
+  /* border-bottom: 3px solid #fff; */
+  /* border-bottom: calc(var(--base-size)/7) solid brown; */
+  border-bottom: calc(600px/7) solid brown;
+  background: lightskyblue; /*#009688*/
+  /* color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  display: block; */
+  position: relative;
+  overflow: hidden;
+  position: absolute;
+  bottom: calc(var(--grid-cell-length)/20); /* your placement tweak inside the frame */
+  left: calc(var(--grid-cell-length)/30);
+  width: 400px;
+  height: 175px;
+  transform: scale(var(--tv-scale-factor));
+  /* transform: scale(0.05); */
+  /*31.4688*/
+  transform-origin: bottom left;
+}
+#scene #home1 #tv .mountain {
+  position: absolute;
+  right: -900px /*calc(var(--base-size)*-3/2)*/;
+  bottom: -20px /*calc(var(--base-size)*-1/30)*/;
+  width: 2px /*calc(var(--base-size)/300)*/;
+  height: 2px /*calc(var(--base-size)/300)*/;
+  box-shadow: 
+    0 0 0 50px #4DB6AC,
+    60px 50px 0 70px #4DB6AC,
+    90px 90px 0 50px #4DB6AC,
+    250px 250px 0 50px #4DB6AC,
+    290px 320px 0 50px #4DB6AC,
+    320px 400px 0 50px #4DB6AC
+    /* 0 0 0 calc(var(--base-size)/12) #4DB6AC,
+    calc(var(--base-size)/10) calc(var(--base-size)/12) 0 calc(var(--base-size)*14/120) #4DB6AC,
+    calc(var(--base-size)*3/20) calc(var(--base-size)*3/20) 0 calc(var(--base-size)/12) #4DB6AC,
+    calc(var(--base-size)*5/12) calc(var(--base-size)*5/12) 0 calc(var(--base-size)/12) #4DB6AC,
+    calc(var(--base-size)*29/60) calc(var(--base-size)*16/30) 0 calc(var(--base-size)/12) #4DB6AC,
+    calc(var(--base-size)*16/30) calc(var(--base-size)*2/3) 0 calc(var(--base-size)/12) #4DB6AC*/
+    ;
+  transform: rotate(130deg);
+  /* animation: mtn 20s linear infinite; */
+}
+#scene #home1 #tv .hill {
+  position: absolute;
+  right: -900px /*calc(var(--base-size)*-3/2)*/;
+  bottom: -50px /*calc(var(--base-size)*-1/12)*/;
+  width: 400px /*calc(var(--base-size)*2/3)*/;
+  border-radius: 50%;
+  height: 20px /*calc(var(--base-size)/30)*/;
+  box-shadow: 
+    0 0 0 50px #4DB6AC,
+    -20px 0 0 20px #4DB6AC,
+    -90px 0 0 50px #4DB6AC,
+    250px 0 0 50px #4DB6AC,
+    290px 0 0 50px #4DB6AC,
+    620px 0 0 50px #4DB6AC
+    /*0 0 0 calc(var(--base-size)/12) #4DB6AC,
+    calc(var(--base-size)*-1/30) 0 0 calc(var(--base-size)/30) #4DB6AC,
+    calc(var(--base-size)*-3/20) 0 0 calc(var(--base-size)/12) #4DB6AC,
+    calc(var(--base-size)*5/12) 0 0 calc(var(--base-size)/12) #4DB6AC,
+    calc(var(--base-size)*29/60) 0 0 calc(var(--base-size)/12) #4DB6AC,
+    calc(var(--base-size)*31/30) 0 0 calc(var(--base-size)/12) #4DB6AC*/
+    ;
+  /* animation: hill 4s 2s linear infinite; */
+}
+#scene #home1 #tv .loop-wrapper .tree,
+#scene #home1 #tv .loop-wrapper .tree:nth-child(2),
+#scene #home1 #tv .loop-wrapper .tree:nth-child(3) {
+  position: absolute;
+  height: 100px /*calc(var(--base-size)/6)*/;
+  width: 35px /*calc(var(--base-size)*7/120)*/;
+  bottom: 0;
+  /* background: url(../media/imgs/trees/mini-tree_fir-306782_640.png) no-repeat; */
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/130015/tree.svg) no-repeat;
+}
+#scene #home1 #tv .rock {
+  margin-top: -17%;
+  height: 2%; 
+  width: 2%;
+  bottom: -2px /*calc(var(--base-size)*-1/300)*/;
+  border-radius: 20px /*calc(var(--base-size)/30)*/;
+  position: absolute;
+  background: #ddd;
+}
+#scene #home1 #tv .truck,
+#scene #home1 #tv .wheels {
+  transition: all ease;
+  width: 85px /*calc(var(--base-size)*17/120)*/;
+  margin-right: -60px /*calc(var(--base-size)*-1/10)*/;
+  bottom: 0px;
+  right: 50%;
+  position: absolute;
+  background: #eee;
+}
+#scene #home1 #tv .truck {
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/130015/truck.svg) no-repeat;
+  background-size: contain;
+  height: 60px /*calc(var(--base-size)/10)*/;
+}
+#scene #home1 #tv .truck:before {
+  content: " ";
+  position: absolute;
+  width: 25px /*calc(var(--base-size)/24)*/;
+  box-shadow:
+    -30px 28px 0 1.5px #fff,
+    -35px 18px 0 1.5px #fff
+    /*calc(var(--base-size)*-1/20) calc(var(--base-size)*7/150) 0 calc(var(--base-size)/400) #fff,
+    calc(var(--base-size)*-7/120) calc(var(--base-size)*3/100) 0 calc(var(--base-size)/400) #fff*/
+    ;
+  /* animation: wind 1.5s   0.000s ease infinite; */
+}
+#scene #home1 #tv .wheels {
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/130015/wheels.svg) no-repeat;
+  height: 15px /*calc(var(--base-size)/40)*/;
+  margin-bottom: 0;
+}
+#scene #home1 #tv .loop-wrapper .animateMountain {
+  animation: mtn  20s           linear infinite;
+  animation-iteration-count: calc(var(--animationDuration) / 20);
+}
+#scene #home1 #tv .loop-wrapper .animateHill {
+  animation: hill  4s    2s     linear infinite;
+  animation-iteration-count: calc(var(--animationDuration) / 5);
+}
+/* #scene #home1 #tv .loop-wrapper .tree  { animation: tree 3s 0.000s linear infinite; }
+#scene #home1 #tv .loop-wrapper .tree:nth-child(2)  { animation: tree2 2s 0.150s linear infinite; }
+#scene #home1 #tv .loop-wrapper .tree:nth-child(3)  { animation: tree3 8s 0.050s linear infinite; } */
+#scene #home1 #tv .loop-wrapper .animateTree1 {
+  animation: tree  3s    0.000s linear infinite;
+  animation-iteration-count: calc(var(--animationDuration) / 3);
+}
+#scene #home1 #tv .loop-wrapper .animateTree2 {
+  animation: tree2 2s    0.150s linear infinite;
+  animation-iteration-count: calc(var(--animationDuration) / 2);
+}
+#scene #home1 #tv .loop-wrapper .animateTree3 {
+  animation: tree3 8s    0.050s linear infinite;
+  animation-iteration-count: calc(var(--animationDuration) / 8);
+}
+#scene #home1 #tv .loop-wrapper .animateRock {
+  animation: rock  4s   -0.530s linear infinite;
+  animation-iteration-count: calc(var(--animationDuration) / 4);
+}
+#scene #home1 #tv .loop-wrapper .animateTruck {
+  animation: truck 4s    0.080s ease infinite;
+  animation-iteration-count: calc(var(--animationDuration) / 4);
+}
+#scene #home1 #tv .loop-wrapper .animateWheels {
+  animation: truck 4s    0.001s ease infinite;
+  animation-iteration-count: calc(var(--animationDuration) / 4);
+}
+#scene #home1 #tv .loop-wrapper .truck.animateWind::before {
+  animation: wind  1.5s  0.000s ease infinite;
+  animation-iteration-count: calc(var(--animationDuration) / 1.5);
+}
+
+/* HOME1 WINDOW - 'Love Actually' HEART BALLOON PULSATING */
 #scene #home1 #balloon {
   grid-row: 3 / 5;
   grid-column: -1 / -5;

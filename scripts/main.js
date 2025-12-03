@@ -80,6 +80,28 @@ const playDay3 = () => {
     postcard.classList.add('animatePostcard');
     writing.classList.add('animateWriting');
 }
+//DAY 4
+const tv = document.getElementById('tv');
+const playDay4 = () => {
+    const mountain = tv.querySelector('.mountain');
+    const hill = tv.querySelector('.hill');
+    const trees = tv.querySelectorAll('.tree');
+    const [tree1, tree2, tree3] = trees; // cleaner than using :nth-child(2) etc
+    const rock = tv.querySelector('.rock');
+    const truck = tv.querySelector('.truck');
+    const wheels = tv.querySelector('.wheels');
+    [mountain, hill, tree1, tree2, tree3, rock, truck, wheels].forEach(el =>
+        el.classList.remove('animateMountain', 'animateHill', 'animateTree1', 'animateTree2', 'animateTree3', 'animateRock', 'animateTruck', 'animateWind', 'animateWheels'));
+    void tv.offsetWidth;
+    mountain.classList.add('animateMountain');
+    hill.classList.add('animateHill');
+    tree1.classList.add('animateTree1');
+    tree2.classList.add('animateTree2');
+    tree3.classList.add('animateTree3');
+    rock.classList.add('animateRock');
+    truck.classList.add('animateTruck', 'animateWind'); // animateWind handled via ::before rule in css file
+    wheels.classList.add('animateWheels');
+}
 
 //ANIMATION ON DEMAND, INDIVIDUALLY (ON CLICK) UP TO LATEST ADVENT CALENDAR DAY
 if (today >= firstDay) {
@@ -101,6 +123,11 @@ if (today >= date(3,12)) {
     postcard.addEventListener('click', () => {
             // console.log('Postcard clicked!');
             playDay3();
+    });}
+if (today >= date(4,12)) {
+    tv.addEventListener('click', () => {
+            console.log('TV clicked!');
+            playDay4();
     });}
 // } else {
 //     console.log(`No clickable animations before 1st Dec 2025`);
@@ -132,6 +159,14 @@ window.addEventListener("load", () => { //nb use of load not DOMContentLoaded - 
             if (e.animationName === 'highlightTodaysAnimation') {
                 postcard.classList.remove('animateTodaysAnimation');
                 playDay3();
+            }
+        }, { once: true });
+    } else if (isToday(date(4,12))) {
+        tv.classList.add('animateTodaysAnimation');
+        tv.addEventListener('animationend', (e) => {
+            if (e.animationName === 'highlightTodaysAnimation') {
+                tv.classList.remove('animateTodaysAnimation');
+                playDay4();
             }
         }, { once: true });
     } else {
