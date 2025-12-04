@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="./stylesheets/reset.css" rel="stylesheet" type="text/css">
-        <link href="./stylesheets/styles.css?v=251203_2215" rel="stylesheet" type="text/css">
+        <link href="./stylesheets/styles.css?v=251204_1915" rel="stylesheet" type="text/css">
         <title>Advent Calendar</title>
         <!-- UNCOMMENT IF WANTING TO AUTOMATE - NB. MUST REMOVE ANY '?...' suffixes from files -->
         <!-- <script>
@@ -127,7 +127,12 @@
                                                 </div>
                                                 <div class="tv-frame"></div>
                                             </figure>
-                                            <figure id="balloon" class="clickable"></figure>
+                                            <figure id="balloon">
+                                                <p class="film-title clickable">
+                                                    <span lang="en" class="lang lang-en"><span class="red">love</span><br><span class="black">actually</span></span>
+                                                    <span lang="de" class="lang lang-de" hidden><span class="black">Tatsächlich...</span><br><span class="red">Liebe</span></span>
+                                                </p>
+                                            </figure>
                                         </div>
                                         <div class="large-writing postcard">
                                             <p><span lang="en" class="lang lang-en">Wishing you a cozy December full of good energy!</span>
@@ -143,9 +148,9 @@
                                     <div class="brick bottom"></div>
                                 </div>
                                 <div class="plane wall long back brick"></div>
-                                <div class="plane wall long inside"></div>
+                                <!-- <div class="plane wall long inside"></div> -->
                                 <div class="plane wall short right brick">
-                                    <!-- <div class="door"></div> -->
+                                    <div class="window"></div>
                                 </div>
                                 <div class="plane wall short left brick"></div>
                                 <div class="plane floor"></div>
@@ -154,8 +159,8 @@
                                 <div class="plane roof back"></div>
                                 <!-- <div class="plane roof right"></div>
                                 <div class="plane roof left"></div> -->
-                                <div class="plane wall attic right"></div>
-                                <div class="plane wall attic left"></div>
+                                <div class="plane wall attic right brick"></div>
+                                <div class="plane wall attic left brick"></div>
                             </div>
                             <div class="cuboid">
                                 <div class="plane wall chimney outside front"></div>
@@ -450,6 +455,6 @@
                 </section>
             </main> -->
         </div>
-        <script defer src="./scripts/main.js?v=251203_2215"></script>
+        <script defer src="./scripts/main.js?v=251204_1915"></script>
     </body>
 </html>

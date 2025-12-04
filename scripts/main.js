@@ -9,7 +9,8 @@ function zoomAndMove(zoom = 2, viewRight = 0, viewDown = 0, duration = 1) {
 
   viewport.style.transform = `scale(${zoom}) translate(${moveX}vw, ${moveY}vh)`;
 }
-zoomAndMove(3, -15, 0, 0);
+// zoomAndMove(3, -15, 0, 0); //first shared version
+zoomAndMove(3, -20, -15, 0); //second shared version
 
 //GLOBAL VARIABLES & FUNCTIONS
 const date = (d, m, y = 2025) => new Date(y, m - 1, d); //nb. month array starts at 0; new Date(y, m, d) reflects local timezone's midnight, vs new Date('2025-12-25') for UTC, vs new Date().toLocaleDateString("en-GB") for DD/MM/YYYY string; function parameter y = 2025 (alt. new Date().getFullYear()) sets the current year as the default value when y isn't specified
@@ -46,6 +47,7 @@ const playDay1 = () => {
     shortCandleFire.classList.add('animateShortCandleFire');
     shortCandleSmoke1.classList.add('animateShortCandleSmoke1');
     shortCandleSmoke2.classList.add('animateShortCandleSmoke2');
+    console.log('Comic candles animated!');
 };
 //DAY 2
 const baubleTree = document.getElementById('bauble-tree');
@@ -67,18 +69,19 @@ const playDay2 = () => {
     freeBaubleSphere.forEach(sph => sph.classList.add('animateFreeBaubleSphere'));
     constrictedBaubleTop.forEach(top => top.classList.add('animateConstrictedBaubleTop'));
     constrictedBaubleSphere.forEach(sph => sph.classList.add('animateConstrictedBaubleSphere'));
+    console.log('Bauble tree animated!');
 };
 //DAY 3
 const postcard = document.getElementById('postcard');
 const playDay3 = () => {
     const writing = document.querySelector('.large-writing.postcard');
-    console.log('Postcard animated!');
     postcard.classList.remove('animatePostcard');
     writing.classList.remove('animateWriting');
     void postcard.offsetWidth;
     void writing.offsetWidth;
     postcard.classList.add('animatePostcard');
     writing.classList.add('animateWriting');
+    console.log('Postcard animated!');
 }
 //DAY 4
 const tv = document.getElementById('tv');
@@ -101,13 +104,23 @@ const playDay4 = () => {
     rock.classList.add('animateRock');
     truck.classList.add('animateTruck', 'animateWind'); // animateWind handled via ::before rule in css file
     wheels.classList.add('animateWheels');
+    console.log('TV animated!');
+}
+//DAY 5
+const balloonWithString = document.getElementById('balloon');
+const balloon = balloonWithString.querySelector('.film-title');
+const playDay5 = () => {
+    balloonWithString.classList.remove('animateBalloon');
+    void balloonWithString.offsetWidth; //nb. reflow must be forced on the same element, i.e. can't be balloon instead
+    balloonWithString.classList.add('animateBalloon');
+    console.log('Balloon animated!');
 }
 
 //ANIMATION ON DEMAND, INDIVIDUALLY (ON CLICK) UP TO LATEST ADVENT CALENDAR DAY
 if (today >= firstDay) {
     candles.forEach(candle => {
         candle.addEventListener('click', () => {
-            // console.log('Comic candle clicked!');
+            console.log('Comic candle clicked!');
             playDay1();
             });
     });}
@@ -115,19 +128,24 @@ if (today >= date(2,12)) {
     baubles.forEach(bauble => {
         bauble.addEventListener('click', () => {
     // baubleTree.addEventListener('click', () => {
-            // console.log('Bauble tree clicked!');
+            console.log('Bauble tree clicked!');
             playDay2();
             });
     });}
 if (today >= date(3,12)) {
     postcard.addEventListener('click', () => {
-            // console.log('Postcard clicked!');
+            console.log('Postcard clicked!');
             playDay3();
     });}
 if (today >= date(4,12)) {
     tv.addEventListener('click', () => {
             console.log('TV clicked!');
             playDay4();
+    });}
+if (today >= date(5,12)) {
+    balloon.addEventListener('click', () => {
+            console.log('Balloon clicked!');
+            playDay5();
     });}
 // } else {
 //     console.log(`No clickable animations before 1st Dec 2025`);
@@ -167,6 +185,14 @@ window.addEventListener("load", () => { //nb use of load not DOMContentLoaded - 
             if (e.animationName === 'highlightTodaysAnimation') {
                 tv.classList.remove('animateTodaysAnimation');
                 playDay4();
+            }
+        }, { once: true });
+    } else if (isToday(date(5,12))) {
+        balloon.classList.add('animateTodaysAnimation');
+        balloonWithString.addEventListener('animationend', (e) => {
+            if (e.animationName === 'highlightTodaysAnimation') {
+                balloon.classList.remove('animateTodaysAnimation');
+                playDay5();
             }
         }, { once: true });
     } else {
