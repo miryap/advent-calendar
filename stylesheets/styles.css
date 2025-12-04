@@ -233,7 +233,7 @@ html, body {
 #scene #home1 .prism.triangular .roof {
   width: 100%;
   height: 100%;
-  background: rgba(0,255,255,0.1);
+  /* background: rgba(0,255,255,0.1); */
   background-image: url("../media/imgs/tiles/roof/wood-1099960_640.jpg");
   background-size: auto calc(var(--base-size)*2);
   background-position: bottom;
@@ -247,7 +247,7 @@ html, body {
 }
 #scene #home1 .prism.triangular .attic {
   width: var(--house-w);
-  aspect-ratio: 2.85; /* attic-h: --base-size*0.9 */
+  aspect-ratio: 2.85; /* equivalent to  --attic-h: calc(var(--base-size)*0.9) */
   clip-path: polygon(50% 100%,100% 0,0 0); /*inverted triangle*/
   transform-origin: top;
 }
@@ -972,18 +972,18 @@ html, body {
   100% { transform: translateX(-2000px) /*translateX(calc(var(--base-size)*-10/3))*/; }
 }
 #scene #home1 #tv {
-  --base-size: calc(var(--grid-cell-length) * 1);
-  --scale-up-factor: 12;
+  /* --base-size: calc(var(--grid-cell-length) * 1);
+  --scale-up-factor: 12; */
   --grid-cell-count: 5;
   --tv-width: calc(var(--grid-cell-length) * var(--grid-cell-count));
-  --tv-scale-factor: calc(var(--grid-cell-length) / 31.4688 * 0.05);
-  --grid-cell-ref: 33; /* pure number matching the px reference */
+  --grid-cell-ref: 33; /* pure number matching the grid-cell-length's computed px reference in DevTools */
   --tv-scale-base: 0.05;
-  --tv-scale-factor: calc(var(--grid-cell-length)/1px / var(--grid-cell-ref) * var(--tv-scale-base));
+  --tv-scale-factor: calc(var(--grid-cell-length)/1px / var(--grid-cell-ref) * var(--tv-scale-base)); /*nb. var(--grid-cell-length)/1px turns it into a unitless number */
   --animationDuration: 10; /*seconds, but must stay unitless for loop-count calculations*/
   grid-row: 5 / 7;
   grid-column: -1 / -6;
   z-index: -2;
+  /* z-index: 99; */
   overflow: hidden;
   position: relative;
 }
@@ -995,32 +995,20 @@ html, body {
   background-repeat: no-repeat;
 }
 #scene #home1 #tv .loop-wrapper {
-  /* inset: 0; */
-  /* z-index: -3; */
-  margin-top: calc(var(--base-size)/20);
-  margin-left: calc(var(--base-size)/30);
-  /* width: 600px;
-  height: 250px; */
-  width: calc(var(--base-size)/1.5); /*orig. var(--base-size) */
-  height: calc(var(--base-size)*3.5/12); /*orig. var(--base-size)*5/12 */
-  /* border-bottom: 3px solid #fff; */
-  /* border-bottom: calc(var(--base-size)/7) solid brown; */
-  border-bottom: calc(600px/7) solid brown;
-  background: lightskyblue; /*#009688*/
-  /* color: #fff;
-  font-family: 'Open Sans', sans-serif;
-  display: block; */
-  position: relative;
-  overflow: hidden;
-  position: absolute;
-  bottom: calc(var(--grid-cell-length)/20); /* your placement tweak inside the frame */
-  left: calc(var(--grid-cell-length)/30);
+  /* width: 600px; /*orig. var(--base-size) -> calc(var(--base-size)/1.5) */
+  /* height: 250px; /*orig. var(--base-size)*5/12 -> calc(var(--base-size)*3.5/12) */
   width: 400px;
-  height: 175px;
-  transform: scale(var(--tv-scale-factor));
-  /* transform: scale(0.05); */
-  /*31.4688*/
+  height: 200px;
+  border-bottom: calc(600px/7) solid brown;
+  background: lightskyblue;
+  position: absolute;
+  /* margin-top: calc(var(--base-size)/20);
+  margin-left: calc(var(--base-size)/30); */
+  bottom: calc(var(--grid-cell-length)/30); /* your placement tweak inside the frame */
+  left: calc(var(--grid-cell-length)/30);
   transform-origin: bottom left;
+  transform: scale(var(--tv-scale-factor));
+  overflow: hidden;
 }
 #scene #home1 #tv .mountain {
   position: absolute;
@@ -1174,7 +1162,7 @@ html, body {
   background-image: url("../media/imgs/objects/balloon-white-heart.png");
   background-size: contain;
   background-repeat: no-repeat;
-  z-index: -2;
+  z-index: -3;
   pointer-events: auto;
   display: flex;
   justify-content: center;
