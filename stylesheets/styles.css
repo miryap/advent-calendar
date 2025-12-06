@@ -115,7 +115,7 @@ html, body {
   grid-template-columns: repeat(52, 1fr);
   justify-items: center; /* default, to be adjusted as needed per number bell */
   align-items: center;
-  z-index: 99; /* only affects visual stacking, not clicks */
+  z-index: 10; /* only affects visual stacking, not clicks */
   pointer-events: none; /* clicks are ignored, to prevent blocking of scene grid animation clicks */
 }
 #day-numbers > .bell {
@@ -171,14 +171,15 @@ html, body {
   transform-style: preserve-3d;
 }
 #scene #secHme1 { grid-area: G4B / G4B / G7B / G4G;
-                           /*G7K, 5 rows 6 cols, 3rd shared version */
+                           /*G7G, 5 rows 6 cols, 3rd shared version */
   /* grid-area: G6A / G6A / G9A / G6F; */
            /*G9F, 4 rows 6 cols, pre-sharing*/
   /* grid-area: G2E / G2E / G5E / G2J; */
            /*G5J, 4 rows 6 cols, 1st shared version (without roof) */ 
   /* grid-area: S3D / S3D / G4D / S3I;
            /*G4I, 5 rows 6 cols, 2nd shared version (before adding home3) */
-  transform: translateZ(200px);
+  /* transform: translateZ(200px); */
+  /*IMPORTANT - seems like only minus Z-translate values are accepted for clickability*/
 }
 #scene #secHme2 {}
 #scene #secHme3 { grid-area: S3D / S3D / G4D / S3I;
@@ -190,7 +191,10 @@ html, body {
 #scene #secShop {}
 #scene #secOuts1 {}
 #scene #secOuts2 {}
-#scene #secOuts3 {}
+#scene #secOuts3 { grid-area: G3H / G3H / G6H / G3L;
+                            /*G6L, 4 rows 5 cols */
+  transform: translateZ(-150px);
+}
 #scene #secOuts4 {}
 #scene #secOuts5 {}
 #scene #secSky {}
@@ -198,6 +202,12 @@ html, body {
 /* **************************** */
 /* BUILDINGS & SCENE CONTAINERS */
 /* **************************** */
+
+#scene #secOuts3 {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+}
 
 #scene #home1 {
   /* --base-size: calc(var(--grid-cell-length) * 1.5); */
@@ -270,7 +280,6 @@ html, body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom center;
-  z-index: 1;
 }
 #scene #home3 .cuboid .wall.front .door {
   grid-row: 1 / -1;
@@ -279,7 +288,6 @@ html, body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom center;
-  z-index: 1;
 }
 #scene #home1 .cuboid .wall.front .window.left {
   background-image: url("../media/imgs/windows/window-frame-4036386_640.png");
@@ -431,28 +439,187 @@ html, body {
   position: absolute;
   inset: 0; /* inset = shorthand for top/right/bottom/left, so inset:0; = cover parent container's full size */
   background-size: cover;
-  /* z-index: 10; */
   pointer-events: none;
+}
+#scene .home.constructed .wall .door,
+#scene .home.constructed .wall .window,
+#scene .home.constructed .wall .window .inside::after {
+  z-index: 1;
+}
+/*z-index stacking context (when items are layered in the same plane, not in 3d space)
+  99    = first in view of camera lense  - e.g. nav menu, postcard fly out
+  10    = labels on top of all objects   - e.g. day numbers
+   1(+) = outside objects layered on top - e.g. doors & windows on top of brick wall
+  -1(-) = inside objects layered behind  - e.g. candles, bauble tree, tv, balloon behind window frame
+*/
+#scene .home.constructed .cuboid .wall.front .window,
+#scene .home.constructed .cuboid .wall.front .window .inside,
+#scene .home.constructed .cuboid .wall.front .window .inside::after {
+  pointer-events: none; /* to ensure ALL window shells ignore clicks */
+}
+#scene .home.constructed .cuboid .wall.front .window .inside .clickable {
+  pointer-events: auto; /* to allow clicks on the objects inside */
 }
 
 /* **************** */
 /* ANIMATED OBJECTS */
 /* **************** */
 
+/* OUTSIDE3 SECTION - CAROLERS SINGING BESIDE TREE */
+  #scene #secOuts3 #carolers {
+    grid-row: 2 / -1;
+    grid-column: 3 / -1;
+  }
+
+/* OUTSIDE3 SECTION - TREE WITH FLICKERING FAIRY LIGHTS+STAR */
+@keyframes flickerOn {
+/* Adapted from Gradienty's flicker-in-2-normal animation generated on 2025-11-03 16:50
+(changed opacity to colour swap, replaced box-shadow: none w/ --inset-base etc overlay for lights off state, added growing --light-spread glow for lights on state) */
+    0% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    10% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    10.1% { background-color: var(--colour2); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    10.2% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    20% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    20.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.5) rgba(255, 255, 255, 0.25); }
+    20.6% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    30% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    30.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.6) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
+    30.5% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.6) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
+    30.6% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    45% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    45.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
+    50% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
+    55% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
+    55.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    57% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    57.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.8) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3); }
+    60% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.8) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3); }
+    60.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    65% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    65.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.9) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3), 0 0 100px rgba(255, 255, 255, 0.1); }
+    75% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.9) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3), 0 0 100px rgba(255, 255, 255, 0.1); }
+    75.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    77% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    77.1% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4), 0 0 110px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 255, 255, 0.1); }
+    85% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4), 0 0 110px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 255, 255, 0.1); }
+    85.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    86% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    86.1% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25), 0 0 100px rgba(255, 255, 255, 0.1); }
+    100% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25), 0 0 100px rgba(255, 255, 255, 0.1); }
+}
+#scene #secOuts3 #lights-tree {
+  grid-row: 1 / -1;
+  grid-column: 1 / 4;
+  --width: calc(var(--grid-cell-length) * 2.6); /*180px*/
+  --height: calc(var(--width) * 1.5);
+  --sphere-diameter: calc(var(--width) / 17);
+  --star-diameter: calc(var(--width) / 5);
+  --light-spread: calc(var(--sphere-diameter) * 0.4);
+  --colour1: Gold;
+  --colour2: Yellow;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  transform-style: preserve-3d;
+  height: var(--height);
+  width: var(--width);
+}
+#scene #secOuts3 #lights-tree .canvas {
+  height: 100%;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-image: url("../media/imgs/trees/fir-tree-1086772_640_roundedStem.png");
+  display: grid;
+  grid-template-columns: 2fr repeat(9, 1fr) 2.5fr;
+  grid-template-rows: 1.6fr 0.6fr 0.7fr 0.9fr 1fr 0.9fr;
+  row-gap: calc(var(--width) / 10);
+  grid-template-areas: /* T=tier, L=left, C=centre, R=right  */
+      " .   .   .   .   .  T0C  .   .   .   .   . "
+      " .   .   .   .  T1L T1C T1R  .   .   .   . "
+      " .   .   .  T2L T2L T2C T2R T2R  .   .   . "
+      " .   .  T3L T3L T3C T3C T3C T3R T3R  .   . "
+      "T4L T4L T4L T4L T4C T4C T4C T4R T4R T4R T4R"
+      " .   .   .   .   .   .   .   .   .   .   . ";
+  justify-items: center;
+  transform-style: preserve-3d;
+}
+#scene #secOuts3 #lights-tree .left {
+  align-self: end;
+}
+#scene #secOuts3 #lights-tree .centre {
+  align-self: center;
+  margin-top: calc(var(--sphere-diameter) / 4);
+}
+#scene #secOuts3 #lights-tree .sphere.tier1.right {
+  margin-right: calc(var(--sphere-diameter) / 5);
+}
+#scene #secOuts3 #lights-tree .sphere.tier1.centre { grid-area: T1C; transform: scale(1.1); }
+#scene #secOuts3 #lights-tree .sphere.tier1.left   { grid-area: T1L;              transform: scale(0.9); }
+#scene #secOuts3 #lights-tree .sphere.tier1.right  { grid-area: T1R;              transform: scale(0.9); }
+#scene #secOuts3 #lights-tree .sphere.tier2.centre { grid-area: T2C; transform: scale(1.3); }
+#scene #secOuts3 #lights-tree .sphere.tier2.left   { grid-area: T2L;              transform: scale(1.1); }
+#scene #secOuts3 #lights-tree .sphere.tier2.right  { grid-area: T2R;              transform: scale(1.1); }
+#scene #secOuts3 #lights-tree .sphere.tier3.centre { grid-area: T3C; transform: scale(1.5); }
+#scene #secOuts3 #lights-tree .sphere.tier3.left   { grid-area: T3L;              transform: scale(1.3); }
+#scene #secOuts3 #lights-tree .sphere.tier3.right  { grid-area: T3R;              transform: scale(1.3); }
+#scene #secOuts3 #lights-tree .sphere.tier4.centre { grid-area: T4C; transform: scale(1.7); }
+#scene #secOuts3 #lights-tree .sphere.tier4.left   { grid-area: T4L;              transform: scale(1.5); }
+#scene #secOuts3 #lights-tree .sphere.tier4.right  { grid-area: T4R;              transform: scale(1.5); }
+#scene #secOuts3 #lights-tree .star {
+  grid-area: T0C;
+  align-self: start;
+  margin-left: calc(var(--star-diameter) / 8);
+  width: var(--star-diameter);
+  height: var(--star-diameter);
+  position: relative;
+}
+#scene #secOuts3 #lights-tree .star .shape {
+  --inset-base: calc(var(--star-diameter) / 8);
+  position: absolute;
+  width: var(--star-diameter);
+  aspect-ratio: 1;
+  clip-path: polygon(50% 0,
+    calc(50%*(1 + sin(.4turn))) calc(50%*(1 - cos(.4turn))),
+    calc(50%*(1 - sin(.2turn))) calc(50%*(1 - cos(.2turn))),
+    calc(50%*(1 + sin(.2turn))) calc(50%*(1 - cos(.2turn))),
+    calc(50%*(1 - sin(.4turn))) calc(50%*(1 - cos(.4turn)))
+  );
+}
+#scene #secOuts3 #lights-tree .star .glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* more accurate than alt. margin: calc(var(--star-diameter) / 3.05); */
+  width: calc(var(--star-diameter) / 3);
+  height: calc(var(--star-diameter) / 3);
+  --light-spread: calc(var(--star-diameter) * 0.35);
+  border-radius: 50%;
+  z-index: -1;
+}
+#scene #secOuts3 #lights-tree .sphere {
+  --inset-base: calc(var(--sphere-diameter) / 6);
+  width: var(--sphere-diameter);
+  height: var(--sphere-diameter);
+  border-radius: 50%;
+}
+#scene #secOuts3 #lights-tree .light {
+  background-color: var(--colour1);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset;
+}
+#scene #secOuts3 #lights-tree .animateLight {
+  animation: flickerOn 3s 0.1s linear /*forwards*/;
+}
+#scene #secOuts3 #lights-tree .lightOn { /*recreates forwards so can start lit up across days with js*/
+  background-color: var(--colour2);
+  box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6),
+              0 0 60px rgba(255, 255, 255, 0.45),
+              0 0 110px rgba(255, 255, 255, 0.25),
+              0 0 100px rgba(255, 255, 255, 0.1);
+}
+
 /* HOME3 WINDOW - NIKOLAUSSTIEFEL FILLING BETWEEN BLACKOUTS */
-/* @keyframes fill {
-  0%,33%       { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent1.png"); }
-  33%,66%      { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent2.png"); }
-  66%,100%      { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent3.png"); }
-  100% { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent4.png"); }
-} */
-/* @keyframes hold {  
-  0%,100% { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent4.png"); }
-} */
-/* @keyframes empty {
-  0%,50% { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent4.png"); }
-  100% { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent1.png"); }
-} */
 @keyframes appear {
   0%,25%        { opacity: 1;  /* filled-X visible */
   }
@@ -460,47 +627,18 @@ html, body {
   }
 }
 @keyframes blackOut {
-  0%, 49.5% { opacity: 0; }  /* lights on */
-  50.5%, 100% { opacity: 1; }  /* lights off */
-}
-@keyframes blackOut1 {
-   0%,  12.5%,
-  25.6%,37.5%,
-  50.6%,62.5%,
-  75.6%,87.5% {
-    /* background-color: transparent; */
-    opacity: 0; /* clear window */
+  0%,49.5%   { opacity: 0;  /* lights on */
   }
-  12.6%,25.5%,
-  37.6%,50.5%,
-  62.6%,75.5%,
-  87.6%,99.5% {
-    /* background-color: black; */
-    opacity: 1; /* blackout frame */
+  50.5%,100% { opacity: 1;  /* lights off */
   }
 }
-@keyframes blackOut2 {
-  0%, 10%, 25%, 35%, 50%, 60%, 75%, 85%, 100% {
-    opacity: 0; /* clear window */
-  }
-  12%, 22%, 37%, 47%, 62%, 72%, 87%, 97% {
-    opacity: 1; /* blackout frame */
-  }
-}
-/*
-  --animationDuration: 10; /*seconds, but must stay unitless for loop-count calculations
-#scene #home1 #tv .loop-wrapper .animateTree2 {
-  animation: tree2 2s    0.150s linear infinite;
-  animation-iteration-count: calc(var(--animationDuration) / 2);
-}*/
-
 #scene #home3 {
   --loop-duration: 13s;
-  --blackout-loop-duration: calc(var(--loop-duration)*1/4); /*turn off lights mid-way through each img duration*/
+  --blackout-loop-duration: calc(var(--loop-duration)*1/4); /* = per img visibility duration, half of which is lights on vs lights off */
   --swap-delay1: calc(var(--loop-duration)*1/4); /*switch to 2nd img */
   --swap-delay2: calc(var(--loop-duration)*1/2); /*switch to 3rd img*/
   --swap-delay3: calc(var(--loop-duration)*3/4); /*switch to 4th img*/
-  --final-blackout-delay: calc(var(--loop-duration) - var(--loop-duration)*1/4*1/2); /*so 4th img is held for a little longer before reverting to default*/
+  --final-blackout-delay: calc(var(--loop-duration) - var(--loop-duration)*1/4*1/2); /*so 4th img is held for a little longer b4 reverting to default*/
   --boots-animation: appear steps(1, end);
 }
 #scene #home3 #nicolas-boots {
@@ -519,8 +657,6 @@ html, body {
   width: 140%;
   height: 20%;
   background-color: #816647;
-  /* background-image: url('../media/imgs/tiles/wood-309841_640.png');
-  background-size: contain; */
   bottom: 0;
   left: -20%;
 }
@@ -530,7 +666,6 @@ html, body {
   background-position: bottom;
   background-repeat: no-repeat;
   opacity: 0;
-  /* z-index: 5; */
 }
 #scene #home3 #nicolas-boots .boots.filled-none {
   background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent1.png");
@@ -566,13 +701,12 @@ html, body {
   inset: 0;
   background-color: #1B1212;
   opacity: 0;
-  /* z-index: 8;
-  transform: translateZ(50px);
+  /* transform: translateZ(50px);
   overflow: visible; */
   pointer-events: none;
 }
 #scene #home3 .animateWindow {
-  animation: blackOut var(--blackout-loop-duration) linear 3 0s,
+  animation: blackOut var(--blackout-loop-duration) linear 3 0s, /* only 1st animation runs if default (0s, 1) values left unspecified */
              blackOut var(--blackout-loop-duration) linear 1 var(--final-blackout-delay);
 }
 
@@ -637,7 +771,6 @@ html, body {
   grid-row: 2 / -2;
   grid-column: 2 / 6;
   z-index: -1;
-  /* z-index: 99; */
   height: calc(var(--window-size) - var(--window-frame-outside)*2);
   /* width: auto; */
   aspect-ratio: 1 / 1.3954;
@@ -870,7 +1003,6 @@ html, body {
   width: 100%;
   height: 100%;
   position: relative;
-  /* z-index: 99; */
   /* background-color:rgba(100, 100, 0, 0.6); */
 }
 #scene #home1 #candles-pair .candle {
@@ -1067,15 +1199,15 @@ html, body {
 @keyframes unblurText {
   0% {
     opacity: 0;
-    transform: scale(0.1) translateX(var(--base-size)) rotateZ(-10deg) translateZ(50px) rotateY(90deg);
+    transform: translateZ(50px) rotateZ(-10deg) rotateY(90deg) scale(0.1) translateX(var(--base-size));
   }
   15%, 90% {
     opacity: 1;
-    transform: scale(1) rotateZ(-10deg) translateZ(50px) rotateY(0);
+    transform: translateZ(50px) rotateZ(-10deg) rotateY(0deg)  scale(1);
   }
   100% {
     opacity: 0;
-    transform: scale(0.1) translateX(var(--base-size)) rotateZ(-10deg) translateZ(50px) rotateY(90deg);
+    transform: translateZ(50px) rotateZ(-10deg) rotateY(90deg) scale(0.1) translateX(var(--base-size));
   }
 }
 #scene #home1 #postcard {
@@ -1142,7 +1274,7 @@ html, body {
   font-size: calc(var(--grid-cell-length) / 3.5);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-style: italic;
-  transform: rotateZ(-10deg) translateZ(-50px) rotateY(90deg);
+  transform: translateZ(-50px) rotateZ(-10deg) rotateY(90deg);
 }
 #scene #home1 #postcard.animatePostcard { /*!no space to select #postcard rather than one of its children*/
   animation: flyOutnFlip var(--animation-speed);
@@ -1204,7 +1336,6 @@ html, body {
   grid-row: 5 / 7;
   grid-column: -1 / -6;
   z-index: -2;
-  /* z-index: 99; */
   overflow: hidden;
   position: relative;
 }
@@ -1808,151 +1939,6 @@ figcaption.sr-only { /*battle-tested for over a decade*/
 }
 
 
-/* TREE WITH FLICKERING FAIRY LIGHTS+STAR */
-@keyframes flickerOn {
-/* Adapted from Gradienty's flicker-in-2-normal animation generated on 2025-11-03 16:50
-(changed opacity to colour swap, replaced box-shadow: none w/ --inset-base etc overlay for lights off state, added growing --light-spread glow for lights on state) */
-    0% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    10% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    10.1% { background-color: var(--colour2); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    10.2% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    20% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    20.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.5) rgba(255, 255, 255, 0.25); }
-    20.6% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    30% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    30.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.6) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
-    30.5% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.6) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
-    30.6% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    45% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    45.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
-    50% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
-    55% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
-    55.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    57% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    57.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.8) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3); }
-    60% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.8) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3); }
-    60.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    65% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    65.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.9) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3), 0 0 100px rgba(255, 255, 255, 0.1); }
-    75% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.9) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3), 0 0 100px rgba(255, 255, 255, 0.1); }
-    75.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    77% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    77.1% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4), 0 0 110px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 255, 255, 0.1); }
-    85% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4), 0 0 110px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 255, 255, 0.1); }
-    85.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    86% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    86.1% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25), 0 0 100px rgba(255, 255, 255, 0.1); }
-    100% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25), 0 0 100px rgba(255, 255, 255, 0.1); }
-}
-#lights-tree {
-    --width: 180px;
-    --height: calc(var(--width) * 1.5);
-    --sphere-diameter: calc(var(--width) / 17);
-    --star-diameter: calc(var(--width) / 5);
-    --light-spread: calc(var(--sphere-diameter) * 0.4);
-    --colour1: Gold;
-    --colour2: Yellow;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    transform-style: preserve-3d;
-}
-#lights-tree .canvas {
-    height: var(--height);
-    width: var(--width);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-image: url("../media/imgs/trees/fir-tree-1086772_640.png");
-    display: grid;
-    grid-template-columns: 2fr repeat(9, 1fr) 2.5fr;
-    grid-template-rows: 1.6fr 0.6fr 0.7fr 0.9fr 1fr 0.9fr;
-    row-gap: calc(var(--width) / 10);
-    grid-template-areas: /* T=tier, L=left, C=centre, R=right  */
-        " .   .   .   .   .  T0C  .   .   .   .   . "
-        " .   .   .   .  T1L T1C T1R  .   .   .   . "
-        " .   .   .  T2L T2L T2C T2R T2R  .   .   . "
-        " .   .  T3L T3L T3C T3C T3C T3R T3R  .   . "
-        "T4L T4L T4L T4L T4C T4C T4C T4R T4R T4R T4R"
-        " .   .   .   .   .   .   .   .   .   .   . ";
-    justify-items: center;
-    transform-style: preserve-3d;
-}
-#lights-tree .left {
-    align-self: end;
-}
-#lights-tree .centre {
-    align-self: center;
-    margin-top: calc(var(--sphere-diameter) / 4);
-}
-#lights-tree .sphere.tier1.right {
-    margin-right: calc(var(--sphere-diameter) / 5);
-}
-#lights-tree .sphere.tier1.centre { grid-area: T1C; transform: scale(1.1); }
-#lights-tree .sphere.tier1.left   { grid-area: T1L;              transform: scale(0.9); }
-#lights-tree .sphere.tier1.right  { grid-area: T1R;              transform: scale(0.9); }
-#lights-tree .sphere.tier2.centre { grid-area: T2C; transform: scale(1.3); }
-#lights-tree .sphere.tier2.left   { grid-area: T2L;              transform: scale(1.1); }
-#lights-tree .sphere.tier2.right  { grid-area: T2R;              transform: scale(1.1); }
-#lights-tree .sphere.tier3.centre { grid-area: T3C; transform: scale(1.5); }
-#lights-tree .sphere.tier3.left   { grid-area: T3L;              transform: scale(1.3); }
-#lights-tree .sphere.tier3.right  { grid-area: T3R;              transform: scale(1.3); }
-#lights-tree .sphere.tier4.centre { grid-area: T4C; transform: scale(1.7); }
-#lights-tree .sphere.tier4.left   { grid-area: T4L;              transform: scale(1.5); }
-#lights-tree .sphere.tier4.right  { grid-area: T4R;              transform: scale(1.5); }
-#lights-tree .star {
-    grid-area: T0C;
-    align-self: start;
-    margin-left: calc(var(--star-diameter) / 8);
-    width: var(--star-diameter);
-    height: var(--star-diameter);
-    position: relative;
-}
-#lights-tree .star .shape {
-    --inset-base: calc(var(--star-diameter) / 8);
-    position: absolute;
-    width: var(--star-diameter);
-    aspect-ratio: 1;
-    clip-path: polygon(50% 0,
-        calc(50%*(1 + sin(.4turn))) calc(50%*(1 - cos(.4turn))),
-        calc(50%*(1 - sin(.2turn))) calc(50%*(1 - cos(.2turn))),
-        calc(50%*(1 + sin(.2turn))) calc(50%*(1 - cos(.2turn))),
-        calc(50%*(1 - sin(.4turn))) calc(50%*(1 - cos(.4turn)))
-    );
-}
-#lights-tree .star .glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* more accurate than alt. margin: calc(var(--star-diameter) / 3.05); */
-    width: calc(var(--star-diameter) / 3);
-    height: calc(var(--star-diameter) / 3);
-    --light-spread: calc(var(--star-diameter) * 0.35);
-    border-radius: 50%;
-    z-index: -1;
-}
-#lights-tree .sphere {
-    --inset-base: calc(var(--sphere-diameter) / 6);
-    width: var(--sphere-diameter);
-    height: var(--sphere-diameter);
-    border-radius: 50%;
-}
-#lights-tree .light {
-    background-color: var(--colour1);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset;
-}
-#lights-tree .animateLight {
-    animation: flickerOn 3s 0.1s linear forwards;
-}
-#lights-tree .lightOn {
-    background-color: var(--colour2);
-    box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6),
-                0 0 60px rgba(255, 255, 255, 0.45),
-                0 0 110px rgba(255, 255, 255, 0.25),
-                0 0 100px rgba(255, 255, 255, 0.1);
-}
-
-
 /* TREE WITH SHAKING BAUBLES */
 @keyframes tiltStem {
     30% {
@@ -2118,6 +2104,17 @@ figcaption.sr-only { /*battle-tested for over a decade*/
     animation: scaleBauble var(--animation-speed2);
 }
 
+/*
+GO THROUGH THESE LINKS (for spheres):
+https://cssanimation.rocks/spheres/
+https://css-shape.com/sphere/
+https://stackoverflow.com/questions/45238194/how-can-i-create-pure-css-3-dimensional-spheres
+https://freefrontend.com/css-spheres/
+-> https://codepen.io/Taluska/pen/Eajpwvm
+-> https://codepen.io/josetxu/pen/pvJxEoW
+*/
+
+
 @keyframes highlightTodaysAnimation {
   0%, 80%, 100% {
     border-radius: 50%;
@@ -2135,14 +2132,3 @@ figcaption.sr-only { /*battle-tested for over a decade*/
 .animateTodaysAnimation {
   animation: highlightTodaysAnimation 3.5s ease-in;
 }
-
-
-/*
-GO THROUGH THESE LINKS (for spheres):
-https://cssanimation.rocks/spheres/
-https://css-shape.com/sphere/
-https://stackoverflow.com/questions/45238194/how-can-i-create-pure-css-3-dimensional-spheres
-https://freefrontend.com/css-spheres/
--> https://codepen.io/Taluska/pen/Eajpwvm
--> https://codepen.io/josetxu/pen/pvJxEoW
-*/

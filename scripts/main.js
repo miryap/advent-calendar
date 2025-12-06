@@ -12,6 +12,7 @@ function zoomAndMove(zoom = 2, viewRight = 0, viewDown = 0, duration = 1) {
 // zoomAndMove(3, -15, 0, 0); //first shared version
 // zoomAndMove(3, -20, -15, 0); //second shared version
 zoomAndMove(2, -20, 5, 0); //third shared version
+// zoomAndMove(2, -15, 5, 0); //fourth shared version
 
 //GLOBAL VARIABLES & FUNCTIONS
 const date = (d, m, y = 2025) => new Date(y, m - 1, d); //nb. month array starts at 0; new Date(y, m, d) reflects local timezone's midnight, vs new Date('2025-12-25') for UTC, vs new Date().toLocaleDateString("en-GB") for DD/MM/YYYY string; function parameter y = 2025 (alt. new Date().getFullYear()) sets the current year as the default value when y isn't specified
@@ -119,20 +120,37 @@ const playDay5 = () => {
 //DAY 6
 const boots = document.getElementById('nicolas-boots');
 const playDay6 = () => {
-    const visibility = document.getElementById('home3').querySelectorAll('.blackout');
+    const noneFilled = boots.querySelector('.boots.filled-none');
     const oneFilled = boots.querySelector('.boots.filled-one');
     const twoFilled = boots.querySelector('.boots.filled-two');
     const allFilled = boots.querySelector('.boots.filled-all');
-    const noneFilled = boots.querySelector('.boots.filled-none');
+    const visibility = document.getElementById('home3').querySelectorAll('.blackout');
+    [noneFilled, oneFilled, twoFilled, allFilled].forEach(el =>
+        el.classList.remove('animateBoots0', 'animateBoots1', 'animateBoots2', 'animateBoots3'));
     visibility.forEach(win => win.classList.remove('animateWindow'));
-    [oneFilled, twoFilled, allFilled, noneFilled].forEach(el =>
-        el.classList.remove('animateBoots1', 'animateBoots2', 'animateBoots3', 'animateBoots0'));
     void boots.offsetWidth;
-    visibility.forEach(win => win.classList.add('animateWindow'));
+    noneFilled.classList.add('animateBoots0');
     oneFilled.classList.add('animateBoots1');
     twoFilled.classList.add('animateBoots2');
     allFilled.classList.add('animateBoots3');
-    noneFilled.classList.add('animateBoots0');
+    visibility.forEach(win => win.classList.add('animateWindow'));
+    console.log('Boots animated!');
+}
+//DAY 7
+const lightsTree = document.getElementById('lights-tree');
+const lights = lightsTree.querySelectorAll('.light');
+const playDay7 = () => {
+    lights.forEach(l => l.classList.remove('animateLight'));
+    lights.forEach(l => l.classList.remove('lightOn'));
+    void lightsTree.offsetWidth;
+    lights.forEach(l => l.classList.add('animateLight'));
+    lights.forEach(l => l.classList.add('lightOn'));
+    console.log('Lights tree animated!');
+}
+
+//START FROM LIT STATE ON LATER DAYS (UNTIL DAY#??)
+if (today > date(7,12)) {
+    lights.forEach(l => l.classList.add('lightOn'));
 }
 
 //TODAY'S ANIMATION (ON PAGE LOAD), 1st ~ 25th DECEMBER
@@ -180,12 +198,19 @@ window.addEventListener("load", () => { //nb use of load not DOMContentLoaded - 
             }
         }, { once: true });
     } else if (isToday(date(6,12))) {
-        // if (!boots) return;
         boots.classList.add('animateTodaysAnimation');
         boots.addEventListener('animationend', (e) => {
             if (e.animationName === 'highlightTodaysAnimation') {
                 boots.classList.remove('animateTodaysAnimation');
                 playDay6();
+            }
+        }, { once: true });
+    } else if (isToday(date(7,12))) {
+        lightsTree.classList.add('animateTodaysAnimation');
+        lightsTree.addEventListener('animationend', (e) => {
+            if (e.animationName === 'highlightTodaysAnimation') {
+                lightsTree.classList.remove('animateTodaysAnimation');
+                playDay7();
             }
         }, { once: true });
     } else {
@@ -228,9 +253,21 @@ if (today >= date(6,12)) {
             console.log('Boots clicked!');
             playDay6();
     });}
+if (today >= date(7,12)) {
+    lightsTree.addEventListener('click', () => {
+            console.log('Lights tree clicked!');
+            playDay7();
+    });}
 // } else {
 //     console.log(`No clickable animations before 1st Dec 2025`);
 // }
+
+//TO TEST CLICKABILITY:
+// document.querySelector('#scene').style.pointerEvents = 'auto';
+// document.querySelectorAll('#scene section').forEach(s => s.style.outline = '1px solid red');
+// document.body.addEventListener('click', e => console.log('clicked', e.target));
+
+
 
 // function focusOnGridSection(section, zoom = 2.5, duration = 2000) {
 //   const viewport = document.getElementById('viewport');
