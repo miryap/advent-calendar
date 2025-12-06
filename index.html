@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="./stylesheets/reset.css" rel="stylesheet" type="text/css">
-        <link href="./stylesheets/styles.css?v=251204_2000" rel="stylesheet" type="text/css">
+        <link href="./stylesheets/styles.css?v=251206_1810" rel="stylesheet" type="text/css">
         <title>Advent Calendar</title>
         <!-- UNCOMMENT IF WANTING TO AUTOMATE - NB. MUST REMOVE ANY '?...' suffixes from files -->
         <!-- <script>
@@ -43,9 +43,9 @@
             </div>
             <div id="placement-grid">
                 <main id="scene">
-                    <section class="building home overflow">
-                        <figure id="home1">
-                            <div class="cuboid">
+                    <section id="secHme1">
+                        <figure id="home1" class="building home constructed edge">
+                            <div id="h1Bldng" class="cuboid">
                                 <div class="plane wall long front">
                                     <div class="window right">
                                         <div class="inside">
@@ -154,7 +154,7 @@
                                 </div>
                                 <div class="plane wall short left brick"></div>
                                 <div class="plane floor"></div>
-                            <div class="prism triangular">
+                            <div id="h1Roof" class="prism">
                                 <div class="plane roof front"></div>
                                 <div class="plane roof back"></div>
                                 <!-- <div class="plane roof right"></div>
@@ -162,7 +162,7 @@
                                 <div class="plane wall attic right brick"></div>
                                 <div class="plane wall attic left brick"></div>
                             </div>
-                            <div class="cuboid">
+                            <div id="h1Chimney" class="cuboid">
                                 <div class="plane wall chimney outside front"></div>
                                 <div class="plane wall chimney outside back"></div>
                                 <div class="plane wall chimney outside right"></div>
@@ -175,43 +175,88 @@
                                 <div class="plane wall chimney top back"></div>
                                 <div class="plane wall chimney top right"></div>
                                 <div class="plane wall chimney top left"></div>
+                            </div>
                         </figure>
                     </section>
-                    <section class="building shop overflow">
-                        <figure id="toy-shop"></figure>
+                    <section id="secShop">
+                        <figure id="toy-shop" class="building shop constructed edge"></figure>
                     </section>
-                    <section class="building home">
-                        <figure id="home2"></figure>
-                    </section>
-                    <section class="outside ">
+                    <section id="secOuts1" class="outside ">
                         <figure id="snowman"></figure>
                     </section>
-                    <section class="outside activity">
+                    <section id="secHme2">
+                        <figure id="home2" class="building home constructed"></figure>
+                    </section>
+                    <section id="secOuts2" class="outside activity">
                         <figure id="nav-sign"></figure>
                         <figure id="snowball-pile"></figure>
                     </section>
-                    <section class="building home">
-                        <figure id="home3"></figure>
+                    <section id="secHme3">
+                        <figure id="home3" class="building home constructed">
+                            <div id="h3Bldng" class="cuboid">
+                                <div class="plane wall long front">
+                                    <div class="window right">
+                                        <div class="inside">
+                                            <figure id="bg-xmas-tree"></figure>
+                                            <figure id="nicolas-boots" class="clickable">
+                                                <div class="wrapper">
+                                                    <div class="window-sill"></div>
+                                                    <div class="boots filled-none"></div>
+                                                    <div class="boots filled-one"></div>
+                                                    <div class="boots filled-two"></div>
+                                                    <div class="boots filled-all"></div>
+                                                </div>
+                                            </figure>
+                                            <div class="blackout"></div>
+                                        </div>
+                                    </div>
+                                    <div class="window left">
+                                        <div class="inside">
+                                            <div class="blackout"></div>
+                                        </div>
+                                    </div>
+                                    <div class="door"></div>
+                                    <div class="brick mid left"></div>
+                                    <div class="brick mid centre"></div>
+                                    <div class="brick mid right"></div>
+                                    <div class="brick top"></div>
+                                    <div class="brick bottom"></div>
+                                </div>
+                                <div class="plane wall long back brick"></div>
+                                <div class="plane wall short right brick">
+                                    <div class="window"></div>
+                                </div>
+                                <div class="plane wall short left brick"></div>
+                                <div class="plane floor"></div>
+                            </div>
+                            <div id="h3Roof" class="prism">
+                                <div class="plane roof front"></div>
+                                <div class="plane roof back"></div>
+                                <div class="plane wall attic right brick"></div>
+                                <div class="plane wall attic left brick"></div>
+                            </div>
+                            <div id="h3Chimney" class="cuboid"></div>
+                        </figure>
                     </section>
-                    <section class="outside activity">
+                    <section id="secOuts3" class="outside activity">
                         <figure id="carolers"></figure>
                         <figure id="lights-tree"></figure>
                     </section>
-                    <section class="building home img horizon">
-                        <figure id="home4"></figure>
+                    <section id="secHme4">
+                        <figure id="home4" class="building home img horizon"></figure>
                     </section>
-                    <section class="outside activity horizon">
+                    <section id="secOuts4" class="outside activity horizon">
                         <figure id="sleighing-hill"></figure>
                     </section>
-                    <section class="outside activity horizon">
+                    <section id="secOuts5" class="outside activity horizon">
                         <figure id="playground"></figure>
                         <figure id="bg-trees"></figure>
                         <figure id="bg-houses"></figure>
                     </section>
-                    <section class="building home img horizon">
-                        <figure id="homes5"></figure>
+                    <section id="secHme5">
+                        <figure id="homes5" class="building home img horizon"></figure>
                     </section>
-                    <section class="sky">
+                    <section id="secSky" class="sky">
                         <figure id="sun"></figure>
                         <figure id="clouds"></figure>
                         <figure id="santa-sleigh"></figure>
@@ -455,6 +500,6 @@
                 </section>
             </main> -->
         </div>
-        <script defer src="./scripts/main.js?v=251204_1915"></script>
+        <script defer src="./scripts/main.js?v=251206_1810"></script>
     </body>
 </html>

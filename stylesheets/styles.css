@@ -29,7 +29,9 @@ html, body {
   grid-template: "window-size" 1fr / 1fr;
 }
 
-/* OVERARCHING GRIDS */
+/* *********************************** */
+/* OVERARCHING GRIDS & SCENE PLACEMENT */
+/* *********************************** */
 
 #bg-colours-grid,
 #placement-grid {
@@ -168,160 +170,99 @@ html, body {
   perspective: 1300px;
   transform-style: preserve-3d;
 }
-#scene > section,
-#scene > section > figure,
-#scene > section > figure > .cube,
-#scene > section > figure > .cuboid,
-#scene > section > figure > .prism {
-  transform-style: preserve-3d;
+#scene #secHme1 { grid-area: G4B / G4B / G7B / G4G;
+                           /*G7K, 5 rows 6 cols, 3rd shared version */
+  /* grid-area: G6A / G6A / G9A / G6F; */
+           /*G9F, 4 rows 6 cols, pre-sharing*/
+  /* grid-area: G2E / G2E / G5E / G2J; */
+           /*G5J, 4 rows 6 cols, 1st shared version (without roof) */ 
+  /* grid-area: S3D / S3D / G4D / S3I;
+           /*G4I, 5 rows 6 cols, 2nd shared version (before adding home3) */
+  transform: translateZ(200px);
 }
-#scene .home.overflow { /*4 rows, 6 cols*/
-  /* grid-row: 1 / 5;
-  grid-column: 1 / 7; */
-  /* grid-row: 9 / 13;
-  grid-column: 1 / 7; */
-  /* grid-row: G6A / G9A; 
-  grid-column: G6A / G6F; */
-  /* grid-row: S1A / G9A;
-  grid-column: S1A / G1G; */
-  /*first shared version below:*/
-  /* grid-row: G2E / G5E;
-  grid-column: G2E / G2J; */
-  /*second shared version below:*/
-  grid-row: S3D / G4D;
-  grid-column: S3D / S3I;
-  /* background-color: yellow; */
-  /* justify-self: start;
-  align-self: end; */
-  position: relative;
+#scene #secHme2 {}
+#scene #secHme3 { grid-area: S3D / S3D / G4D / S3I;
+                           /*G4I, 5 rows 6 cols */
+  transform: translateZ(-200px);
 }
+#scene #secHme4 {}
+#scene #secHme5 {}
+#scene #secShop {}
+#scene #secOuts1 {}
+#scene #secOuts2 {}
+#scene #secOuts3 {}
+#scene #secOuts4 {}
+#scene #secOuts5 {}
+#scene #secSky {}
+
+/* **************************** */
+/* BUILDINGS & SCENE CONTAINERS */
+/* **************************** */
+
 #scene #home1 {
-  --base-size: calc(var(--grid-cell-length) * 1.5);
-  --house-l: calc(var(--base-size) * 3.7);
-  --house-w: calc(var(--base-size) * 2.5);
-  --house-h: calc(var(--base-size) * 2);
-  --roof-h: calc(var(--base-size) * 1.5);
-  --tilt-deg: 54deg;
-  --window-size: calc(var(--base-size));
-  /* position: absolute; */
-  /* right:0; */
-  /* right: calc(-1 * var(--window-size) * 1);
-  top: calc(-1 * var(--window-size) * 1.3); */
-  /* top: calc(-1 * var(--base-size)/2);
-  height: var(--base-size);
-  width: var(--base-size); */
-  height: var(--house-h);
-  width: var(--house-l);
+  /* --base-size: calc(var(--grid-cell-length) * 1.5); */
+  --house-l:     calc(var(--grid-cell-length) * 5.55);
+  --house-w:     calc(var(--grid-cell-length) * 3.75);
+  --house-h:     calc(var(--grid-cell-length) * 3);
+  --window-size: calc(var(--grid-cell-length) * 1.5);
+  --attic-h:     calc(var(--grid-cell-length) * 1.3);
+  --roof-h:      calc(var(--grid-cell-length) * 2.25);
+  --tilt-deg:    55deg; /*eliminate roof-h, tilt-deg later as dependent on attic-h & house-w*/
 }
-#scene #home1 .plane {
-  position: absolute;
-  /* border: brown solid 1px; */
+#scene #home3 {
+  --house-l:     calc(var(--grid-cell-length) * 5.55);
+  --house-w:     calc(var(--grid-cell-length) * 3.75);
+  --house-h:     calc(var(--grid-cell-length) * 3);
+  --window-size: calc(var(--grid-cell-length) * 1.5);
+  --attic-h:     calc(var(--grid-cell-length) * 1.3);
+  --roof-h:      calc(var(--grid-cell-length) * 2.25);
+  --tilt-deg:    55deg;
 }
-#scene #home1 .brick {
-  background-image: url("../media/imgs/tiles/bricks-8753855-alt_640.png");
-  background-size: auto calc(var(--base-size));
-  background-position: bottom;
-}
-#scene #home1 .prism.triangular {
-  /* outline: 4px dashed cyan; */
-  width: var(--house-l);
-  height: var(--roof-h);
-  transform-origin: top;
-  transform: rotateX(180deg);
-  transform-style: preserve-3d;
-}
-#scene #home1 .prism.triangular .roof {
-  width: 100%;
-  height: 100%;
+#scene #home1 .prism .roof { --bg-scale: 3; 
+  background-image: url("../media/imgs/tiles/roof/wood-1099960_640.jpg"); 
   /* background: rgba(0,255,255,0.1); */
-  background-image: url("../media/imgs/tiles/roof/wood-1099960_640.jpg");
-  background-size: auto calc(var(--base-size)*2);
-  background-position: bottom;
-  transform-origin: top;
 }
-#scene #home1 .prism.triangular .roof.front {
-  transform: rotateX(var(--tilt-deg));
+/* #scene #home3 .prism .roof { --bg-scale: 3.1; 
+  background-image: url("../media/imgs/tiles/roof/roof-8031972_640.png"); 
+} */
+#scene #home3 .prism .roof { --bg-scale: 3.1; 
+  background-image: url("../media/imgs/tiles/roof/theatre-2520420_purple-brown.png"); 
+  /* background: rgba(0,255,255,0.1); */
 }
-#scene #home1 .prism.triangular .roof.back {
-  transform: translateZ(var(--house-w)) rotateX(calc(-1*var(--tilt-deg)));
+#scene #home1 .brick { --bg-scale: 1.5; 
+  /* background: rgba(0,255,255,0.1); */
+  background-image: url("../media/imgs/tiles/bricks-8753855-alt_640.png"); 
 }
-#scene #home1 .prism.triangular .attic {
-  width: var(--house-w);
-  aspect-ratio: 2.85; /* equivalent to  --attic-h: calc(var(--base-size)*0.9) */
-  clip-path: polygon(50% 100%,100% 0,0 0); /*inverted triangle*/
-  transform-origin: top;
+#scene #home3 .brick { --bg-scale: 3.5; 
+  /* background: rgba(0,255,255,0.1); */
+  background-image: url("../media/imgs/tiles/bricks-orange-3749776_640.png");
 }
-#scene #home1 .prism.triangular .attic.left {
-  transform: rotateY(-90deg);
-}
-#scene #home1 .prism.triangular .attic.right {
-  transform: rotateY(-90deg) translateZ(calc(-1*var(--house-l)));
-}
-#scene #home1 .cuboid .wall.long {
-  height: var(--house-h);
-  width: var(--house-l);
-}
-#scene #home1 .cuboid .wall.short {
-  height: var(--house-h);
-  width: var(--house-w);
-}
-#scene #home1 .cuboid .floor {
-  height: var(--house-w);
-  width: var(--house-l);
-}
-#scene #home1 .cuboid .wall.left {
-  transform-origin: left;
-  transform: rotateY(90deg);
-}
-#scene #home1 .cuboid .wall.right {
-  transform-origin: left;
-  transform: rotateY(90deg) translateZ(var(--house-l));
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+/* #scene #home1 .prism .attic,
+#scene #home3 .prism .attic {
+  background-color: lime;
+} */
+#scene #home1 .cuboid .wall.back { background-image: url("../media/imgs/interior/fireplace-4599325_flipped_s.png");
+                                   background-position: bottom left; background-size: contain; }
+#scene #home3 .cuboid .wall.back { background-image: url("../media/imgs/interior/fireplace-5179720_640.png");
+                                   background-position: bottom center; background-size: contain; }
+#scene #home1 .cuboid .floor { background-color: #433645; }
+#scene #home3 .cuboid .floor { background-color: #433645; }
 #scene #home1 .cuboid .wall.right .window {
-  height: 56%;
-  margin-bottom: 5%;
   background-image: url("../media/imgs/windows/window-8769303_640.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+  margin-bottom: 5%;
+  height: 56%;
 }
-#scene #home1 .cuboid .floor {
-  transform-origin: top;
-  transform: rotateX(-90deg) translateZ(calc(var(--house-h)));
-  background-color: #433645;
-}
-#scene #home1 .cuboid .wall.back {
-  transform: translateZ(calc(-1 * var(--house-w)));
-  background-image: url("../media/imgs/interior/fireplace-4599325_flipped_s.png");
+#scene #home3 .cuboid .wall.right .window {
+  background-image: url("../media/imgs/windows/window-8769303_640.png");
   background-size: contain;
-  background-position: bottom left;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-bottom: 5%;
+  height: 56%;
 }
-#scene #home1 .cuboid .wall.front {
-  display: grid;
-  grid-template: "top  top  top  top  top  top  top"  1.5fr
-                 "midL midL midL winL midC winR midR" var(--window-size)
-                 "bot  bot  bot  bot  bot  bot  bot"  2fr / 1fr var(--window-size) 1fr var(--window-size) 2fr var(--window-size) 1fr;
-}
-#scene #home1 .cuboid .wall.front .top {
-  grid-area: top;
-}
-#scene #home1 .cuboid .wall.front .bottom {
-  grid-area: bot;
-}
-#scene #home1 .cuboid .wall.front .mid.left {
-  grid-area: midL;
-}
-#scene #home1 .cuboid .wall.front .mid.centre {
-  grid-area: midC;
-}
-#scene #home1 .cuboid .wall.front .mid.right {
-  grid-area: midR;
-}
-/* #scene #home1 .cuboid .wall.front .mid {
-} */
 #scene #home1 .cuboid .wall.front .door {
   grid-row: 1 / -1;
   grid-column: 2 / 3;
@@ -331,30 +272,310 @@ html, body {
   background-position: bottom center;
   z-index: 1;
 }
-#scene #home1 .cuboid .wall.front .window.left {
-  grid-area: winL;
-  background-image: url("../media/imgs/windows/window-frame-4036386_640.png");
-  background-size: cover;
+#scene #home3 .cuboid .wall.front .door {
+  grid-row: 1 / -1;
+  grid-column: 2 / 3;
+  background-image: url("../media/imgs/windows/door-575980_640.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  z-index: 1;
 }
-/* HOME1 WINDOW */
+#scene #home1 .cuboid .wall.front .window.left {
+  background-image: url("../media/imgs/windows/window-frame-4036386_640.png");
+}
+#scene #home3 .cuboid .wall.front .window.left {
+  background-image: url("../media/imgs/windows/window-frame-lg-4036386_640.png");
+}
 #scene #home1 .cuboid .wall.front .window.right {
-  grid-area: winR;
-  /* position: relative;
-  height: var(--window-size);
-  width: var(--window-size);
-  overflow: hidden; */
   --window-frame-outside: calc(var(--window-size) / 20);
   --window-frame-inside: calc(var(--window-size) / 25);
-  transform-style: preserve-3d;
+  --window-grid-track-count: 5;
+}
+#scene #home3 .cuboid .wall.front .window.right {
+  --window-frame-outside: calc(var(--window-size) / 20);
+  --window-frame-inside: calc(var(--window-size) / 25);
+  --window-grid-r-track-count: 6;
+  --window-grid-c-track-count: 9;
 }
 #scene #home1 .cuboid .wall.front .window.right .inside {
-  background-image: url("../media/imgs/windows/window-frame-lg-4036386_640.png");
-  background-size: cover;
-  /* transform: translateZ(calc(var(--grid-cell-length)/100 * -1)); */
-  display: grid;
-  grid-template-rows: var(--window-frame-outside) var(--window-frame-inside) repeat(5, 1fr) var(--window-frame-inside) var(--window-frame-outside);
-  grid-template-columns: var(--window-frame-outside) var(--window-frame-inside) repeat(5, 1fr) var(--window-frame-inside) var(--window-frame-outside);
+  grid-template-rows: var(--window-frame-outside) var(--window-frame-inside) repeat(var(--window-grid-track-count),1fr) var(--window-frame-inside) var(--window-frame-outside);
+  grid-template-columns: var(--window-frame-outside) var(--window-frame-inside) repeat(var(--window-grid-track-count),1fr) var(--window-frame-inside) var(--window-frame-outside);
 }
+#scene #home1 .cuboid .wall.front .window.right .inside::after { /* ::after paints after the element’s children, making it visually above them */
+  background-image: url("../media/imgs/windows/window-frame-lg-4036386_640.png");
+}
+#scene #home3 .cuboid .wall.front .window .inside {
+  grid-template-rows: var(--window-frame-outside) var(--window-frame-inside) repeat(var(--window-grid-r-track-count),1fr) var(--window-frame-inside) var(--window-frame-outside);
+  grid-template-columns: var(--window-frame-outside) var(--window-frame-inside) repeat(var(--window-grid-c-track-count),1fr) var(--window-frame-inside) var(--window-frame-outside);
+}
+#scene #home3 .cuboid .wall.front .window .inside::after {
+  background-image: url("../media/imgs/windows/window-frame-lg-4036386_640.png");
+}
+#scene #home3 .cuboid .wall.front .window.right .inside #bg-xmas-tree {
+  grid-row: 3 / -3;
+  grid-column: 3 / -3;
+  background-image: url("../media/imgs/trees/fir-tree-42473_640.png");
+  background-size: cover;
+}
+
+#scene > section,
+#scene > section > figure,
+#scene > section > figure > .cube,
+#scene > section > figure > .cuboid,
+#scene > section > figure > .prism {
+  transform-style: preserve-3d;
+}
+#scene .home.constructed .plane {
+  position: absolute;
+  /* outline: 4px dashed cyan; */
+  /* background: rgba(0,255,255,0.1); */
+}
+#scene .home.constructed {
+  height: var(--house-h);
+  width: var(--house-l);
+}
+#scene .home.constructed .cuboid .wall.long {
+  height: var(--house-h);
+  width: var(--house-l);
+}
+#scene .home.constructed .cuboid .wall.short {
+  height: var(--house-h);
+  width: var(--house-w);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#scene .home.constructed .cuboid .wall.left {
+  transform-origin: left; /*affects attic-wall if moved to .wall.short*/
+  transform: rotateY(90deg);
+}
+#scene .home.constructed .cuboid .wall.right {
+  transform-origin: left;
+  transform: rotateY(90deg) translateZ(var(--house-l));
+}
+#scene .home.constructed .cuboid .wall.back {
+  transform: translateZ(calc(-1 * var(--house-w)));
+}
+#scene .home.constructed .cuboid .floor {
+  height: var(--house-w);
+  width: var(--house-l);
+  transform-origin: top;
+  transform: rotateX(-90deg) translateZ(calc(var(--house-h)));
+}
+#scene .home.constructed .prism {
+  height: var(--roof-h);
+  width: var(--house-l);
+  transform-origin: top;
+  transform: rotateX(180deg);
+  transform-style: preserve-3d; /*duplicated as earlier rule doesn't want to apply*/
+}
+#scene .home.constructed .prism .roof {
+  width: 100%;
+  height: 100%;
+  transform-origin: top;
+  background-size: auto calc(var(--grid-cell-length) * var(--bg-scale,1));
+  background-position: bottom;
+}
+#scene .home.constructed .prism .roof.front {
+  transform: rotateX(var(--tilt-deg));
+}
+#scene .home.constructed .prism .roof.back {
+  transform: translateZ(var(--house-w)) rotateX(calc(-1*var(--tilt-deg)));
+}
+#scene .home.constructed .prism .attic {
+  height: var(--attic-h);
+  width: var(--house-w);
+  clip-path: polygon(50% 100%,100% 0,0 0); /*inverted triangle*/
+  transform-origin: left;
+}
+#scene .home.constructed .prism .attic.left {
+  transform: rotateY(-90deg);
+}
+#scene .home.constructed .prism .attic.right {
+  transform: rotateY(-90deg) translateZ(calc(-1*var(--house-l)));
+}
+#scene .home.constructed .brick {
+  background-size: auto calc(var(--grid-cell-length) * var(--bg-scale,1));
+  background-position: bottom;
+}
+#scene .home.constructed .cuboid .wall.front {
+  display: grid;
+  grid-template: "top  top  top  top  top  top  top"  1.5fr
+                 "midL midL midL winL midC winR midR" var(--window-size)
+                 "bot  bot  bot  bot  bot  bot  bot"  2fr / 1fr var(--window-size) 1fr var(--window-size) 2fr var(--window-size) 1fr;
+}
+#scene .home.constructed .cuboid .wall.front .top        { grid-area: top; }
+#scene .home.constructed .cuboid .wall.front .bottom     { grid-area: bot; }
+#scene .home.constructed .cuboid .wall.front .mid.left   { grid-area: midL; }
+#scene .home.constructed .cuboid .wall.front .mid.centre { grid-area: midC; }
+#scene .home.constructed .cuboid .wall.front .mid.right  { grid-area: midR; }
+
+#scene .home.constructed .cuboid .wall.front .window.left {
+  grid-area: winL;
+  background-size: cover;
+}
+#scene .home.constructed .cuboid .wall.front .window.right {
+  grid-area: winR;
+  transform-style: preserve-3d; /*necessary for postcard writing fly out*/
+}
+#scene .home.constructed .cuboid .wall.front .window .inside {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  position: relative;
+  /* overflow: visible; */
+}
+#scene .home.constructed .cuboid .wall.front .window .inside::after { /* ::after paints after the element’s children, making it visually above them */
+  content: "";
+  position: absolute;
+  inset: 0; /* inset = shorthand for top/right/bottom/left, so inset:0; = cover parent container's full size */
+  background-size: cover;
+  /* z-index: 10; */
+  pointer-events: none;
+}
+
+/* **************** */
+/* ANIMATED OBJECTS */
+/* **************** */
+
+/* HOME3 WINDOW - NIKOLAUSSTIEFEL FILLING BETWEEN BLACKOUTS */
+/* @keyframes fill {
+  0%,33%       { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent1.png"); }
+  33%,66%      { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent2.png"); }
+  66%,100%      { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent3.png"); }
+  100% { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent4.png"); }
+} */
+/* @keyframes hold {  
+  0%,100% { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent4.png"); }
+} */
+/* @keyframes empty {
+  0%,50% { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent4.png"); }
+  100% { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent1.png"); }
+} */
+@keyframes appear {
+  0%,25%        { opacity: 1;  /* filled-X visible */
+  }
+  25.0001%,100% { opacity: 0;  /* filled-X invisible for other filled-...'s to become visible in turn */
+  }
+}
+@keyframes blackOut {
+  0%, 49.5% { opacity: 0; }  /* lights on */
+  50.5%, 100% { opacity: 1; }  /* lights off */
+}
+@keyframes blackOut1 {
+   0%,  12.5%,
+  25.6%,37.5%,
+  50.6%,62.5%,
+  75.6%,87.5% {
+    /* background-color: transparent; */
+    opacity: 0; /* clear window */
+  }
+  12.6%,25.5%,
+  37.6%,50.5%,
+  62.6%,75.5%,
+  87.6%,99.5% {
+    /* background-color: black; */
+    opacity: 1; /* blackout frame */
+  }
+}
+@keyframes blackOut2 {
+  0%, 10%, 25%, 35%, 50%, 60%, 75%, 85%, 100% {
+    opacity: 0; /* clear window */
+  }
+  12%, 22%, 37%, 47%, 62%, 72%, 87%, 97% {
+    opacity: 1; /* blackout frame */
+  }
+}
+/*
+  --animationDuration: 10; /*seconds, but must stay unitless for loop-count calculations
+#scene #home1 #tv .loop-wrapper .animateTree2 {
+  animation: tree2 2s    0.150s linear infinite;
+  animation-iteration-count: calc(var(--animationDuration) / 2);
+}*/
+
+#scene #home3 {
+  --loop-duration: 13s;
+  --blackout-loop-duration: calc(var(--loop-duration)*1/4); /*turn off lights mid-way through each img duration*/
+  --swap-delay1: calc(var(--loop-duration)*1/4); /*switch to 2nd img */
+  --swap-delay2: calc(var(--loop-duration)*1/2); /*switch to 3rd img*/
+  --swap-delay3: calc(var(--loop-duration)*3/4); /*switch to 4th img*/
+  --final-blackout-delay: calc(var(--loop-duration) - var(--loop-duration)*1/4*1/2); /*so 4th img is held for a little longer before reverting to default*/
+  --boots-animation: appear steps(1, end);
+}
+#scene #home3 #nicolas-boots {
+  grid-row: -6 / -2;
+  grid-column: 4 / -4;
+}
+#scene #home3 #nicolas-boots .wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#scene #home3 #nicolas-boots .wrapper > div {
+  position: absolute;
+}
+#scene #home3 #nicolas-boots .window-sill {
+  width: 140%;
+  height: 20%;
+  background-color: #816647;
+  /* background-image: url('../media/imgs/tiles/wood-309841_640.png');
+  background-size: contain; */
+  bottom: 0;
+  left: -20%;
+}
+#scene #home3 #nicolas-boots .boots {
+  inset: 0;
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  opacity: 0;
+  /* z-index: 5; */
+}
+#scene #home3 #nicolas-boots .boots.filled-none {
+  background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent1.png");
+  opacity: 1;
+}
+#scene #home3 #nicolas-boots .filled-one { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent2.png"); }
+#scene #home3 #nicolas-boots .filled-two { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent3.png"); }
+#scene #home3 #nicolas-boots .filled-all { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent4.png"); }
+
+#scene #home3 #nicolas-boots .animateBoots0 {
+  animation: var(--boots-animation);
+  animation-duration: var(--loop-duration);
+}
+#scene #home3 #nicolas-boots .animateBoots1 {
+  animation: var(--boots-animation);
+  animation-duration: var(--loop-duration);
+  animation-delay: var(--swap-delay1);
+}
+#scene #home3 #nicolas-boots .animateBoots2 {
+  animation: var(--boots-animation);
+  animation-duration: var(--loop-duration);
+  animation-delay: var(--swap-delay2);
+}
+#scene #home3 #nicolas-boots .animateBoots3 {
+  animation: var(--boots-animation);
+  animation-duration: var(--loop-duration);
+  animation-delay: var(--swap-delay3);
+}
+#scene #home3 .cuboid .wall.front .window .inside .blackout {
+  grid-row: 3 / -3;
+  grid-column: 3 / -3;
+  position: absolute;
+  inset: 0;
+  background-color: #1B1212;
+  opacity: 0;
+  /* z-index: 8;
+  transform: translateZ(50px);
+  overflow: visible; */
+  pointer-events: none;
+}
+#scene #home3 .animateWindow {
+  animation: blackOut var(--blackout-loop-duration) linear 3 0s,
+             blackOut var(--blackout-loop-duration) linear 1 var(--final-blackout-delay);
+}
+
 /* HOME1 WINDOW - TREE WITH SHAKING BAUBLES */
 @keyframes tiltStem {
     30% {
