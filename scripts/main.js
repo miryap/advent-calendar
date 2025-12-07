@@ -149,7 +149,8 @@ const playDay7 = () => {
 }
 
 //START FROM LIT STATE ON LATER DAYS (UNTIL DAY#??)
-if (today > date(7,12)) {
+//nb date(d,m) is midnight on that date, so e.g. today > date(7,12) isn't >= date(8,12) (as inc all of 7,12 except midnight)
+if (today >= date(8,12)) {
     lights.forEach(l => l.classList.add('lightOn'));
 }
 
