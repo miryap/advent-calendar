@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="./stylesheets/reset.css" rel="stylesheet" type="text/css">
-        <link href="./stylesheets/styles.css?v=251206_2245" rel="stylesheet" type="text/css">
+        <link href="./stylesheets/styles.css?v=251207_2215" rel="stylesheet" type="text/css">
         <title>Advent Calendar</title>
         <!-- UNCOMMENT IF WANTING TO AUTOMATE - NB. MUST REMOVE ANY '?...' suffixes from files -->
         <!-- <script>
@@ -239,7 +239,17 @@
                         </figure>
                     </section>
                     <section id="secOuts3" class="outside activity">
-                        <figure id="carolers"></figure>
+                        <figure id="carolers" class="clickable">
+                            <div class="people"></div>
+                            <div class="staff"></div>
+                            <div class="note eighth"></div>
+                            <div class="note eighths"></div>
+                            <div class="note sixteenth"></div>
+                            <div class="tooltip">
+                                <span lang="en" class="lang lang-en"><em>Click/tap</em><br>for audio</span>
+                                <span lang="de" class="lang lang-de" hidden>Klicken/Tippen um Audio abzuspielen</span></div>
+                            <audio id="carolers-song" src="./media/audio/JoyToTheWorld_bells.mp3" preload="auto"></audio>
+                        </figure>
                         <figure id="lights-tree" class="clickable">
                             <div class="canvas">
                                 <div class="star tier0 centre">
@@ -499,6 +509,6 @@
                 </section>
             </main> -->
         </div>
-        <script defer src="./scripts/main.js?v=251207_1545"></script>
+        <script defer src="./scripts/main.js?v=251207_2215"></script>
     </body>
 </html>

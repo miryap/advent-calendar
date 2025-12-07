@@ -167,7 +167,7 @@ html, body {
   justify-items: center;
   align-items: center;
   pointer-events: none; /* clicks are ignored, to prevent blocking of nested scene grid animation clicks */
-  perspective: 1300px;
+  perspective: 1000px;
   transform-style: preserve-3d;
 }
 #scene #secHme1 { grid-area: G4B / G4B / G7B / G4G;
@@ -184,16 +184,16 @@ html, body {
 #scene #secHme2 {}
 #scene #secHme3 { grid-area: S3D / S3D / G4D / S3I;
                            /*G4I, 5 rows 6 cols */
-  transform: translateZ(-200px);
+  transform: translateZ(-300px);
 }
 #scene #secHme4 {}
 #scene #secHme5 {}
 #scene #secShop {}
 #scene #secOuts1 {}
 #scene #secOuts2 {}
-#scene #secOuts3 { grid-area: G3H / G3H / G6H / G3L;
+#scene #secOuts3 { grid-area: G2H / G2H / G6H / G2L;
                             /*G6L, 4 rows 5 cols */
-  transform: translateZ(-150px);
+  transform: translateZ(-200px);
 }
 #scene #secOuts4 {}
 #scene #secOuts5 {}
@@ -205,8 +205,8 @@ html, body {
 
 #scene #secOuts3 {
   display: grid;
-  grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
 }
 
 #scene #home1 {
@@ -465,12 +465,6 @@ html, body {
 /* ANIMATED OBJECTS */
 /* **************** */
 
-/* OUTSIDE3 SECTION - CAROLERS SINGING BESIDE TREE */
-  #scene #secOuts3 #carolers {
-    grid-row: 2 / -1;
-    grid-column: 3 / -1;
-  }
-
 /* OUTSIDE3 SECTION - TREE WITH FLICKERING FAIRY LIGHTS+STAR */
 @keyframes flickerOn {
 /* Adapted from Gradienty's flicker-in-2-normal animation generated on 2025-11-03 16:50
@@ -508,9 +502,10 @@ html, body {
     100% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25), 0 0 100px rgba(255, 255, 255, 0.1); }
 }
 #scene #secOuts3 #lights-tree {
-  grid-row: 1 / -1;
-  grid-column: 1 / 4;
-  --width: calc(var(--grid-cell-length) * 2.6); /*180px*/
+  grid-row: 1 / -2;
+  grid-column: 1 / 8;
+  z-index: 1;
+  --width: calc(var(--grid-cell-length) * 2.6);
   --height: calc(var(--width) * 1.5);
   --sphere-diameter: calc(var(--width) / 17);
   --star-diameter: calc(var(--width) / 5);
@@ -617,6 +612,178 @@ html, body {
               0 0 60px rgba(255, 255, 255, 0.45),
               0 0 110px rgba(255, 255, 255, 0.25),
               0 0 100px rgba(255, 255, 255, 0.1);
+}
+
+/* OUTSIDE3 SECTION - CAROLERS SINGING BESIDE TREE */
+@keyframes flynBlurIn {
+  0% {
+    transform: translate(50px, -80px) translateZ(-80px) scaleX(2.5) scaleY(0.2);
+    transform-origin: 0% 50%;
+    filter: blur(40px);
+    opacity: 0;
+  }
+  80% {
+    transform: translate(0) translateZ(30px) scaleY(1) scaleX(1);
+    transform-origin: 50% 50%;
+    filter: blur(5px);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0) translateZ(0px) scaleY(1) scaleX(1);
+    transform-origin: 50% 50%;
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+@keyframes stayThenFade {
+  0%,95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes ping { /*adapted from ping at https://animista.net/ */
+  0% {
+    transform: scale(0.2);
+    opacity: 0.8;
+  }
+  26.6% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  33.3% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  34%,100% {
+    opacity: 0;
+  }
+}
+@keyframes shake { /*adapted from shake-top at https://animista.net/ */
+  0%,100%     { opacity: 1; transform: rotate(0deg); transform-origin: 50% 0;
+  }
+  10%         { opacity: 1; transform: rotate(2deg);
+  }
+  20%,40%,60% { opacity: 1; transform: rotate(-4deg);
+  }
+  30%,50%,70% { opacity: 1; transform: rotate(4deg);
+  }
+  80%         { opacity: 1; ransform: rotate(-2deg);
+  }
+  90%         { opacity: 1; transform: rotate(2deg);
+  }
+}
+@keyframes puffOut { /*adapted from puff-out-center at https://animista.net/ */
+  0%   { opacity: 1; }
+  20%  { opacity: 1; transform: scale(1); filter: blur(0px);
+  }
+  100% { opacity: 0; transform: scale(2); filter: blur(4px);
+  }
+}
+#scene #secOuts3 #carolers {
+  grid-row: 4 / -1;
+  grid-column: 5 / -1;
+  z-index: 2;
+  --song-duration: 29s;
+  --staff-appear-duration: 2s;
+  --staff-stay-duration: calc(var(--song-duration) - var(--staff-appear-duration));
+  --note-loop-duration: 4.3s;
+  --note-loop-count: 6; /* round down: (29s-song - 3s-note1-delay) / 4.3s-note-loop */
+  --note1-delay: calc(var(--staff-appear-duration) + 1s);
+  --note2-delay: calc(var(--note1-delay) + var(--note-loop-duration)*1/3); /*switch to 2nd note*/
+  --note3-delay: calc(var(--note1-delay) + var(--note-loop-duration)*2/3); /*switch to 3rd note*/
+  --note-animation: ping var(--note-loop-duration) ease-in-out var(--note-loop-count);
+  display: grid;
+  grid-template-rows: repeat(9, 1fr);
+  grid-template-columns: repeat(9, 1fr);
+}
+#scene #secOuts3 #carolers div {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#scene #secOuts3 #carolers .people {
+  grid-row: -6 / -1;
+  grid-column: 1 / -1;
+  background-image: url('../media/imgs/people/carolers.png');
+}
+#scene #secOuts3 #carolers .staff {
+  grid-row: 1 / 5;
+  grid-column: 1 / -1;
+  background-image: url('../media/imgs/effects/notes-5407665_640.png');
+  /* animation: flynBlurIn 2s cubic-bezier(0.250, 0.460, 0.450, 0.940); */
+  opacity: 0;
+}
+#scene #secOuts3 #carolers .note {
+  opacity: 0;
+  /* animation: ping 2.5s ease-in-out 3; */
+}
+#scene #secOuts3 #carolers .eighth {
+  grid-area: 8 / 5 / span 1 / span 1;
+  background-image: url('../media/imgs/effects/note-151921_640.png');
+}
+#scene #secOuts3 #carolers .eighths {
+  grid-area: 4 / 4 / span 1 / span 1;
+  background-image: url('../media/imgs/effects/note-159509_640.png');
+}
+#scene #secOuts3 #carolers .sixteenth {
+  grid-area: 4 / 9 / span 1 / span 1;
+  background-image: url('../media/imgs/effects/note-151930_640.png');
+}
+#scene #secOuts3 #carolers .tooltip {
+  grid-row: -3 / -1;
+  grid-column: -6 / -1;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  --em-size: calc(var(--grid-cell-length)/4);
+  --scale-down-factor: 0.4;
+  font-size: calc(var(--em-size)*0.8);
+  /*slightly tweaked orig. from https://css-generators.com/tooltip-speech-bubble/ */
+  max-width: 15ch;
+  /* triangle dimension */
+  --b: calc(2*var(--em-size)*var(--scale-down-factor)); /* base */
+  --h: calc(1*var(--em-size)*var(--scale-down-factor)); /* height */
+  --p: 25%; /* triangle position (0%:left 100%:right) */
+  --r: calc(1.2*var(--em-size)*var(--scale-down-factor)); /* the radius */
+  --c: rgb(200,200,200,0.5);
+  /* padding: calc(1*var(--em-size)*var(--scale-down-factor)); */
+  border-radius: min(var(--r),var(--p) - var(--b)/2) min(var(--r),100% - var(--p) - var(--b)/2) var(--r) var(--r)/var(--r);
+  clip-path: polygon(0 0,0 100%,100% 100%,100% 0,
+    min(100%,var(--p) + var(--b)/2) 0,
+    var(--p) calc(-1*var(--h)),
+    max(0%  ,var(--p) - var(--b)/2) 0);
+  background: var(--c);
+  border-image: conic-gradient(var(--c) 0 0) fill 0/
+    0 calc(100% - var(--p) - var(--b)/2) var(--r) calc(var(--p) - var(--b)/2)/
+    var(--h) 0 0 0;
+}
+#scene #secOuts3 #carolers .tooltip em {
+  font-weight: bold;
+}
+#scene #secOuts3 #carolers.audio‑played .tooltip {
+  display: none !important; /* hides tooltip forever once music has played */
+}
+#scene #secOuts3 #carolers .animateTooltip {
+  animation: shake   0.8s 0.1s 2 cubic-bezier(0.455, 0.030, 0.515, 0.955),
+             puffOut 2s   1.7s 1 cubic-bezier(0.165, 0.840, 0.440, 1.000);
+}
+#scene #secOuts3 #carolers .animateStaff {
+  animation: flynBlurIn var(--staff-appear-duration) 0s cubic-bezier(0.250, 0.460, 0.450, 0.940),
+             stayThenFade var(--staff-stay-duration) var(--staff-appear-duration) ease-out;
+}
+#scene #secOuts3 #carolers .animateNote1 {
+  animation: var(--note-animation) var(--note1-delay);
+}
+#scene #secOuts3 #carolers .animateNote2 {
+  animation: var(--note-animation) var(--note2-delay);
+}
+#scene #secOuts3 #carolers .animateNote3 {
+  animation: var(--note-animation) var(--note3-delay);
 }
 
 /* HOME3 WINDOW - NIKOLAUSSTIEFEL FILLING BETWEEN BLACKOUTS */
@@ -2115,20 +2282,53 @@ https://freefrontend.com/css-spheres/
 */
 
 
-@keyframes highlightTodaysAnimation {
+@keyframes highlightTodaysAnimation1 {
+/*COLOUR CHANGING ROUND HALO - works on irregularly shaped parent wrappers*/
   0%, 80%, 100% {
     border-radius: 50%;
     box-shadow: none;
   }
   20%, 60% {
     border-radius: 50%;
-    box-shadow: 0px 5px 20px 10px rgba(165, 39, 255, 1);
+    /* box-shadow: 0px 5px 20px 10px rgba(165, 39, 255, 1); */
+    box-shadow: 0 0 25px 15px rgba(165, 39, 255, 1);
   }
   40% {
     border-radius: 50%;
-    box-shadow: 0px 5px 20px 10px orange;
+    /* box-shadow: 0px 5px 20px 10px orange; */
+    box-shadow: 0 0 25px 15px orange;
   }
 }
-.animateTodaysAnimation {
-  animation: highlightTodaysAnimation 3.5s ease-in;
+@keyframes highlightTodaysAnimation2 {
+/*COLOUR CHANGING RECTANGULAR HALO - works on rectangular parent wrappers*/
+  0%, 80%, 100% {
+    box-shadow: none;
+  }
+  20%, 60% {
+    box-shadow: 0 0 25px 15px rgba(165, 39, 255, 1);
+  }
+  40% {
+    box-shadow: 0 0 25px 15px orange;
+  }
+}
+@keyframes highlightTodaysAnimation3 {
+/*COLOUR CHANGING BACKDROP - works on no-wrap images with transparency & very large objects*/
+  0%,80%,100% {
+    filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+  }
+  20%,60% {
+    filter: drop-shadow(0 0 15px rgba(165, 39, 255, 1));
+  }
+  40% {
+    filter: drop-shadow(0 0 15px orange);
+  }
+}
+.animateTodaysAnimation1 {
+  animation: highlightTodaysAnimation1 3.5s ease-in;
+}
+.animateTodaysAnimation2 {
+  animation: highlightTodaysAnimation2 3.5s ease-in;
+}
+.animateTodaysAnimation3 {
+  animation: highlightTodaysAnimation3 3.5s ease-in;
 }

@@ -11,8 +11,8 @@ function zoomAndMove(zoom = 2, viewRight = 0, viewDown = 0, duration = 1) {
 }
 // zoomAndMove(3, -15, 0, 0); //first shared version
 // zoomAndMove(3, -20, -15, 0); //second shared version
-zoomAndMove(2, -20, 5, 0); //third shared version
-// zoomAndMove(2, -15, 5, 0); //fourth shared version
+// zoomAndMove(2, -20, 5, 0); //third shared version
+zoomAndMove(2, -15, 5, 0); //fourth shared version
 
 //GLOBAL VARIABLES & FUNCTIONS
 const date = (d, m, y = 2025) => new Date(y, m - 1, d); //nb. month array starts at 0; new Date(y, m, d) reflects local timezone's midnight, vs new Date('2025-12-25') for UTC, vs new Date().toLocaleDateString("en-GB") for DD/MM/YYYY string; function parameter y = 2025 (alt. new Date().getFullYear()) sets the current year as the default value when y isn't specified
@@ -147,6 +147,32 @@ const playDay7 = () => {
     lights.forEach(l => l.classList.add('lightOn'));
     console.log('Lights tree animated!');
 }
+//DAY 8
+const carolingSpace = document.getElementById('carolers');
+const carolers = carolingSpace.querySelector('.people');
+const tooltip = carolingSpace.querySelector('.tooltip');
+const playDay8 = () => {
+    const staff = carolingSpace.querySelector('.staff');
+    const note1 = carolingSpace.querySelector('.note.eighth');
+    const note2 = carolingSpace.querySelector('.note.eighths');
+    const note3 = carolingSpace.querySelector('.note.sixteenth');
+    const audio = document.getElementById('carolers-song');
+    [tooltip, staff, note1, note2, note3].forEach(el =>
+        el.classList.remove('animateTooltip', 'animateStaff', 'animateNote1', 'animateNote2', 'animateNote3'));
+    void carolingSpace.offsetWidth;
+    audio.pause(); //restarts audio from the beginning
+    audio.currentTime = 0; //to play together with animation
+    audio.play()
+        .then(() => {
+            carolingSpace.classList.add('audio‑played');}) //marks when audio succeeds in playing
+        .catch(err => console.warn('Audio play blocked:', err));
+    tooltip.classList.add('animateTooltip');
+    staff.classList.add('animateStaff');
+    note1.classList.add('animateNote1');
+    note2.classList.add('animateNote2');
+    note3.classList.add('animateNote3');
+    console.log('Carolers animated (with music)!');
+}
 
 //START FROM LIT STATE ON LATER DAYS (UNTIL DAY#??)
 //nb date(d,m) is midnight on that date, so e.g. today > date(7,12) isn't >= date(8,12) (as inc all of 7,12 except midnight)
@@ -159,59 +185,67 @@ if (today >= date(8,12)) {
 // else if (isToday(date(2,12))) {playStartAnimation(...animations.Day2)}
 window.addEventListener("load", () => { //nb use of load not DOMContentLoaded - latter fires once the DOM HTML has loaded even when images, external sources, etc are still loading
     if (isToday(date(1,12))) {
-        candlePair.classList.add('animateTodaysAnimation');
+        candlePair.classList.add('animateTodaysAnimation1');
         candlePair.addEventListener('animationend', (e) => {
-            if (e.animationName === 'highlightTodaysAnimation') {
-                candlePair.classList.remove('animateTodaysAnimation');
+            if (e.animationName === 'highlightTodaysAnimation1') {
+                candlePair.classList.remove('animateTodaysAnimation1');
                 playDay1();
             }
         }, { once: true }); // without this, would play indefinitely!
     } else if (isToday(date(2,12))) {
-        baubleTree.classList.add('animateTodaysAnimation');
+        baubleTree.classList.add('animateTodaysAnimation1');
         baubleTree.addEventListener('animationend', (e) => {
-            if (e.animationName === 'highlightTodaysAnimation') {
-                baubleTree.classList.remove('animateTodaysAnimation');
+            if (e.animationName === 'highlightTodaysAnimation1') {
+                baubleTree.classList.remove('animateTodaysAnimation1');
                 playDay2();
             }
         }, { once: true });
     } else if (isToday(date(3,12))) {
-        postcard.classList.add('animateTodaysAnimation');
+        postcard.classList.add('animateTodaysAnimation2');
         postcard.addEventListener('animationend', (e) => {
-            if (e.animationName === 'highlightTodaysAnimation') {
-                postcard.classList.remove('animateTodaysAnimation');
+            if (e.animationName === 'highlightTodaysAnimation2') {
+                postcard.classList.remove('animateTodaysAnimation2');
                 playDay3();
             }
         }, { once: true });
     } else if (isToday(date(4,12))) {
-        tv.classList.add('animateTodaysAnimation');
+        tv.classList.add('animateTodaysAnimation2');
         tv.addEventListener('animationend', (e) => {
-            if (e.animationName === 'highlightTodaysAnimation') {
-                tv.classList.remove('animateTodaysAnimation');
+            if (e.animationName === 'highlightTodaysAnimation2') {
+                tv.classList.remove('animateTodaysAnimation2');
                 playDay4();
             }
         }, { once: true });
     } else if (isToday(date(5,12))) {
-        balloon.classList.add('animateTodaysAnimation');
+        balloon.classList.add('animateTodaysAnimation1');
         balloonWithString.addEventListener('animationend', (e) => {
-            if (e.animationName === 'highlightTodaysAnimation') {
-                balloon.classList.remove('animateTodaysAnimation');
+            if (e.animationName === 'highlightTodaysAnimation1') {
+                balloon.classList.remove('animateTodaysAnimation1');
                 playDay5();
             }
         }, { once: true });
     } else if (isToday(date(6,12))) {
-        boots.classList.add('animateTodaysAnimation');
+        boots.classList.add('animateTodaysAnimation1');
         boots.addEventListener('animationend', (e) => {
-            if (e.animationName === 'highlightTodaysAnimation') {
-                boots.classList.remove('animateTodaysAnimation');
+            if (e.animationName === 'highlightTodaysAnimation1') {
+                boots.classList.remove('animateTodaysAnimation1');
                 playDay6();
             }
         }, { once: true });
     } else if (isToday(date(7,12))) {
-        lightsTree.classList.add('animateTodaysAnimation');
+        lightsTree.classList.add('animateTodaysAnimation3');
         lightsTree.addEventListener('animationend', (e) => {
-            if (e.animationName === 'highlightTodaysAnimation') {
-                lightsTree.classList.remove('animateTodaysAnimation');
+            if (e.animationName === 'highlightTodaysAnimation3') {
+                lightsTree.classList.remove('animateTodaysAnimation3');
                 playDay7();
+            }
+        }, { once: true });
+    } else if (isToday(date(8,12))) {
+        carolers.classList.add('animateTodaysAnimation3');
+        carolers.addEventListener('animationend', (e) => {
+            if (e.animationName === 'highlightTodaysAnimation3') {
+                carolers.classList.remove('animateTodaysAnimation3');
+                playDay8();
             }
         }, { once: true });
     } else {
@@ -258,6 +292,15 @@ if (today >= date(7,12)) {
     lightsTree.addEventListener('click', () => {
             console.log('Lights tree clicked!');
             playDay7();
+    });}
+if (today >= date(8,12)) {
+    carolers.addEventListener('click', () => {
+            console.log('Carolers clicked!');
+            playDay8();
+    });
+    tooltip.addEventListener('click', () => {
+            console.log('Carolers clicked!');
+            playDay8();
     });}
 // } else {
 //     console.log(`No clickable animations before 1st Dec 2025`);
