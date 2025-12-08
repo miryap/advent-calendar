@@ -13,7 +13,7 @@ function zoomAndMove(zoom = 2, viewRight = 0, viewDown = 0, duration = 1) {
 // zoomAndMove(3, -20, -15, 0); //second shared version
 // zoomAndMove(2, -20, 5, 0); //third shared version
 // zoomAndMove(2, -15, 5, 0); //fourth shared version
-
+zoomAndMove(2, -10, -1, 0); //fifth shared version
 
 //GLOBAL VARIABLES & FUNCTIONS
 const date = (d, m, y = 2025) => new Date(y, m - 1, d); //nb. month array starts at 0; new Date(y, m, d) reflects local timezone's midnight, vs new Date('2025-12-25') for UTC, vs new Date().toLocaleDateString("en-GB") for DD/MM/YYYY string; function parameter y = 2025 (alt. new Date().getFullYear()) sets the current year as the default value when y isn't specified

@@ -193,7 +193,8 @@ html, body {
                            /*G6H, 4 rows 5 cols, TBC NEW VERSION */
   /* grid-area: S3D / S3D / G4D / S3I;
               /*G4I, 5 rows 6 cols, 1st shared version (with only 3 sections defined) */
-  transform: translateZ(var(--distance-from-home1));
+  transform: translateZ(-350px);
+  /* transform: translateZ(var(--distance-from-home1)); */
 }
 #scene #secHme4 {}
 #scene #secHme5 { grid-area: S3A / S3A / G2A / S3E;
@@ -213,7 +214,7 @@ html, body {
 }
 #scene #secOuts5 { grid-area: S2H / S2H / G1H / S2O;
                             /*G1O, 3 rows 8 cols */
-  transform: translateZ(-400px);
+  transform: translateZ(-750px);
 }
 #scene #secSky {}
 
