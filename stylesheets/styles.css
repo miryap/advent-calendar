@@ -171,32 +171,50 @@ html, body {
   transform-style: preserve-3d;
 }
 #scene #secHme1 { grid-area: G4B / G4B / G7B / G4G;
-                           /*G7G, 5 rows 6 cols, 3rd shared version */
+              /*G7G, 4 rows 6 cols, 3rd shared version (with only 3 sections defined) */
+  /* grid-area: G6A / G6A / G6A / G9F; */
+                           /*G9F, 4 rows 6 cols, TBC NEW VERSION */
   /* grid-area: G6A / G6A / G9A / G6F; */
-           /*G9F, 4 rows 6 cols, pre-sharing*/
+              /*G9F, 4 rows 6 cols, pre-sharing*/
   /* grid-area: G2E / G2E / G5E / G2J; */
-           /*G5J, 4 rows 6 cols, 1st shared version (without roof) */ 
+              /*G5J, 4 rows 6 cols, 1st shared version (without roof) */ 
   /* grid-area: S3D / S3D / G4D / S3I;
-           /*G4I, 5 rows 6 cols, 2nd shared version (before adding home3) */
+              /*G4I, 5 rows 6 cols, 2nd shared version (b4 adding home3) */
+  /* grid-area: G4B / G4B / G7B / G4G;
+              /*G7G, 4 rows 6 cols, 3rd shared version (with only 3 sections defined) */
   /* transform: translateZ(200px); */
   /*IMPORTANT - seems like only minus Z-translate values are accepted for clickability*/
 }
 #scene #secHme2 {}
 #scene #secHme3 { grid-area: S3D / S3D / G4D / S3I;
-                           /*G4I, 5 rows 6 cols */
-  transform: translateZ(-300px);
+              /*G4I, 5 rows 6 cols, 1st shared version (with only 3 sections defined) */
+  /* grid-area: G6A / G6A / G6A / G9F; TEST(same coordinates as home#1) */
+  /* G3D / G3D / G6D / G3H; */
+                           /*G6H, 4 rows 5 cols, TBC NEW VERSION */
+  /* grid-area: S3D / S3D / G4D / S3I;
+              /*G4I, 5 rows 6 cols, 1st shared version (with only 3 sections defined) */
+  transform: translateZ(var(--distance-from-home1));
 }
 #scene #secHme4 {}
-#scene #secHme5 {}
+#scene #secHme5 { grid-area: S3A / S3A / G2A / S3E;
+                           /*G2E, 3 rows 5 cols */
+  transform: translateZ(-400px);
+}
 #scene #secShop {}
 #scene #secOuts1 {}
 #scene #secOuts2 {}
 #scene #secOuts3 { grid-area: G2H / G2H / G6H / G2L;
                             /*G6L, 4 rows 5 cols */
-  transform: translateZ(-200px);
+  transform: translateZ(-100px);
 }
-#scene #secOuts4 {}
-#scene #secOuts5 {}
+#scene #secOuts4 { grid-area: S3P / S3P / G3P / S3U;
+                            /*G3U, 4 rows 6 cols */
+  transform: translateZ(-400px);
+}
+#scene #secOuts5 { grid-area: S2H / S2H / G1H / S2O;
+                            /*G1O, 3 rows 8 cols */
+  transform: translateZ(-400px);
+}
 #scene #secSky {}
 
 /* **************************** */
@@ -208,6 +226,61 @@ html, body {
   grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
 }
+#scene #secOuts5 {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(9, 1fr);
+  grid-template-columns: repeat(18, 1fr);
+}
+#scene #secOuts5 #campfire {
+  grid-row: -3 / -1;
+  grid-column: 8 / 10;
+  z-index: 5;
+  background-image: url('../media/imgs/people/children-9947682_transp.png');
+}
+#scene #secOuts5 #bg-trees{
+  grid-row: 4 / -2;
+  grid-column: 10 / -2;
+  z-index: 4;
+}
+#scene #secOuts5 #playground {
+  grid-row: 3 / -3;
+  grid-column: 5 / 12;
+  z-index: 3;
+  background-image: url('../media/imgs/houses/climbing-frame-1997833_640.png');
+}
+#scene #secOuts5 #snowhill {
+  grid-row: 2 / -4;
+  grid-column: 1 / 12;
+  z-index: 2;
+  background-image: url('../media/imgs/houses/snow-pile-576572_640.png');
+}
+#scene #secOuts5 #bg-houses {
+  grid-row: 2 / 5;
+  grid-column: -11 / -4;
+  z-index: 1;
+  background-image: url('../media/imgs/houses/christmas-7615438_640.png');
+}
+#scene #secOuts5 > figure {
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+/* #scene #secHme5 {
+  background-color: orange;
+  height: 100%;
+  width: 100%;
+}
+#scene #homes5 {
+  background-image: url('../media/imgs/houses/winter-9191290_640.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#scene #secOuts4 {
+  background-color: yellow;
+  height: 100%;
+  width: 100%;
+} */
 
 #scene #home1 {
   /* --base-size: calc(var(--grid-cell-length) * 1.5); */
@@ -219,7 +292,8 @@ html, body {
   --roof-h:      calc(var(--grid-cell-length) * 2.25);
   --tilt-deg:    55deg; /*eliminate roof-h, tilt-deg later as dependent on attic-h & house-w*/
 }
-#scene #home3 {
+#scene #secHme3 {
+  --distance-from-home1: calc(var(--grid-cell-length) * 3.75 * -1.01);
   --house-l:     calc(var(--grid-cell-length) * 5.55);
   --house-w:     calc(var(--grid-cell-length) * 3.75);
   --house-h:     calc(var(--grid-cell-length) * 3);
@@ -464,591 +538,6 @@ html, body {
 /* **************** */
 /* ANIMATED OBJECTS */
 /* **************** */
-
-/* OUTSIDE3 SECTION - TREE WITH FLICKERING FAIRY LIGHTS+STAR */
-@keyframes flickerOn {
-/* Adapted from Gradienty's flicker-in-2-normal animation generated on 2025-11-03 16:50
-(changed opacity to colour swap, replaced box-shadow: none w/ --inset-base etc overlay for lights off state, added growing --light-spread glow for lights on state) */
-    0% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    10% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    10.1% { background-color: var(--colour2); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    10.2% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    20% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    20.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.5) rgba(255, 255, 255, 0.25); }
-    20.6% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    30% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    30.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.6) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
-    30.5% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.6) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
-    30.6% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    45% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    45.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
-    50% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
-    55% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
-    55.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    57% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    57.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.8) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3); }
-    60% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.8) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3); }
-    60.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    65% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    65.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.9) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3), 0 0 100px rgba(255, 255, 255, 0.1); }
-    75% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.9) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3), 0 0 100px rgba(255, 255, 255, 0.1); }
-    75.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    77% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    77.1% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4), 0 0 110px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 255, 255, 0.1); }
-    85% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4), 0 0 110px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 255, 255, 0.1); }
-    85.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    86% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
-    86.1% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25), 0 0 100px rgba(255, 255, 255, 0.1); }
-    100% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25), 0 0 100px rgba(255, 255, 255, 0.1); }
-}
-#scene #secOuts3 #lights-tree {
-  grid-row: 1 / -2;
-  grid-column: 1 / 8;
-  z-index: 1;
-  --width: calc(var(--grid-cell-length) * 2.6);
-  --height: calc(var(--width) * 1.5);
-  --sphere-diameter: calc(var(--width) / 17);
-  --star-diameter: calc(var(--width) / 5);
-  --light-spread: calc(var(--sphere-diameter) * 0.4);
-  --colour1: Gold;
-  --colour2: Yellow;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  transform-style: preserve-3d;
-  height: var(--height);
-  width: var(--width);
-}
-#scene #secOuts3 #lights-tree .canvas {
-  height: 100%;
-  width: 100%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-image: url("../media/imgs/trees/fir-tree-1086772_640_roundedStem.png");
-  display: grid;
-  grid-template-columns: 2fr repeat(9, 1fr) 2.5fr;
-  grid-template-rows: 1.6fr 0.6fr 0.7fr 0.9fr 1fr 0.9fr;
-  row-gap: calc(var(--width) / 10);
-  grid-template-areas: /* T=tier, L=left, C=centre, R=right  */
-      " .   .   .   .   .  T0C  .   .   .   .   . "
-      " .   .   .   .  T1L T1C T1R  .   .   .   . "
-      " .   .   .  T2L T2L T2C T2R T2R  .   .   . "
-      " .   .  T3L T3L T3C T3C T3C T3R T3R  .   . "
-      "T4L T4L T4L T4L T4C T4C T4C T4R T4R T4R T4R"
-      " .   .   .   .   .   .   .   .   .   .   . ";
-  justify-items: center;
-  transform-style: preserve-3d;
-}
-#scene #secOuts3 #lights-tree .left {
-  align-self: end;
-}
-#scene #secOuts3 #lights-tree .centre {
-  align-self: center;
-  margin-top: calc(var(--sphere-diameter) / 4);
-}
-#scene #secOuts3 #lights-tree .sphere.tier1.right {
-  margin-right: calc(var(--sphere-diameter) / 5);
-}
-#scene #secOuts3 #lights-tree .sphere.tier1.centre { grid-area: T1C; transform: scale(1.1); }
-#scene #secOuts3 #lights-tree .sphere.tier1.left   { grid-area: T1L;              transform: scale(0.9); }
-#scene #secOuts3 #lights-tree .sphere.tier1.right  { grid-area: T1R;              transform: scale(0.9); }
-#scene #secOuts3 #lights-tree .sphere.tier2.centre { grid-area: T2C; transform: scale(1.3); }
-#scene #secOuts3 #lights-tree .sphere.tier2.left   { grid-area: T2L;              transform: scale(1.1); }
-#scene #secOuts3 #lights-tree .sphere.tier2.right  { grid-area: T2R;              transform: scale(1.1); }
-#scene #secOuts3 #lights-tree .sphere.tier3.centre { grid-area: T3C; transform: scale(1.5); }
-#scene #secOuts3 #lights-tree .sphere.tier3.left   { grid-area: T3L;              transform: scale(1.3); }
-#scene #secOuts3 #lights-tree .sphere.tier3.right  { grid-area: T3R;              transform: scale(1.3); }
-#scene #secOuts3 #lights-tree .sphere.tier4.centre { grid-area: T4C; transform: scale(1.7); }
-#scene #secOuts3 #lights-tree .sphere.tier4.left   { grid-area: T4L;              transform: scale(1.5); }
-#scene #secOuts3 #lights-tree .sphere.tier4.right  { grid-area: T4R;              transform: scale(1.5); }
-#scene #secOuts3 #lights-tree .star {
-  grid-area: T0C;
-  align-self: start;
-  margin-left: calc(var(--star-diameter) / 8);
-  width: var(--star-diameter);
-  height: var(--star-diameter);
-  position: relative;
-}
-#scene #secOuts3 #lights-tree .star .shape {
-  --inset-base: calc(var(--star-diameter) / 8);
-  position: absolute;
-  width: var(--star-diameter);
-  aspect-ratio: 1;
-  clip-path: polygon(50% 0,
-    calc(50%*(1 + sin(.4turn))) calc(50%*(1 - cos(.4turn))),
-    calc(50%*(1 - sin(.2turn))) calc(50%*(1 - cos(.2turn))),
-    calc(50%*(1 + sin(.2turn))) calc(50%*(1 - cos(.2turn))),
-    calc(50%*(1 - sin(.4turn))) calc(50%*(1 - cos(.4turn)))
-  );
-}
-#scene #secOuts3 #lights-tree .star .glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* more accurate than alt. margin: calc(var(--star-diameter) / 3.05); */
-  width: calc(var(--star-diameter) / 3);
-  height: calc(var(--star-diameter) / 3);
-  --light-spread: calc(var(--star-diameter) * 0.35);
-  border-radius: 50%;
-  z-index: -1;
-}
-#scene #secOuts3 #lights-tree .sphere {
-  --inset-base: calc(var(--sphere-diameter) / 6);
-  width: var(--sphere-diameter);
-  height: var(--sphere-diameter);
-  border-radius: 50%;
-}
-#scene #secOuts3 #lights-tree .light {
-  background-color: var(--colour1);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset;
-}
-#scene #secOuts3 #lights-tree .animateLight {
-  animation: flickerOn 3s 0.1s linear /*forwards*/;
-}
-#scene #secOuts3 #lights-tree .lightOn { /*recreates forwards so can start lit up across days with js*/
-  background-color: var(--colour2);
-  box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6),
-              0 0 60px rgba(255, 255, 255, 0.45),
-              0 0 110px rgba(255, 255, 255, 0.25),
-              0 0 100px rgba(255, 255, 255, 0.1);
-}
-
-/* OUTSIDE3 SECTION - CAROLERS SINGING BESIDE TREE */
-@keyframes flynBlurIn {
-  0% {
-    transform: translate(50px, -80px) translateZ(-80px) scaleX(2.5) scaleY(0.2);
-    transform-origin: 0% 50%;
-    filter: blur(40px);
-    opacity: 0;
-  }
-  80% {
-    transform: translate(0) translateZ(30px) scaleY(1) scaleX(1);
-    transform-origin: 50% 50%;
-    filter: blur(5px);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(0) translateZ(0px) scaleY(1) scaleX(1);
-    transform-origin: 50% 50%;
-    filter: blur(0);
-    opacity: 1;
-  }
-}
-@keyframes stayThenFade {
-  0%,95% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes ping { /*adapted from ping at https://animista.net/ */
-  0% {
-    transform: scale(0.2);
-    opacity: 0.8;
-  }
-  26.6% {
-    transform: scale(1.2);
-    opacity: 0;
-  }
-  33.3% {
-    transform: scale(2.2);
-    opacity: 0;
-  }
-  34%,100% {
-    opacity: 0;
-  }
-}
-@keyframes shake { /*adapted from shake-top at https://animista.net/ */
-  0%,100%     { opacity: 1; transform: rotate(0deg); transform-origin: 50% 0;
-  }
-  10%         { opacity: 1; transform: rotate(2deg);
-  }
-  20%,40%,60% { opacity: 1; transform: rotate(-4deg);
-  }
-  30%,50%,70% { opacity: 1; transform: rotate(4deg);
-  }
-  80%         { opacity: 1; ransform: rotate(-2deg);
-  }
-  90%         { opacity: 1; transform: rotate(2deg);
-  }
-}
-@keyframes puffOut { /*adapted from puff-out-center at https://animista.net/ */
-  0%   { opacity: 1; }
-  20%  { opacity: 1; transform: scale(1); filter: blur(0px);
-  }
-  100% { opacity: 0; transform: scale(2); filter: blur(4px);
-  }
-}
-#scene #secOuts3 #carolers {
-  grid-row: 4 / -1;
-  grid-column: 5 / -1;
-  z-index: 2;
-  --song-duration: 29s;
-  --staff-appear-duration: 2s;
-  --staff-stay-duration: calc(var(--song-duration) - var(--staff-appear-duration));
-  --note-loop-duration: 4.3s;
-  --note1-delay: calc(var(--staff-appear-duration) + 1s);
-  --note2-delay: calc(var(--note1-delay) + var(--note-loop-duration)*1/3); /*switch to 2nd note*/
-  --note3-delay: calc(var(--note1-delay) + var(--note-loop-duration)*2/3); /*switch to 3rd note*/
-  --note-animation: ping var(--note-loop-duration) ease-in-out;
-  display: grid;
-  grid-template-rows: repeat(9, 1fr);
-  grid-template-columns: repeat(9, 1fr);
-}
-#scene #secOuts3 #carolers div {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-#scene #secOuts3 #carolers .people {
-  grid-row: -6 / -1;
-  grid-column: 1 / -1;
-  background-image: url('../media/imgs/people/carolers.png');
-}
-#scene #secOuts3 #carolers .staff {
-  grid-row: 1 / 5;
-  grid-column: 1 / -1;
-  background-image: url('../media/imgs/effects/notes-5407665_640.png');
-  /* animation: flynBlurIn 2s cubic-bezier(0.250, 0.460, 0.450, 0.940); */
-  opacity: 0;
-}
-#scene #secOuts3 #carolers .note {
-  opacity: 0;
-  /* animation: ping 2.5s ease-in-out 3; */
-}
-#scene #secOuts3 #carolers .eighth {
-  grid-area: 8 / 5 / span 1 / span 1;
-  background-image: url('../media/imgs/effects/note-151921_640.png');
-}
-#scene #secOuts3 #carolers .eighths {
-  grid-area: 4 / 4 / span 1 / span 1;
-  background-image: url('../media/imgs/effects/note-159509_640.png');
-}
-#scene #secOuts3 #carolers .sixteenth {
-  grid-area: 4 / 9 / span 1 / span 1;
-  background-image: url('../media/imgs/effects/note-151930_640.png');
-}
-#scene #secOuts3 #carolers .tooltip {
-  grid-row: -3 / -1;
-  grid-column: -6 / -1;
-  opacity: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  --em-size: calc(var(--grid-cell-length)/4);
-  --scale-down-factor: 0.4;
-  font-size: calc(var(--em-size)*0.8);
-  /*slightly tweaked orig. from https://css-generators.com/tooltip-speech-bubble/ */
-  max-width: 15ch;
-  /* triangle dimension */
-  --b: calc(2*var(--em-size)*var(--scale-down-factor)); /* base */
-  --h: calc(1*var(--em-size)*var(--scale-down-factor)); /* height */
-  --p: 25%; /* triangle position (0%:left 100%:right) */
-  --r: calc(1.2*var(--em-size)*var(--scale-down-factor)); /* the radius */
-  --c: rgb(200,200,200,0.5);
-  /* padding: calc(1*var(--em-size)*var(--scale-down-factor)); */
-  border-radius: min(var(--r),var(--p) - var(--b)/2) min(var(--r),100% - var(--p) - var(--b)/2) var(--r) var(--r)/var(--r);
-  clip-path: polygon(0 0,0 100%,100% 100%,100% 0,
-    min(100%,var(--p) + var(--b)/2) 0,
-    var(--p) calc(-1*var(--h)),
-    max(0%  ,var(--p) - var(--b)/2) 0);
-  background: var(--c);
-  border-image: conic-gradient(var(--c) 0 0) fill 0/
-    0 calc(100% - var(--p) - var(--b)/2) var(--r) calc(var(--p) - var(--b)/2)/
-    var(--h) 0 0 0;
-}
-#scene #secOuts3 #carolers .tooltip em {
-  font-weight: bold;
-}
-#scene #secOuts3 #carolers.audio‑played .tooltip {
-  display: none !important; /* hides tooltip forever once music has played */
-}
-#scene #secOuts3 #carolers .animateTooltip {
-  animation: shake   0.8s 0.1s 2 cubic-bezier(0.455, 0.030, 0.515, 0.955),
-             puffOut 2s   1.7s 1 cubic-bezier(0.165, 0.840, 0.440, 1.000);
-}
-#scene #secOuts3 #carolers .animateStaff {
-  animation: flynBlurIn var(--staff-appear-duration) 0s cubic-bezier(0.250, 0.460, 0.450, 0.940),
-             stayThenFade var(--staff-stay-duration) var(--staff-appear-duration) ease-out;
-}
-#scene #secOuts3 #carolers .animateNote1 {
-  animation: var(--note-animation) var(--note1-delay) 6; /* (29s-song - 3s-note1-delay) / 4.3s-note-loop = 6 rounded down */
-}
-#scene #secOuts3 #carolers .animateNote2 {
-  animation: var(--note-animation) var(--note2-delay) 6;
-}
-#scene #secOuts3 #carolers .animateNote3 {
-  animation: var(--note-animation) var(--note3-delay) 5; /* removed final note as music's fading out (already stopped) at this point */
-}
-
-/* HOME3 WINDOW - NIKOLAUSSTIEFEL FILLING BETWEEN BLACKOUTS */
-@keyframes appear {
-  0%,25%        { opacity: 1;  /* filled-X visible */
-  }
-  25.0001%,100% { opacity: 0;  /* filled-X invisible for other filled-...'s to become visible in turn */
-  }
-}
-@keyframes blackOut {
-  0%,49.5%   { opacity: 0;  /* lights on */
-  }
-  50.5%,100% { opacity: 1;  /* lights off */
-  }
-}
-#scene #home3 {
-  --loop-duration: 13s;
-  --blackout-loop-duration: calc(var(--loop-duration)*1/4); /* = per img visibility duration, half of which is lights on vs lights off */
-  --swap-delay1: calc(var(--loop-duration)*1/4); /*switch to 2nd img */
-  --swap-delay2: calc(var(--loop-duration)*1/2); /*switch to 3rd img*/
-  --swap-delay3: calc(var(--loop-duration)*3/4); /*switch to 4th img*/
-  --final-blackout-delay: calc(var(--loop-duration) - var(--loop-duration)*1/4*1/2); /*so 4th img is held for a little longer b4 reverting to default*/
-  --boots-animation: appear steps(1, end);
-}
-#scene #home3 #nicolas-boots {
-  grid-row: -6 / -2;
-  grid-column: 4 / -4;
-}
-#scene #home3 #nicolas-boots .wrapper {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-#scene #home3 #nicolas-boots .wrapper > div {
-  position: absolute;
-}
-#scene #home3 #nicolas-boots .window-sill {
-  width: 140%;
-  height: 20%;
-  background-color: #816647;
-  bottom: 0;
-  left: -20%;
-}
-#scene #home3 #nicolas-boots .boots {
-  inset: 0;
-  background-size: contain;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  opacity: 0;
-}
-#scene #home3 #nicolas-boots .boots.filled-none {
-  background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent1.png");
-  opacity: 1;
-}
-#scene #home3 #nicolas-boots .filled-one { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent2.png"); }
-#scene #home3 #nicolas-boots .filled-two { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent3.png"); }
-#scene #home3 #nicolas-boots .filled-all { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent4.png"); }
-
-#scene #home3 #nicolas-boots .animateBoots0 {
-  animation: var(--boots-animation);
-  animation-duration: var(--loop-duration);
-}
-#scene #home3 #nicolas-boots .animateBoots1 {
-  animation: var(--boots-animation);
-  animation-duration: var(--loop-duration);
-  animation-delay: var(--swap-delay1);
-}
-#scene #home3 #nicolas-boots .animateBoots2 {
-  animation: var(--boots-animation);
-  animation-duration: var(--loop-duration);
-  animation-delay: var(--swap-delay2);
-}
-#scene #home3 #nicolas-boots .animateBoots3 {
-  animation: var(--boots-animation);
-  animation-duration: var(--loop-duration);
-  animation-delay: var(--swap-delay3);
-}
-#scene #home3 .cuboid .wall.front .window .inside .blackout {
-  grid-row: 3 / -3;
-  grid-column: 3 / -3;
-  position: absolute;
-  inset: 0;
-  background-color: #1B1212;
-  opacity: 0;
-  /* transform: translateZ(50px);
-  overflow: visible; */
-  pointer-events: none;
-}
-#scene #home3 .animateWindow {
-  animation: blackOut var(--blackout-loop-duration) linear 3 0s, /* only 1st animation runs if default (0s, 1) values left unspecified */
-             blackOut var(--blackout-loop-duration) linear 1 var(--final-blackout-delay);
-}
-
-/* HOME1 WINDOW - TREE WITH SHAKING BAUBLES */
-@keyframes tiltStem {
-    30% {
-        transform: rotateZ(-0.5deg);
-    }
-    60% {
-        transform: rotateZ(0.2deg);
-    }
-    90% {
-        transform: rotateZ(-0.1deg);
-    }
-}
-@keyframes tiltBauble {
-    30% {
-        transform: translateZ(var(--z-offset)) rotateY(12deg) rotateX(-4deg) rotateZ(2deg);
-    }
-    60% {
-        transform: translateZ(var(--z-offset)) rotateY(9deg) rotateX(2deg) rotateZ(-1deg);
-    }
-    90% {
-        transform: translateZ(var(--z-offset)) rotateY(7deg) rotateX(-1deg);
-    }
-}
-@keyframes scaleBauble {
-    30% {
-        transform: scale(0.95) translate(calc(var(--move-unit) * -14), calc(var(--move-unit) * -8));
-    }
-    60% {
-        transform: scale(1.03) translate(calc(var(--move-unit) * 10), calc(var(--move-unit) * 5));
-    }
-    90% {
-        transform: scale(0.99) translate(calc(var(--move-unit) * -0.5), calc(var(--move-unit) * -1.5));
-    }
-}
-/* alt. direction fwd-left (nb. requires bauble tops' 6deg default rotation instead of -6deg): */
-/* @keyframes tiltBauble {
-    30% {
-        transform: translateZ(var(--z-offset)) rotateY(-12deg) rotateX(4deg) rotateZ(2deg);
-    }
-    60% {
-        transform: translateZ(var(--z-offset)) rotateY(-9deg) rotateX(-2deg) rotateZ(-1deg);
-    }
-    90% {
-        transform: translateZ(var(--z-offset)) rotateY(-7deg) rotateX(1deg);
-    }
-}
-@keyframes scaleBauble {
-    30% {
-        transform: scale(1.05) translate(calc(var(--move-unit) * -14), calc(var(--move-unit) * 8));
-    }
-    60% {
-        transform: scale(0.97) translate(calc(var(--move-unit) * 10), calc(var(--move-unit) * -5));
-    }
-    90% {
-        transform: scale(1.01) translate(calc(var(--move-unit) * -0.5), calc(var(--move-unit) * 1.5));
-    }
-} */
-#scene #home1 #bauble-tree {
-  grid-row: 2 / -2;
-  grid-column: 2 / 6;
-  z-index: -1;
-  height: calc(var(--window-size) - var(--window-frame-outside)*2);
-  /* width: auto; */
-  aspect-ratio: 1 / 1.3954;
-  /* width: calc(var(--window-size) - var(--window-frame-outside) * 2); */
-  /* height: auto; */
-  /* height: calc(var(--window-size) - var(--window-size) / 20 * 2); */
-  /* width: 100%; */
-  /* height: calc(var(--window-width) * 1.3954);
-  width: var(--window-width); */
-    /* --width: 440px;
-    --height: calc(var(--width) * 1.3954); */
-    /* --frame-width: calc(var(--width) / 20); */
-  --bauble-width: calc(var(--window-size)/1.3954 / 7 * var(--bauble-size-factor,1));
-    --move-unit: calc(var(--bauble-width) / 320);
-    --animation-speed1: 1s ease-in-out both;
-    --animation-speed2: 0.9s 0.1s ease-in-out both;
-    --grid-span: 20;
-    /* width: var(--height); */
-    /* display: grid;
-    grid-template-rows: calc(var(--frame-width)/2) auto calc(var(--frame-width)/2);
-    grid-template-columns: calc(var(--frame-width)/2) auto calc(var(--frame-width)/2); */
-    transform-style: preserve-3d;
-}
-/* #scene #home1 #bauble-tree .frame {
-    grid-area: 1 / 1 / -1 / -1;
-    border: var(--frame-width) solid #483C32;
-    z-index: 1;
-} */
-#scene #home1 #bauble-tree .canvas {
-    /* grid-area: 2 / 2 / -2 / -2; */
-    width: 100%;
-    height: 100%;
-    background-image: url("../media/imgs/trees/fir-trees-6578788_640.png");
-    background-size: cover;
-    background-position: bottom;
-    transform-origin: bottom left;
-    display: grid;
-    grid-template-rows: repeat(100, 1fr);
-    grid-template-columns: repeat(100, 1fr);
-    justify-items: center;
-}
-#scene #home1 #bauble-tree #bauble-red  { --hanging-point-col: 37; --hanging-point-row: 2;  }
-#scene #home1 #bauble-tree #bauble-blue { --hanging-point-col: 18; --hanging-point-row: 15; }
-#scene #home1 #bauble-tree #bauble-prpl { --hanging-point-col: 50; --hanging-point-row: 32; }
-#scene #home1 #bauble-tree #bauble-turq { --hanging-point-col: 23; --hanging-point-row: 54; }
-#scene #home1 #bauble-tree #bauble-gold { --hanging-point-col: 52; --hanging-point-row: 54; }
-#scene #home1 #bauble-tree #bauble-indg { --hanging-point-col: 78; --hanging-point-row: 66; }
-#scene #home1 #bauble-tree #bauble-pink { --hanging-point-col: 30; --hanging-point-row: 82;
-}
-#scene #home1 #bauble-tree .bauble {
-    grid-row: var(--hanging-point-row, 50) / span var(--grid-span);
-    grid-column: calc(var(--hanging-point-col, 50) - var(--grid-span)/2) / span var(--grid-span);
-    width: calc(var(--window-size)/1.3954 / 7 * var(--bauble-size-factor,1)); /* used in many calculations below, but cannot be saved into a variable as too many substitutions lead to browser time out before calculation is completed */
-    height: calc(var(--window-size)/1.3954/7*var(--bauble-size-factor,1) + var(--window-size)/1.3954/7*var(--bauble-size-factor,1)*230/320 - var(--window-size)/1.3954/7*var(--bauble-size-factor,1)*0.034226); /*= sphere-height + bauble-top-height - overlap (all based on bauble width) */
-    perspective: 300px; /* for depth illusion */
-    transform-style: preserve-3d;
-    position: relative;
-}
-#scene #home1 #bauble-tree .bauble.s  { --bauble-size-factor: 0.9; }
-#scene #home1 #bauble-tree .bauble.m  { --bauble-size-factor: 1;   }
-#scene #home1 #bauble-tree .bauble.l  { --bauble-size-factor: 1.1; }
-#scene #home1 #bauble-tree .bauble.xl { --bauble-size-factor: 1.2;
-}
-#scene #home1 #bauble-tree .bauble-part {
-    position: absolute;
-    width: 100%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    transform-style: preserve-3d;
-}
-#scene #home1 #bauble-tree .top {
-    --z-offset: calc(var(--window-size)/1.3954/7*var(--bauble-size-factor,1) * 0.07); /* z-offset/translateZ as z-index doesn't work when there's perspective */
-    transform: rotateY(-6deg) translateZ(var(--z-offset)); /* for alt. direction change to 6deg */
-    height: calc(var(--window-size)/1.3954/7*var(--bauble-size-factor,1) * 230/320);
-    transform-origin: top center;
-}
-#scene #home1 #bauble-tree .sphere {
-    bottom: 0;
-    background-position: bottom; /* this plus following properties together clip the image into a perfect sphere */
-    height: calc(var(--window-size)/1.3954 / 7 * var(--bauble-size-factor,1)); /* same as bauble width */
-    border-radius: 50%; /* circle shape */
-}
-#scene #home1 #bauble-tree #bauble-red  .top    { background-image: url(../media/imgs/baubles/bauble-1814941_640_top.png); }
-#scene #home1 #bauble-tree #bauble-red  .sphere { background-image: url(../media/imgs/baubles/bauble-1814941_640_bottom.png); }
-#scene #home1 #bauble-tree #bauble-blue .top    { background-image: url(../media/imgs/baubles/bauble-1814972_640_top.png); }
-#scene #home1 #bauble-tree #bauble-blue .sphere { background-image: url(../media/imgs/baubles/bauble-1814972_640_bottom.png); }
-#scene #home1 #bauble-tree #bauble-prpl .top    { background-image: url(../media/imgs/baubles/bauble-1814937_640_top.png); }
-#scene #home1 #bauble-tree #bauble-prpl .sphere { background-image: url(../media/imgs/baubles/bauble-1814937_640_bottom.png); }
-#scene #home1 #bauble-tree #bauble-turq .top    { background-image: url(../media/imgs/baubles/bauble-1814977_640_top.png); }
-#scene #home1 #bauble-tree #bauble-turq .sphere { background-image: url(../media/imgs/baubles/bauble-1814977_640_bottom.png); }
-#scene #home1 #bauble-tree #bauble-gold .top    { background-image: url(../media/imgs/baubles/bauble-1814949_640_top.png); }
-#scene #home1 #bauble-tree #bauble-gold .sphere { background-image: url(../media/imgs/baubles/bauble-1814949_640_bottom.png); }
-#scene #home1 #bauble-tree #bauble-indg .top    { background-image: url(../media/imgs/baubles/bauble-1814951_640_top.png); }
-#scene #home1 #bauble-tree #bauble-indg .sphere { background-image: url(../media/imgs/baubles/bauble-1814951_640_bottom.png); }
-#scene #home1 #bauble-tree #bauble-pink .top    { background-image: url(../media/imgs/baubles/bauble-1814943_640_top.png); }
-#scene #home1 #bauble-tree #bauble-pink .sphere { background-image: url(../media/imgs/baubles/bauble-1814943_640_bottom.png);
-}
-#scene #home1 #bauble-tree .animateTree {
-    animation: tiltStem var(--animation-speed1);
-}
-#scene #home1 #bauble-tree .free .animateFreeBaubleTop {
-    animation: tiltBauble var(--animation-speed1);
-}
-#scene #home1 #bauble-tree .free .animateFreeBaubleSphere {
-    animation: scaleBauble var(--animation-speed1);
-}
-#scene #home1 #bauble-tree .constricted .animateConstrictedBaubleTop {
-    animation: tiltBauble var(--animation-speed2);
-}
-#scene #home1 #bauble-tree .constricted .animateConstrictedBaubleSphere {
-    animation: scaleBauble var(--animation-speed2);
-}
 
 /* HOME1 WINDOW - CARTOON CANDLE PAIR, ONE BLOWING OUT THE OTHER */
 /* Adapted from original creation by Kevin David, example #36 at https://prismic.io/blog/css-animation-examples or at https://codepen.io/kevin_David_k/pen/eYNeQVY */
@@ -1345,6 +834,180 @@ html, body {
 }
 #scene #home1 #candles-pair .animateShortCandleSmoke2 {
   animation: move-top var(--animation-speed);
+}
+
+/* HOME1 WINDOW - TREE WITH SHAKING BAUBLES */
+@keyframes tiltStem {
+    30% {
+        transform: rotateZ(-0.5deg);
+    }
+    60% {
+        transform: rotateZ(0.2deg);
+    }
+    90% {
+        transform: rotateZ(-0.1deg);
+    }
+}
+@keyframes tiltBauble {
+    30% {
+        transform: translateZ(var(--z-offset)) rotateY(12deg) rotateX(-4deg) rotateZ(2deg);
+    }
+    60% {
+        transform: translateZ(var(--z-offset)) rotateY(9deg) rotateX(2deg) rotateZ(-1deg);
+    }
+    90% {
+        transform: translateZ(var(--z-offset)) rotateY(7deg) rotateX(-1deg);
+    }
+}
+@keyframes scaleBauble {
+    30% {
+        transform: scale(0.95) translate(calc(var(--move-unit) * -14), calc(var(--move-unit) * -8));
+    }
+    60% {
+        transform: scale(1.03) translate(calc(var(--move-unit) * 10), calc(var(--move-unit) * 5));
+    }
+    90% {
+        transform: scale(0.99) translate(calc(var(--move-unit) * -0.5), calc(var(--move-unit) * -1.5));
+    }
+}
+/* alt. direction fwd-left (nb. requires bauble tops' 6deg default rotation instead of -6deg): */
+/* @keyframes tiltBauble {
+    30% {
+        transform: translateZ(var(--z-offset)) rotateY(-12deg) rotateX(4deg) rotateZ(2deg);
+    }
+    60% {
+        transform: translateZ(var(--z-offset)) rotateY(-9deg) rotateX(-2deg) rotateZ(-1deg);
+    }
+    90% {
+        transform: translateZ(var(--z-offset)) rotateY(-7deg) rotateX(1deg);
+    }
+}
+@keyframes scaleBauble {
+    30% {
+        transform: scale(1.05) translate(calc(var(--move-unit) * -14), calc(var(--move-unit) * 8));
+    }
+    60% {
+        transform: scale(0.97) translate(calc(var(--move-unit) * 10), calc(var(--move-unit) * -5));
+    }
+    90% {
+        transform: scale(1.01) translate(calc(var(--move-unit) * -0.5), calc(var(--move-unit) * 1.5));
+    }
+} */
+#scene #home1 #bauble-tree {
+  grid-row: 2 / -2;
+  grid-column: 2 / 6;
+  z-index: -1;
+  height: calc(var(--window-size) - var(--window-frame-outside)*2);
+  /* width: auto; */
+  aspect-ratio: 1 / 1.3954;
+  /* width: calc(var(--window-size) - var(--window-frame-outside) * 2); */
+  /* height: auto; */
+  /* height: calc(var(--window-size) - var(--window-size) / 20 * 2); */
+  /* width: 100%; */
+  /* height: calc(var(--window-width) * 1.3954);
+  width: var(--window-width); */
+    /* --width: 440px;
+    --height: calc(var(--width) * 1.3954); */
+    /* --frame-width: calc(var(--width) / 20); */
+  --bauble-width: calc(var(--window-size)/1.3954 / 7 * var(--bauble-size-factor,1));
+    --move-unit: calc(var(--bauble-width) / 320);
+    --animation-speed1: 1s ease-in-out both;
+    --animation-speed2: 0.9s 0.1s ease-in-out both;
+    --grid-span: 20;
+    /* width: var(--height); */
+    /* display: grid;
+    grid-template-rows: calc(var(--frame-width)/2) auto calc(var(--frame-width)/2);
+    grid-template-columns: calc(var(--frame-width)/2) auto calc(var(--frame-width)/2); */
+    transform-style: preserve-3d;
+}
+/* #scene #home1 #bauble-tree .frame {
+    grid-area: 1 / 1 / -1 / -1;
+    border: var(--frame-width) solid #483C32;
+    z-index: 1;
+} */
+#scene #home1 #bauble-tree .canvas {
+    /* grid-area: 2 / 2 / -2 / -2; */
+    width: 100%;
+    height: 100%;
+    background-image: url("../media/imgs/trees/fir-trees-6578788_640.png");
+    background-size: cover;
+    background-position: bottom;
+    transform-origin: bottom left;
+    display: grid;
+    grid-template-rows: repeat(100, 1fr);
+    grid-template-columns: repeat(100, 1fr);
+    justify-items: center;
+}
+#scene #home1 #bauble-tree #bauble-red  { --hanging-point-col: 37; --hanging-point-row: 2;  }
+#scene #home1 #bauble-tree #bauble-blue { --hanging-point-col: 18; --hanging-point-row: 15; }
+#scene #home1 #bauble-tree #bauble-prpl { --hanging-point-col: 50; --hanging-point-row: 32; }
+#scene #home1 #bauble-tree #bauble-turq { --hanging-point-col: 23; --hanging-point-row: 54; }
+#scene #home1 #bauble-tree #bauble-gold { --hanging-point-col: 52; --hanging-point-row: 54; }
+#scene #home1 #bauble-tree #bauble-indg { --hanging-point-col: 78; --hanging-point-row: 66; }
+#scene #home1 #bauble-tree #bauble-pink { --hanging-point-col: 30; --hanging-point-row: 82;
+}
+#scene #home1 #bauble-tree .bauble {
+    grid-row: var(--hanging-point-row, 50) / span var(--grid-span);
+    grid-column: calc(var(--hanging-point-col, 50) - var(--grid-span)/2) / span var(--grid-span);
+    width: calc(var(--window-size)/1.3954 / 7 * var(--bauble-size-factor,1)); /* used in many calculations below, but cannot be saved into a variable as too many substitutions lead to browser time out before calculation is completed */
+    height: calc(var(--window-size)/1.3954/7*var(--bauble-size-factor,1) + var(--window-size)/1.3954/7*var(--bauble-size-factor,1)*230/320 - var(--window-size)/1.3954/7*var(--bauble-size-factor,1)*0.034226); /*= sphere-height + bauble-top-height - overlap (all based on bauble width) */
+    perspective: 300px; /* for depth illusion */
+    transform-style: preserve-3d;
+    position: relative;
+}
+#scene #home1 #bauble-tree .bauble.s  { --bauble-size-factor: 0.9; }
+#scene #home1 #bauble-tree .bauble.m  { --bauble-size-factor: 1;   }
+#scene #home1 #bauble-tree .bauble.l  { --bauble-size-factor: 1.1; }
+#scene #home1 #bauble-tree .bauble.xl { --bauble-size-factor: 1.2;
+}
+#scene #home1 #bauble-tree .bauble-part {
+    position: absolute;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform-style: preserve-3d;
+}
+#scene #home1 #bauble-tree .top {
+    --z-offset: calc(var(--window-size)/1.3954/7*var(--bauble-size-factor,1) * 0.07); /* z-offset/translateZ as z-index doesn't work when there's perspective */
+    transform: rotateY(-6deg) translateZ(var(--z-offset)); /* for alt. direction change to 6deg */
+    height: calc(var(--window-size)/1.3954/7*var(--bauble-size-factor,1) * 230/320);
+    transform-origin: top center;
+}
+#scene #home1 #bauble-tree .sphere {
+    bottom: 0;
+    background-position: bottom; /* this plus following properties together clip the image into a perfect sphere */
+    height: calc(var(--window-size)/1.3954 / 7 * var(--bauble-size-factor,1)); /* same as bauble width */
+    border-radius: 50%; /* circle shape */
+}
+#scene #home1 #bauble-tree #bauble-red  .top    { background-image: url(../media/imgs/baubles/bauble-1814941_640_top.png); }
+#scene #home1 #bauble-tree #bauble-red  .sphere { background-image: url(../media/imgs/baubles/bauble-1814941_640_bottom.png); }
+#scene #home1 #bauble-tree #bauble-blue .top    { background-image: url(../media/imgs/baubles/bauble-1814972_640_top.png); }
+#scene #home1 #bauble-tree #bauble-blue .sphere { background-image: url(../media/imgs/baubles/bauble-1814972_640_bottom.png); }
+#scene #home1 #bauble-tree #bauble-prpl .top    { background-image: url(../media/imgs/baubles/bauble-1814937_640_top.png); }
+#scene #home1 #bauble-tree #bauble-prpl .sphere { background-image: url(../media/imgs/baubles/bauble-1814937_640_bottom.png); }
+#scene #home1 #bauble-tree #bauble-turq .top    { background-image: url(../media/imgs/baubles/bauble-1814977_640_top.png); }
+#scene #home1 #bauble-tree #bauble-turq .sphere { background-image: url(../media/imgs/baubles/bauble-1814977_640_bottom.png); }
+#scene #home1 #bauble-tree #bauble-gold .top    { background-image: url(../media/imgs/baubles/bauble-1814949_640_top.png); }
+#scene #home1 #bauble-tree #bauble-gold .sphere { background-image: url(../media/imgs/baubles/bauble-1814949_640_bottom.png); }
+#scene #home1 #bauble-tree #bauble-indg .top    { background-image: url(../media/imgs/baubles/bauble-1814951_640_top.png); }
+#scene #home1 #bauble-tree #bauble-indg .sphere { background-image: url(../media/imgs/baubles/bauble-1814951_640_bottom.png); }
+#scene #home1 #bauble-tree #bauble-pink .top    { background-image: url(../media/imgs/baubles/bauble-1814943_640_top.png); }
+#scene #home1 #bauble-tree #bauble-pink .sphere { background-image: url(../media/imgs/baubles/bauble-1814943_640_bottom.png);
+}
+#scene #home1 #bauble-tree .animateTree {
+    animation: tiltStem var(--animation-speed1);
+}
+#scene #home1 #bauble-tree .free .animateFreeBaubleTop {
+    animation: tiltBauble var(--animation-speed1);
+}
+#scene #home1 #bauble-tree .free .animateFreeBaubleSphere {
+    animation: scaleBauble var(--animation-speed1);
+}
+#scene #home1 #bauble-tree .constricted .animateConstrictedBaubleTop {
+    animation: tiltBauble var(--animation-speed2);
+}
+#scene #home1 #bauble-tree .constricted .animateConstrictedBaubleSphere {
+    animation: scaleBauble var(--animation-speed2);
 }
 
 /* HOME1 WINDOW - POSTCARD FLYING OUT & TURNING OVER */
@@ -1711,6 +1374,484 @@ html, body {
   animation: heartbeat 1s ease 3;
 }
 
+/* HOME3 WINDOW - NIKOLAUSSTIEFEL FILLING BETWEEN BLACKOUTS */
+@keyframes appear {
+  0%,25%        { opacity: 1;  /* filled-X visible */
+  }
+  25.0001%,100% { opacity: 0;  /* filled-X invisible for other filled-...'s to become visible in turn */
+  }
+}
+@keyframes blackOut {
+  0%,49.5%   { opacity: 0;  /* lights on */
+  }
+  50.5%,100% { opacity: 1;  /* lights off */
+  }
+}
+#scene #home3 {
+  --loop-duration: 13s;
+  --blackout-loop-duration: calc(var(--loop-duration)*1/4); /* = per img visibility duration, half of which is lights on vs lights off */
+  --swap-delay1: calc(var(--loop-duration)*1/4); /*switch to 2nd img */
+  --swap-delay2: calc(var(--loop-duration)*1/2); /*switch to 3rd img*/
+  --swap-delay3: calc(var(--loop-duration)*3/4); /*switch to 4th img*/
+  --final-blackout-delay: calc(var(--loop-duration) - var(--loop-duration)*1/4*1/2); /*so 4th img is held for a little longer b4 reverting to default*/
+  --boots-animation: appear steps(1, end);
+}
+#scene #home3 #nicolas-boots {
+  grid-row: -6 / -2;
+  grid-column: 4 / -4;
+}
+#scene #home3 #nicolas-boots .wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#scene #home3 #nicolas-boots .wrapper > div {
+  position: absolute;
+}
+#scene #home3 #nicolas-boots .window-sill {
+  width: 140%;
+  height: 20%;
+  background-color: #816647;
+  bottom: 0;
+  left: -20%;
+}
+#scene #home3 #nicolas-boots .boots {
+  inset: 0;
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  opacity: 0;
+}
+#scene #home3 #nicolas-boots .boots.filled-none {
+  background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent1.png");
+  opacity: 1;
+}
+#scene #home3 #nicolas-boots .filled-one { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent2.png"); }
+#scene #home3 #nicolas-boots .filled-two { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent3.png"); }
+#scene #home3 #nicolas-boots .filled-all { background-image: url("../media/imgs/nicholas-boots/19af06624b623_transparent4.png"); }
+
+#scene #home3 #nicolas-boots .animateBoots0 {
+  animation: var(--boots-animation);
+  animation-duration: var(--loop-duration);
+}
+#scene #home3 #nicolas-boots .animateBoots1 {
+  animation: var(--boots-animation);
+  animation-duration: var(--loop-duration);
+  animation-delay: var(--swap-delay1);
+}
+#scene #home3 #nicolas-boots .animateBoots2 {
+  animation: var(--boots-animation);
+  animation-duration: var(--loop-duration);
+  animation-delay: var(--swap-delay2);
+}
+#scene #home3 #nicolas-boots .animateBoots3 {
+  animation: var(--boots-animation);
+  animation-duration: var(--loop-duration);
+  animation-delay: var(--swap-delay3);
+}
+#scene #home3 .cuboid .wall.front .window .inside .blackout {
+  grid-row: 3 / -3;
+  grid-column: 3 / -3;
+  position: absolute;
+  inset: 0;
+  background-color: #1B1212;
+  opacity: 0;
+  /* transform: translateZ(50px);
+  overflow: visible; */
+  pointer-events: none;
+}
+#scene #home3 .animateWindow {
+  animation: blackOut var(--blackout-loop-duration) linear 3 0s, /* only 1st animation runs if default (0s, 1) values left unspecified */
+             blackOut var(--blackout-loop-duration) linear 1 var(--final-blackout-delay);
+}
+
+/* OUTSIDE#3 SECTION - TREE WITH FLICKERING FAIRY LIGHTS+STAR */
+@keyframes flickerOn {
+/* Adapted from Gradienty's flicker-in-2-normal animation generated on 2025-11-03 16:50
+(changed opacity to colour swap, replaced box-shadow: none w/ --inset-base etc overlay for lights off state, added growing --light-spread glow for lights on state) */
+    0% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    10% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    10.1% { background-color: var(--colour2); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    10.2% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    20% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    20.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.5) rgba(255, 255, 255, 0.25); }
+    20.6% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    30% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    30.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.6) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
+    30.5% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.6) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
+    30.6% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    45% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    45.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
+    50% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
+    55% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.7) rgba(255, 255, 255, 0.45), 0 0 60px rgba(255, 255, 255, 0.25); }
+    55.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    57% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    57.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.8) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3); }
+    60% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.8) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3); }
+    60.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    65% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    65.1% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.9) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3), 0 0 100px rgba(255, 255, 255, 0.1); }
+    75% { background-color: var(--colour2); box-shadow: 0 0 30px calc(var(--light-spread) * 0.9) rgba(255, 255, 255, 0.55), 0 0 60px rgba(255, 255, 255, 0.3), 0 0 100px rgba(255, 255, 255, 0.1); }
+    75.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    77% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    77.1% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4), 0 0 110px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 255, 255, 0.1); }
+    85% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4), 0 0 110px rgba(255, 255, 255, 0.2), 0 0 100px rgba(255, 255, 255, 0.1); }
+    85.1% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    86% { background-color: var(--colour1); box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset; }
+    86.1% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25), 0 0 100px rgba(255, 255, 255, 0.1); }
+    100% { background-color: var(--colour2); box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.45), 0 0 110px rgba(255, 255, 255, 0.25), 0 0 100px rgba(255, 255, 255, 0.1); }
+}
+#scene #secOuts3 #lights-tree {
+  grid-row: 1 / -2;
+  grid-column: 1 / 8;
+  z-index: 1;
+  --width: calc(var(--grid-cell-length) * 2.6);
+  --height: calc(var(--width) * 1.5);
+  --sphere-diameter: calc(var(--width) / 17);
+  --star-diameter: calc(var(--width) / 5);
+  --light-spread: calc(var(--sphere-diameter) * 0.4);
+  --colour1: Gold;
+  --colour2: Yellow;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  transform-style: preserve-3d;
+  height: var(--height);
+  width: var(--width);
+}
+#scene #secOuts3 #lights-tree .canvas {
+  height: 100%;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-image: url("../media/imgs/trees/fir-tree-1086772_640_roundedStem.png");
+  display: grid;
+  grid-template-columns: 2fr repeat(9, 1fr) 2.5fr;
+  grid-template-rows: 1.6fr 0.6fr 0.7fr 0.9fr 1fr 0.9fr;
+  row-gap: calc(var(--width) / 10);
+  grid-template-areas: /* T=tier, L=left, C=centre, R=right  */
+      " .   .   .   .   .  T0C  .   .   .   .   . "
+      " .   .   .   .  T1L T1C T1R  .   .   .   . "
+      " .   .   .  T2L T2L T2C T2R T2R  .   .   . "
+      " .   .  T3L T3L T3C T3C T3C T3R T3R  .   . "
+      "T4L T4L T4L T4L T4C T4C T4C T4R T4R T4R T4R"
+      " .   .   .   .   .   .   .   .   .   .   . ";
+  justify-items: center;
+  transform-style: preserve-3d;
+}
+#scene #secOuts3 #lights-tree .left {
+  align-self: end;
+}
+#scene #secOuts3 #lights-tree .centre {
+  align-self: center;
+  margin-top: calc(var(--sphere-diameter) / 4);
+}
+#scene #secOuts3 #lights-tree .sphere.tier1.right {
+  margin-right: calc(var(--sphere-diameter) / 5);
+}
+#scene #secOuts3 #lights-tree .sphere.tier1.centre { grid-area: T1C; transform: scale(1.1); }
+#scene #secOuts3 #lights-tree .sphere.tier1.left   { grid-area: T1L;              transform: scale(0.9); }
+#scene #secOuts3 #lights-tree .sphere.tier1.right  { grid-area: T1R;              transform: scale(0.9); }
+#scene #secOuts3 #lights-tree .sphere.tier2.centre { grid-area: T2C; transform: scale(1.3); }
+#scene #secOuts3 #lights-tree .sphere.tier2.left   { grid-area: T2L;              transform: scale(1.1); }
+#scene #secOuts3 #lights-tree .sphere.tier2.right  { grid-area: T2R;              transform: scale(1.1); }
+#scene #secOuts3 #lights-tree .sphere.tier3.centre { grid-area: T3C; transform: scale(1.5); }
+#scene #secOuts3 #lights-tree .sphere.tier3.left   { grid-area: T3L;              transform: scale(1.3); }
+#scene #secOuts3 #lights-tree .sphere.tier3.right  { grid-area: T3R;              transform: scale(1.3); }
+#scene #secOuts3 #lights-tree .sphere.tier4.centre { grid-area: T4C; transform: scale(1.7); }
+#scene #secOuts3 #lights-tree .sphere.tier4.left   { grid-area: T4L;              transform: scale(1.5); }
+#scene #secOuts3 #lights-tree .sphere.tier4.right  { grid-area: T4R;              transform: scale(1.5); }
+#scene #secOuts3 #lights-tree .star {
+  grid-area: T0C;
+  align-self: start;
+  margin-left: calc(var(--star-diameter) / 8);
+  width: var(--star-diameter);
+  height: var(--star-diameter);
+  position: relative;
+}
+#scene #secOuts3 #lights-tree .star .shape {
+  --inset-base: calc(var(--star-diameter) / 8);
+  position: absolute;
+  width: var(--star-diameter);
+  aspect-ratio: 1;
+  clip-path: polygon(50% 0,
+    calc(50%*(1 + sin(.4turn))) calc(50%*(1 - cos(.4turn))),
+    calc(50%*(1 - sin(.2turn))) calc(50%*(1 - cos(.2turn))),
+    calc(50%*(1 + sin(.2turn))) calc(50%*(1 - cos(.2turn))),
+    calc(50%*(1 - sin(.4turn))) calc(50%*(1 - cos(.4turn)))
+  );
+}
+#scene #secOuts3 #lights-tree .star .glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* more accurate than alt. margin: calc(var(--star-diameter) / 3.05); */
+  width: calc(var(--star-diameter) / 3);
+  height: calc(var(--star-diameter) / 3);
+  --light-spread: calc(var(--star-diameter) * 0.35);
+  border-radius: 50%;
+  z-index: -1;
+}
+#scene #secOuts3 #lights-tree .sphere {
+  --inset-base: calc(var(--sphere-diameter) / 6);
+  width: var(--sphere-diameter);
+  height: var(--sphere-diameter);
+  border-radius: 50%;
+}
+#scene #secOuts3 #lights-tree .light {
+  background-color: var(--colour1);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset;
+}
+#scene #secOuts3 #lights-tree .animateLight {
+  animation: flickerOn 3s 0.1s linear /*forwards*/;
+}
+#scene #secOuts3 #lights-tree .lightOn { /*recreates forwards so can start lit up across days with js*/
+  background-color: var(--colour2);
+  box-shadow: 0 0 30px var(--light-spread) rgba(255, 255, 255, 0.6),
+              0 0 60px rgba(255, 255, 255, 0.45),
+              0 0 110px rgba(255, 255, 255, 0.25),
+              0 0 100px rgba(255, 255, 255, 0.1);
+}
+
+/* OUTSIDE#3 SECTION - CAROLERS SINGING BESIDE TREE */
+@keyframes flynBlurIn {
+  0% {
+    transform: translate(50px, -80px) translateZ(-80px) scaleX(2.5) scaleY(0.2);
+    transform-origin: 0% 50%;
+    filter: blur(40px);
+    opacity: 0;
+  }
+  80% {
+    transform: translate(0) translateZ(30px) scaleY(1) scaleX(1);
+    transform-origin: 50% 50%;
+    filter: blur(5px);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0) translateZ(0px) scaleY(1) scaleX(1);
+    transform-origin: 50% 50%;
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+@keyframes stayThenFade {
+  0%,95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes ping { /*adapted from ping at https://animista.net/ */
+  0% {
+    transform: scale(0.2);
+    opacity: 0.8;
+  }
+  26.6% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  33.3% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  34%,100% {
+    opacity: 0;
+  }
+}
+@keyframes shake { /*adapted from shake-top at https://animista.net/ */
+  0%,100%     { opacity: 1; transform: rotate(0deg); transform-origin: 50% 0;
+  }
+  10%         { opacity: 1; transform: rotate(2deg);
+  }
+  20%,40%,60% { opacity: 1; transform: rotate(-4deg);
+  }
+  30%,50%,70% { opacity: 1; transform: rotate(4deg);
+  }
+  80%         { opacity: 1; ransform: rotate(-2deg);
+  }
+  90%         { opacity: 1; transform: rotate(2deg);
+  }
+}
+@keyframes puffOut { /*adapted from puff-out-center at https://animista.net/ */
+  0%   { opacity: 1; }
+  20%  { opacity: 1; transform: scale(1); filter: blur(0px);
+  }
+  100% { opacity: 0; transform: scale(2); filter: blur(4px);
+  }
+}
+#scene #secOuts3 #carolers {
+  grid-row: 4 / -1;
+  grid-column: 5 / -1;
+  z-index: 2;
+  --song-duration: 29s;
+  --staff-appear-duration: 2s;
+  --staff-stay-duration: calc(var(--song-duration) - var(--staff-appear-duration));
+  --note-loop-duration: 4.3s;
+  --note1-delay: calc(var(--staff-appear-duration) + 1s);
+  --note2-delay: calc(var(--note1-delay) + var(--note-loop-duration)*1/3); /*switch to 2nd note*/
+  --note3-delay: calc(var(--note1-delay) + var(--note-loop-duration)*2/3); /*switch to 3rd note*/
+  --note-animation: ping var(--note-loop-duration) ease-in-out;
+  display: grid;
+  grid-template-rows: repeat(9, 1fr);
+  grid-template-columns: repeat(9, 1fr);
+}
+#scene #secOuts3 #carolers div {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#scene #secOuts3 #carolers .people {
+  grid-row: -6 / -1;
+  grid-column: 1 / -1;
+  background-image: url('../media/imgs/people/carolers.png');
+}
+#scene #secOuts3 #carolers .staff {
+  grid-row: 1 / 5;
+  grid-column: 1 / -1;
+  background-image: url('../media/imgs/effects/notes-5407665_640.png');
+  /* animation: flynBlurIn 2s cubic-bezier(0.250, 0.460, 0.450, 0.940); */
+  opacity: 0;
+}
+#scene #secOuts3 #carolers .note {
+  opacity: 0;
+  /* animation: ping 2.5s ease-in-out 3; */
+}
+#scene #secOuts3 #carolers .eighth {
+  grid-area: 8 / 5 / span 1 / span 1;
+  background-image: url('../media/imgs/effects/note-151921_640.png');
+}
+#scene #secOuts3 #carolers .eighths {
+  grid-area: 4 / 4 / span 1 / span 1;
+  background-image: url('../media/imgs/effects/note-159509_640.png');
+}
+#scene #secOuts3 #carolers .sixteenth {
+  grid-area: 4 / 9 / span 1 / span 1;
+  background-image: url('../media/imgs/effects/note-151930_640.png');
+}
+#scene #secOuts3 #carolers .tooltip {
+  grid-row: -3 / -1;
+  grid-column: -6 / -1;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  --em-size: calc(var(--grid-cell-length)/4);
+  --scale-down-factor: 0.4;
+  font-size: calc(var(--em-size)*0.8);
+  /*slightly tweaked orig. from https://css-generators.com/tooltip-speech-bubble/ */
+  max-width: 15ch;
+  /* triangle dimension */
+  --b: calc(2*var(--em-size)*var(--scale-down-factor)); /* base */
+  --h: calc(1*var(--em-size)*var(--scale-down-factor)); /* height */
+  --p: 25%; /* triangle position (0%:left 100%:right) */
+  --r: calc(1.2*var(--em-size)*var(--scale-down-factor)); /* the radius */
+  --c: rgb(200,200,200,0.5);
+  /* padding: calc(1*var(--em-size)*var(--scale-down-factor)); */
+  border-radius: min(var(--r),var(--p) - var(--b)/2) min(var(--r),100% - var(--p) - var(--b)/2) var(--r) var(--r)/var(--r);
+  clip-path: polygon(0 0,0 100%,100% 100%,100% 0,
+    min(100%,var(--p) + var(--b)/2) 0,
+    var(--p) calc(-1*var(--h)),
+    max(0%  ,var(--p) - var(--b)/2) 0);
+  background: var(--c);
+  border-image: conic-gradient(var(--c) 0 0) fill 0/
+    0 calc(100% - var(--p) - var(--b)/2) var(--r) calc(var(--p) - var(--b)/2)/
+    var(--h) 0 0 0;
+}
+#scene #secOuts3 #carolers .tooltip em {
+  font-weight: bold;
+}
+#scene #secOuts3 #carolers.audio‑played .tooltip {
+  display: none !important; /* hides tooltip forever once music has played */
+}
+#scene #secOuts3 #carolers .animateTooltip {
+  animation: shake   0.8s 0.1s 2 cubic-bezier(0.455, 0.030, 0.515, 0.955),
+             puffOut 2s   1.7s 1 cubic-bezier(0.165, 0.840, 0.440, 1.000);
+}
+#scene #secOuts3 #carolers .animateStaff {
+  animation: flynBlurIn var(--staff-appear-duration) 0s cubic-bezier(0.250, 0.460, 0.450, 0.940),
+             stayThenFade var(--staff-stay-duration) var(--staff-appear-duration) ease-out;
+}
+#scene #secOuts3 #carolers .animateNote1 {
+  animation: var(--note-animation) var(--note1-delay) 6; /* (29s-song - 3s-note1-delay) / 4.3s-note-loop = 6 rounded down */
+}
+#scene #secOuts3 #carolers .animateNote2 {
+  animation: var(--note-animation) var(--note2-delay) 6;
+}
+#scene #secOuts3 #carolers .animateNote3 {
+  animation: var(--note-animation) var(--note3-delay) 5; /* removed final note as music's fading out (already stopped) at this point */
+}
+
+/* OUTSIDE#5 SECTION - COLOUR CHANGING TREES */
+@keyframes changeColourYPO {
+    0%,5%,95%,100% { background-color: var(--colour1); }
+    20%,30% { background-color: var(--colour2); }
+    45%,55% { background-color: var(--colour3) ; }
+    70%,80% { background-color: var(--colour4); }
+}
+@keyframes changeColourOYP {
+    0%,5%,95%,100% { background-color: var(--colour1); }
+    20%,30% { background-color: var(--colour4); }
+    45%,55% { background-color: var(--colour2) ; }
+    70%,80% { background-color: var(--colour3); }
+}
+@keyframes changeColourPOY {
+    0%,5%,95%,100% { background-color: var(--colour1); }
+    20%,30% { background-color: var(--colour3); }
+    45%,55% { background-color: var(--colour4) ; }
+    70%,80% { background-color: var(--colour2); }
+}
+#scene #secOuts5 #bg-trees {
+    --height: calc(var(--grid-cell-length) * 1.3); /*orig. 100px*/
+    --width: calc(var(--height) * 0.861);
+    --sphere-diameter: calc(var(--height) / 11);
+    --inset-base: calc(var(--sphere-diameter) / 6);
+    --animation-speed: 9s linear 3;
+    --colour1: red;
+    --colour2: yellow;
+    --colour3: pink;
+    --colour4: orange;
+    display: flex;
+    justify-content: end;
+}
+#scene #secOuts5 #bg-trees .canvas {
+    height: var(--height);
+    width: var(--width);
+    background-image: url('../media/imgs/trees/fir-tree-1096466_640.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
+}
+#scene #secOuts5 #bg-trees .canvas .sphere.sph1 { grid-area: 2 / 4 / span 1 / span 1; justify-self: end;    align-self: end; }
+#scene #secOuts5 #bg-trees .canvas .sphere.sph2 { grid-area: 3 / 3 / span 1 / span 1; justify-self: end;    align-self: center; }
+#scene #secOuts5 #bg-trees .canvas .sphere.sph3 { grid-area: 3 / 5 / span 1 / span 1; justify-self: center; align-self: end; }
+#scene #secOuts5 #bg-trees .canvas .sphere.sph4 { grid-area: 4 / 3 / span 1 / span 1; justify-self: start;  align-self: end; }
+#scene #secOuts5 #bg-trees .canvas .sphere.sph5 { grid-area: 4 / 5 / span 1 / span 1; justify-self: start;  align-self: end; }
+#scene #secOuts5 #bg-trees .canvas .sphere.sph6 { grid-area: 5 / 2 / span 1 / span 1; justify-self: center; align-self: center; }
+#scene #secOuts5 #bg-trees .canvas .sphere.sph7 { grid-area: 5 / 4 / span 1 / span 1; justify-self: center; align-self: end; }
+#scene #secOuts5 #bg-trees .canvas .sphere.sph8 { grid-area: 5 / 6 / span 1 / span 1; justify-self: center; align-self: center; }
+#scene #secOuts5 #bg-trees .canvas .sphere {
+    height: var(--sphere-diameter);
+    width: var(--sphere-diameter);
+    border-radius: 50%;
+    background-color: var(--colour1);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset;
+}
+#scene #secOuts5 #bg-trees .animateTree1 {
+    animation: changeColourYPO var(--animation-speed);
+}
+#scene #secOuts5 #bg-trees .animateTree2 {
+    animation: changeColourOYP var(--animation-speed);
+}
+#scene #secOuts5 #bg-trees .animateTree3 {
+    animation: changeColourPOY var(--animation-speed);
+}
+
 
 nav {
     z-index: 99;
@@ -2035,74 +2176,6 @@ figcaption.sr-only { /*battle-tested for over a decade*/
 #present .animateGiftBoxContentsEyes {
     animation: blinkEyes var(--animation-speed4);
 } */
-
-
-/* TREES WITH COLOUR CHANGING BAUBLES */
-@keyframes changeColourYPO {
-    0%,5%,95%,100% { background-color: var(--colour1); }
-    20%,30% { background-color: var(--colour2); }
-    45%,55% { background-color: var(--colour3) ; }
-    70%,80% { background-color: var(--colour4); }
-}
-@keyframes changeColourOYP {
-    0%,5%,95%,100% { background-color: var(--colour1); }
-    20%,30% { background-color: var(--colour4); }
-    45%,55% { background-color: var(--colour2) ; }
-    70%,80% { background-color: var(--colour3); }
-}
-@keyframes changeColourPOY {
-    0%,5%,95%,100% { background-color: var(--colour1); }
-    20%,30% { background-color: var(--colour3); }
-    45%,55% { background-color: var(--colour4) ; }
-    70%,80% { background-color: var(--colour2); }
-}
-#bg-trees {
-    --height: 100px;
-    --width: calc(var(--height) * 0.861);
-    --sphere-diameter: calc(var(--height) / 11);
-    --inset-base: calc(var(--sphere-diameter) / 6);
-    --animation-speed: 9s linear 3;
-    --colour1: red;
-    --colour2: yellow;
-    --colour3: pink;
-    --colour4: orange;
-    display: flex;
-    justify-content: end;
-}
-#bg-trees .canvas {
-    height: var(--height);
-    width: var(--width);
-    background-image: url('../media/imgs/trees/fir-tree-1096466_640.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    display: grid;
-    grid-template-rows: repeat(6, 1fr);
-    grid-template-columns: repeat(7, 1fr);
-}
-#bg-trees .canvas .sphere.sph1 { grid-area: 2 / 4 / span 1 / span 1; justify-self: end;    align-self: end; }
-#bg-trees .canvas .sphere.sph2 { grid-area: 3 / 3 / span 1 / span 1; justify-self: end;    align-self: center; }
-#bg-trees .canvas .sphere.sph3 { grid-area: 3 / 5 / span 1 / span 1; justify-self: center; align-self: end; }
-#bg-trees .canvas .sphere.sph4 { grid-area: 4 / 3 / span 1 / span 1; justify-self: start;  align-self: end; }
-#bg-trees .canvas .sphere.sph5 { grid-area: 4 / 5 / span 1 / span 1; justify-self: start;  align-self: end; }
-#bg-trees .canvas .sphere.sph6 { grid-area: 5 / 2 / span 1 / span 1; justify-self: center; align-self: center; }
-#bg-trees .canvas .sphere.sph7 { grid-area: 5 / 4 / span 1 / span 1; justify-self: center; align-self: end; }
-#bg-trees .canvas .sphere.sph8 { grid-area: 5 / 6 / span 1 / span 1; justify-self: center; align-self: center; }
-#bg-trees .canvas .sphere {
-    height: var(--sphere-diameter);
-    width: var(--sphere-diameter);
-    border-radius: 50%;
-    background-color: var(--colour1);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px calc(var(--inset-base)*5) calc(var(--inset-base)*10) calc(var(--inset-base)*-2) inset, rgba(0, 0, 0, 0.3) 0px calc(var(--inset-base)*3) calc(var(--inset-base)*6) calc(var(--inset-base)*-3) inset;
-}
-.animateTree1 {
-    animation: changeColourYPO var(--animation-speed);
-}
-.animateTree2 {
-    animation: changeColourOYP var(--animation-speed);
-}
-.animateTree3 {
-    animation: changeColourPOY var(--animation-speed);
-}
 
 
 /* TREE WITH SHAKING BAUBLES */

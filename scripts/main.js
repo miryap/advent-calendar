@@ -12,7 +12,8 @@ function zoomAndMove(zoom = 2, viewRight = 0, viewDown = 0, duration = 1) {
 // zoomAndMove(3, -15, 0, 0); //first shared version
 // zoomAndMove(3, -20, -15, 0); //second shared version
 // zoomAndMove(2, -20, 5, 0); //third shared version
-zoomAndMove(2, -15, 5, 0); //fourth shared version
+// zoomAndMove(2, -15, 5, 0); //fourth shared version
+
 
 //GLOBAL VARIABLES & FUNCTIONS
 const date = (d, m, y = 2025) => new Date(y, m - 1, d); //nb. month array starts at 0; new Date(y, m, d) reflects local timezone's midnight, vs new Date('2025-12-25') for UTC, vs new Date().toLocaleDateString("en-GB") for DD/MM/YYYY string; function parameter y = 2025 (alt. new Date().getFullYear()) sets the current year as the default value when y isn't specified
@@ -173,6 +174,21 @@ const playDay8 = () => {
     note3.classList.add('animateNote3');
     console.log('Carolers animated (with music)!');
 }
+//DAY 9
+const colourChangingTrees = document.getElementById('bg-trees');
+const playDay9 = () => {
+    const treeBaubles = colourChangingTrees.querySelectorAll('.sphere');
+    const tree1Baubles = document.getElementById('bg-tree1').querySelectorAll('.sphere');
+    const tree2Baubles = document.getElementById('bg-tree2').querySelectorAll('.sphere');
+    const tree3Baubles = document.getElementById('bg-tree3').querySelectorAll('.sphere');
+    treeBaubles.forEach(sph =>
+        sph.classList.remove('animateTree1', 'animateTree2', 'animateTree3'));
+    void colourChangingTrees.offsetWidth;
+    tree1Baubles.forEach(sph => sph.classList.add('animateTree1'));
+    tree2Baubles.forEach(sph => sph.classList.add('animateTree2'));
+    tree3Baubles.forEach(sph => sph.classList.add('animateTree3'));
+    console.log('Colour changing trees animated!');
+}
 
 //START FROM LIT STATE ON LATER DAYS (UNTIL DAY#??)
 //nb date(d,m) is midnight on that date, so e.g. today > date(7,12) isn't >= date(8,12) (as inc all of 7,12 except midnight)
@@ -248,6 +264,14 @@ window.addEventListener("load", () => { //nb use of load not DOMContentLoaded - 
                 playDay8();
             }
         }, { once: true });
+    } else if (isToday(date(9,12))) {
+        colourChangingTrees.classList.add('animateTodaysAnimation3');
+        colourChangingTrees.addEventListener('animationend', (e) => {
+            if (e.animationName === 'highlightTodaysAnimation3') {
+                colourChangingTrees.classList.remove('animateTodaysAnimation3');
+                playDay9();
+            }
+        }, { once: true });
     } else {
         console.log(`No animation triggered on loading the page outside of 1~25 Dec 2025`);
     }
@@ -301,6 +325,11 @@ if (today >= date(8,12)) {
     tooltip.addEventListener('click', () => {
             console.log('Carolers clicked!');
             playDay8();
+    });}
+if (today >= date(8,12)) {
+    colourChangingTrees.addEventListener('click', () => {
+            console.log('Colour changing trees clicked!');
+            playDay9();
     });}
 // } else {
 //     console.log(`No clickable animations before 1st Dec 2025`);
