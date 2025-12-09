@@ -189,6 +189,20 @@ const playDay9 = () => {
     tree3Baubles.forEach(sph => sph.classList.add('animateTree3'));
     console.log('Colour changing trees animated!');
 }
+//DAY 10
+const seesaw = document.getElementById('seesaw');
+const playDay10 = () => {
+    const child1 = seesaw.querySelector('.child.left');
+    const child2 = seesaw.querySelector('.child.right');
+    const seesawPlank = seesaw.querySelector('.plank');
+    [child1, child2, seesawPlank].forEach (el =>
+        el.classList.remove('animateChild1', 'animateChild2', 'animatePlank'));
+    void seesaw.offsetWidth;
+    child1.classList.add('animateChild1');
+    child2.classList.add('animateChild2');
+    seesawPlank.classList.add('animatePlank');
+    console.log('Seesaw animated!');
+}
 
 //START FROM LIT STATE ON LATER DAYS (UNTIL DAY#??)
 //nb date(d,m) is midnight on that date, so e.g. today > date(7,12) isn't >= date(8,12) (as inc all of 7,12 except midnight)
@@ -272,6 +286,14 @@ window.addEventListener("load", () => { //nb use of load not DOMContentLoaded - 
                 playDay9();
             }
         }, { once: true });
+    } else if (isToday(date(10,12))) {
+        seesaw.classList.add('animateTodaysAnimation3');
+        seesaw.addEventListener('animationend', (e) => {
+            if (e.animationName === 'highlightTodaysAnimation3') {
+                seesaw.classList.remove('animateTodaysAnimation3');
+                playDay10();
+            }
+        }, { once: true });
     } else {
         console.log(`No animation triggered on loading the page outside of 1~25 Dec 2025`);
     }
@@ -326,10 +348,15 @@ if (today >= date(8,12)) {
             console.log('Carolers clicked!');
             playDay8();
     });}
-if (today >= date(8,12)) {
+if (today >= date(9,12)) {
     colourChangingTrees.addEventListener('click', () => {
             console.log('Colour changing trees clicked!');
             playDay9();
+    });}
+if (today >= date(10,12)) {
+    seesaw.addEventListener('click', () => {
+            console.log('Seesaw clicked!');
+            playDay10();
     });}
 // } else {
 //     console.log(`No clickable animations before 1st Dec 2025`);
