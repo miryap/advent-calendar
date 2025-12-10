@@ -201,16 +201,23 @@ html, body {
                            /*G2E, 3 rows 5 cols */
   transform: translateZ(-400px);
 }
-#scene #secShop {}
+#scene #secShop { grid-area: G5P / G5P / G9P / G5U;
+                           /*G9U, 5 rows 6 cols */ 
+  background-color: rgb(100,250,0,0.3);
+  width: 100%;
+  height: 100%;
+}
 #scene #secOuts1 {}
 #scene #secOuts2 {}
 #scene #secOuts3 { grid-area: G2H / G2H / G6H / G2L;
                             /*G6L, 4 rows 5 cols */
   transform: translateZ(-100px);
 }
-#scene #secOuts4 { grid-area: S3P / S3P / G3P / S3U;
+#scene #secOuts4 { grid-area: S3A / S3A / G2A / S3C;
+                            /*G2C, 3 rows 3 cols */
+  /* grid-area: S3P / S3P / G3P / S3U;
                             /*G3U, 4 rows 6 cols */
-  transform: translateZ(-400px);
+  transform: translateZ(-450px);
 }
 #scene #secOuts5 { grid-area: S2H / S2H / G1H / S2O;
                             /*G1O, 3 rows 8 cols */
@@ -227,6 +234,111 @@ html, body {
   grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
 }
+#scene #secOuts4 {
+  /* background-color: rgb(100,250,0,0.3); */
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(9, 1fr);
+  grid-template-columns: repeat(9, 1fr);
+}
+#scene #secOuts4 #sledging-hill {
+  --moveBy: calc(var(--grid-cell-length)*0.2);
+  --animation-speed: 10s linear 3;
+  grid-row: 1 / 5;
+  grid-column: 1 / -1;
+  background-image: url('../media/imgs/houses/snow-hills.png');
+  position: relative;
+}
+#scene #secOuts4 #sledging-hill,
+#scene #secOuts4 #sledging-hill .child,
+#scene #secOuts4 #sledging-hill .sledge {
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#scene #secOuts4 #sledging-hill div {
+  height: 50%;
+  width: 30%;
+}
+#scene #secOuts4 #sledging-hill .child-n-sledge {
+  position: absolute;
+  display: flex;
+}
+#scene #secOuts4 #sledging-hill .child-n-sledge.walking .sledge {
+  margin-top: calc(var(--grid-cell-length) * 0.15); /* alt. align-items: end; doesn't work :( */
+}
+#scene #secOuts4 #sledging-hill .child-n-sledge.sliding {
+  top: calc(var(--grid-cell-length) * 0.15);
+  left: calc(var(--grid-cell-length) * 0.95);
+  width: 40%;
+}
+#scene #secOuts4 #sledging-hill .child-n-sledge.walking.leftwards {
+  top: calc(var(--grid-cell-length) * 0.9);
+  right: calc(var(--grid-cell-length) * 0.1);
+  opacity: 0;
+}
+#scene #secOuts4 #sledging-hill .child-n-sledge.walking.rightwards {
+  top: calc(var(--grid-cell-length) * 0.6);
+  left: calc(var(--grid-cell-length) * -0.1);
+  opacity: 0;
+}
+#scene #secOuts4 #sledging-hill .sliding .child.sledge {
+  background-image: url('../media/imgs/people/child-sleighing.png');
+}
+#scene #secOuts4 #sledging-hill .walking.leftwards .child {
+  background-image: url('../media/imgs/people/child-walking_2L.png');
+}
+#scene #secOuts4 #sledging-hill .walking.leftwards .sledge {
+  background-image: url('../media/imgs/objects/sledge_transparent_facingL.png');
+}
+#scene #secOuts4 #sledging-hill .walking.rightwards .child {
+  background-image: url('../media/imgs/people/child-walking_2R.png');
+}
+#scene #secOuts4 #sledging-hill .walking.rightwards .sledge {
+  background-image: url('../media/imgs/objects/sledge_transparent_facingR.png');
+  transform: rotateZ(-20deg);
+  margin-top: calc(var(--grid-cell-length) * 0.25);
+}
+@keyframes slideDown {
+  0% { opacity: 1; transform: translate(0, 0); }
+  2.4%/*20%*/ { opacity: 1; transform: translate(calc(1*var(--moveBy)), calc(1*var(--moveBy))); }
+  4.2%/*35%*/ { opacity: 1; transform: translate(calc(2*var(--moveBy)), calc(1.8*var(--moveBy))); }
+  7.2%/*60%*/ { opacity: 1; transform: translate(calc(4*var(--moveBy)), calc(2.6*var(--moveBy))) rotateZ(-5deg); }
+  12%/*100%*/ { opacity: 1; transform: translate(calc(9*var(--moveBy)), calc(3.4*var(--moveBy))) rotateZ(-5deg); }
+  12.1%,100% { opacity: 0; }
+}
+@keyframes walkBack {
+  0%,19.9% { opacity: 0; }
+  20%/*0%*/ { opacity: 1; transform: translateX(calc(3.3*var(--moveBy))); }
+  50%/*60%*/ { opacity: 1; transform: translateX(calc(-6*var(--moveBy))); }
+  65%/*90%*/ { opacity: 1; transform: translateX(calc(-10*var(--moveBy))) translateY(calc(-1*var(--moveBy))) rotateZ(5deg); }
+  70%/*100%*/ { opacity: 1; transform: translateX(calc(-10*var(--moveBy))) translateY(calc(-1*var(--moveBy))) rotateZ(5deg); }
+  70.1%,100% { opacity: 0; }
+}
+@keyframes climbUp {
+  0%,69.9% { opacity: 0; }
+  70%/*0%*/ { opacity: 1; transform: translate(0, 0) rotateZ(-15deg); }
+  97%/*90%*/ { opacity: 1; transform: translate(calc(3*var(--moveBy)), calc(-3*var(--moveBy))) rotateZ(-15deg); }
+  100% { opacity: 1; transform: translate(calc(3.5*var(--moveBy)), calc(-2.5*var(--moveBy))) rotateZ(15deg); }
+}
+@keyframes stayInvisible {
+  0%,100% { opacity: 0; }
+}
+#scene #secOuts4 #sledging-hill .animateChildAndSledge1 {
+  animation: slideDown var(--animation-speed);
+  /* animation: slideDown 1.2s 0s linear,
+             stayInvisible 8.8s 1.2s linear; */
+}
+#scene #secOuts4 #sledging-hill .animateChildAndSledge2 {
+  animation: walkBack var(--animation-speed);
+  /* animation: walkBack 5s 2s linear 1; */
+}
+#scene #secOuts4 #sledging-hill .animateChildAndSledge3 {
+  animation: climbUp var(--animation-speed);
+  /* animation: climbUp 3s 7s linear 1; */
+}
+
+
 #scene #secOuts5 {
   height: 100%;
   width: 100%;

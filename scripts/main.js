@@ -195,7 +195,7 @@ const playDay10 = () => {
     const child1 = seesaw.querySelector('.child.left');
     const child2 = seesaw.querySelector('.child.right');
     const seesawPlank = seesaw.querySelector('.plank');
-    [child1, child2, seesawPlank].forEach (el =>
+    [child1, child2, seesawPlank].forEach(el =>
         el.classList.remove('animateChild1', 'animateChild2', 'animatePlank'));
     void seesaw.offsetWidth;
     child1.classList.add('animateChild1');
@@ -203,6 +203,22 @@ const playDay10 = () => {
     seesawPlank.classList.add('animatePlank');
     console.log('Seesaw animated!');
 }
+
+//DAY 11
+const sledgingHill = document.getElementById('sledging-hill');
+const playDay11 = () => {
+    const childAndSledge1 = sledgingHill.querySelector('.child-n-sledge.sliding.rightwards');
+    const childAndSledge2 = sledgingHill.querySelector('.child-n-sledge.walking.leftwards');
+    const childAndSledge3 = sledgingHill.querySelector('.child-n-sledge.walking.rightwards');
+    [childAndSledge1, childAndSledge2, childAndSledge3].forEach(el =>
+        el.classList.remove('animateChildAndSledge1', 'animateChildAndSledge2', 'animateChildAndSledge3'));
+    void sledgingHill.offsetWidth;
+    childAndSledge1.classList.add('animateChildAndSledge1');
+    childAndSledge2.classList.add('animateChildAndSledge2');
+    childAndSledge3.classList.add('animateChildAndSledge3');
+    console.log('Child on sledge animated!')
+}
+
 
 //START FROM LIT STATE ON LATER DAYS (UNTIL DAY#??)
 //nb date(d,m) is midnight on that date, so e.g. today > date(7,12) isn't >= date(8,12) (as inc all of 7,12 except midnight)
@@ -294,6 +310,14 @@ window.addEventListener("load", () => { //nb use of load not DOMContentLoaded - 
                 playDay10();
             }
         }, { once: true });
+    } else if (isToday(date(11,12))) {
+        sledgingHill.classList.add('animateTodaysAnimation3');
+        sledgingHill.addEventListener('animationend', (e) => {
+            if (e.animationName === 'highlightTodaysAnimation3') {
+                sledgingHill.classList.remove('animateTodaysAnimation3');
+                playDay11();
+            }
+        }, { once: true });
     } else {
         console.log(`No animation triggered on loading the page outside of 1~25 Dec 2025`);
     }
@@ -357,6 +381,11 @@ if (today >= date(10,12)) {
     seesaw.addEventListener('click', () => {
             console.log('Seesaw clicked!');
             playDay10();
+    });}
+if (today >= date(11,12)) {
+    sledgingHill.addEventListener('click', () => {
+            console.log('Sledging hill clicked!');
+            playDay11();
     });}
 // } else {
 //     console.log(`No clickable animations before 1st Dec 2025`);
