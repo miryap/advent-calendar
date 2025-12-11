@@ -13,7 +13,8 @@ function zoomAndMove(zoom = 2, viewRight = 0, viewDown = 0, duration = 1) {
 // zoomAndMove(3, -20, -15, 0); //second shared version
 // zoomAndMove(2, -20, 5, 0); //third shared version
 // zoomAndMove(2, -15, 5, 0); //fourth shared version
-zoomAndMove(2, -10, -1, 0); //fifth shared version
+// zoomAndMove(2, -10, -1, 0); //fifth shared version
+zoomAndMove(1.5, -10, -1, 0); //sixth shared version
 
 //GLOBAL VARIABLES & FUNCTIONS
 const date = (d, m, y = 2025) => new Date(y, m - 1, d); //nb. month array starts at 0; new Date(y, m, d) reflects local timezone's midnight, vs new Date('2025-12-25') for UTC, vs new Date().toLocaleDateString("en-GB") for DD/MM/YYYY string; function parameter y = 2025 (alt. new Date().getFullYear()) sets the current year as the default value when y isn't specified
@@ -222,6 +223,23 @@ const playDay11 = () => {
     //sledge.classList.add('animateSlegde');
     console.log('Child on/with sledge animated!')
 }
+//Day 12
+const snowballingArea = document.getElementById('secOuts1');
+const snowballPile = snowballingArea.querySelector('.snowball.pile');
+const playDay12 = () => {
+    girlBouncy = snowballingArea.querySelector('.bouncy');
+    girlPos1 = snowballingArea.querySelector('.leftwards');
+    girlPos2 = snowballingArea.querySelector('.rightwards');
+    snowball = snowballingArea.querySelector('.snowball.singular');
+    [girlBouncy, girlPos1, girlPos2, snowball].forEach(el =>
+        el.classList.remove('animateBounce', 'animatePosition1', 'animatePosition2', 'animateSnowball'));
+    void snowballingArea.offsetWidth;
+    girlBouncy.classList.add('animateBounce');
+    girlPos1.classList.add('animatePosition1');
+    girlPos2.classList.add('animatePosition2');
+    snowball.classList.add('animateSnowball');
+    console.log('Snowball fight animated!');
+}
 
 //START FROM LIT STATE ON LATER DAYS (UNTIL DAY#??)
 //nb date(d,m) is midnight on that date, so e.g. today > date(7,12) isn't >= date(8,12) (as inc all of 7,12 except midnight)
@@ -321,6 +339,14 @@ window.addEventListener("load", () => { //nb use of load not DOMContentLoaded - 
                 playDay11();
             }
         }, { once: true });
+    } else if (isToday(date(12,12))) {
+        snowballingArea.classList.add('animateTodaysAnimation3');
+        snowballingArea.addEventListener('animationend', (e) => {
+            if (e.animationName === 'highlightTodaysAnimation3') {
+                snowballingArea.classList.remove('animateTodaysAnimation3');
+                playDay12();
+            }
+        }, { once: true });
     } else {
         console.log(`No animation triggered on loading the page outside of 1~25 Dec 2025`);
     }
@@ -389,6 +415,11 @@ if (today >= date(11,12)) {
     sledgingHill.addEventListener('click', () => {
             console.log('Sledging hill clicked!');
             playDay11();
+    });}
+if (today >= date(12,12)) {
+    snowballPile.addEventListener('click', () => {
+            console.log('Snowball pile clicked!');
+            playDay12();
     });}
 // } else {
 //     console.log(`No clickable animations before 1st Dec 2025`);
