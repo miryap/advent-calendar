@@ -203,22 +203,25 @@ const playDay10 = () => {
     seesawPlank.classList.add('animatePlank');
     console.log('Seesaw animated!');
 }
-
 //DAY 11
 const sledgingHill = document.getElementById('sledging-hill');
 const playDay11 = () => {
     const childAndSledge1 = sledgingHill.querySelector('.child-n-sledge.sliding.rightwards');
     const childAndSledge2 = sledgingHill.querySelector('.child-n-sledge.walking.leftwards');
     const childAndSledge3 = sledgingHill.querySelector('.child-n-sledge.walking.rightwards');
-    [childAndSledge1, childAndSledge2, childAndSledge3].forEach(el =>
-        el.classList.remove('animateChildAndSledge1', 'animateChildAndSledge2', 'animateChildAndSledge3'));
+    const walkingChildren = sledgingHill.querySelectorAll('.walking .child');
+    //const sledge = sledgingHill.querySelector('.walking.rightwards .sledge');
+    [childAndSledge1, childAndSledge2, childAndSledge3/*, sledge*/].forEach(el =>
+        el.classList.remove('animateChildAndSledge1', 'animateChildAndSledge2', 'animateChildAndSledge3'/*, 'animateSlegde'*/));
+    walkingChildren.forEach(c => c.classList.remove('animateWalkingMotion'));
     void sledgingHill.offsetWidth;
     childAndSledge1.classList.add('animateChildAndSledge1');
     childAndSledge2.classList.add('animateChildAndSledge2');
     childAndSledge3.classList.add('animateChildAndSledge3');
-    console.log('Child on sledge animated!')
+    walkingChildren.forEach(c => c.classList.add('animateWalkingMotion'));
+    //sledge.classList.add('animateSlegde');
+    console.log('Child on/with sledge animated!')
 }
-
 
 //START FROM LIT STATE ON LATER DAYS (UNTIL DAY#??)
 //nb date(d,m) is midnight on that date, so e.g. today > date(7,12) isn't >= date(8,12) (as inc all of 7,12 except midnight)

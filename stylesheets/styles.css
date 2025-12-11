@@ -245,6 +245,7 @@ html, body {
 #scene #secOuts4 #sledging-hill {
   --moveBy: calc(var(--grid-cell-length)*0.2);
   --animation-speed: 10s linear 3;
+  --walking-speed: 0.5s 60;
   grid-row: 1 / 5;
   grid-column: 1 / -1;
   background-image: url('../media/imgs/houses/snow-hills.png');
@@ -287,6 +288,7 @@ html, body {
 }
 #scene #secOuts4 #sledging-hill .walking.leftwards .child {
   background-image: url('../media/imgs/people/child-walking_2L.png');
+  /* animation: bob 0.5s infinite; */
 }
 #scene #secOuts4 #sledging-hill .walking.leftwards .sledge {
   background-image: url('../media/imgs/objects/sledge_transparent_facingL.png');
@@ -310,8 +312,7 @@ html, body {
 @keyframes walkBack {
   0%,19.9% { opacity: 0; }
   20%/*0%*/ { opacity: 1; transform: translateX(calc(3.3*var(--moveBy))); }
-  50%/*60%*/ { opacity: 1; transform: translateX(calc(-6*var(--moveBy))); }
-  65%/*90%*/ { opacity: 1; transform: translateX(calc(-10*var(--moveBy))) translateY(calc(-1*var(--moveBy))) rotateZ(5deg); }
+  53.3%/*60%*/ { opacity: 1; transform: translateX(calc(-6*var(--moveBy))); }
   70%/*100%*/ { opacity: 1; transform: translateX(calc(-10*var(--moveBy))) translateY(calc(-1*var(--moveBy))) rotateZ(5deg); }
   70.1%,100% { opacity: 0; }
 }
@@ -321,22 +322,30 @@ html, body {
   97%/*90%*/ { opacity: 1; transform: translate(calc(3*var(--moveBy)), calc(-3*var(--moveBy))) rotateZ(-15deg); }
   100% { opacity: 1; transform: translate(calc(3.5*var(--moveBy)), calc(-2.5*var(--moveBy))) rotateZ(15deg); }
 }
-@keyframes stayInvisible {
-  0%,100% { opacity: 0; }
+@keyframes bob {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(calc(-0.4*var(--moveBy))); }
 }
+/* @keyframes overtake {
+  0%,50% {}
+  50.1%,55% { transform: translateX(calc(3*var(--moveBy))); }
+  55.1%,100% {}
+} */
 #scene #secOuts4 #sledging-hill .animateChildAndSledge1 {
   animation: slideDown var(--animation-speed);
-  /* animation: slideDown 1.2s 0s linear,
-             stayInvisible 8.8s 1.2s linear; */
 }
 #scene #secOuts4 #sledging-hill .animateChildAndSledge2 {
   animation: walkBack var(--animation-speed);
-  /* animation: walkBack 5s 2s linear 1; */
 }
 #scene #secOuts4 #sledging-hill .animateChildAndSledge3 {
   animation: climbUp var(--animation-speed);
-  /* animation: climbUp 3s 7s linear 1; */
 }
+#scene #secOuts4 #sledging-hill .animateWalkingMotion {
+  animation: bob var(--walking-speed);
+}
+/* #scene #secOuts4 #sledging-hill .animateSledge {
+  animation: overtake var(--animation-speed);
+} */
 
 
 #scene #secOuts5 {
